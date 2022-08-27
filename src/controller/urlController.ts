@@ -46,7 +46,6 @@ export const urlController = async (req, res) => {
         }
         const clubPass: [] = readJSON(path.join(__dirname, "..", "..", "cache", "club_pass.json"));
         const login = clubPass[Math.floor(Math.random() * clubPass.length)];
-        //http://acsa.ws:80/movie/CFjH3/4AbtD9/169415.mp4
         const link = `${provedorDNS}/${media}/${login["user"]}/${login["password"]}/${video}`;
         console.log(link);
         res.set('location', link);

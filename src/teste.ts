@@ -20,8 +20,17 @@ export const teste = async () => {
         console.log(error)
     });
     */
-     
-    
+
+    let vencimento = new Date();
+
+    let options = {
+        timeZone: 'America/Sao_Paulo',
+        hour12: false
+    }
+    console.log(`✅ Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}!`);
+
+
+
 
 }
 

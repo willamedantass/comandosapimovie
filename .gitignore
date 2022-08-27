@@ -1,3 +1,4 @@
 node_modules/
 build/
 cache/auth_info.json
+.env

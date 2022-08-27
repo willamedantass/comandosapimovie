@@ -11,11 +11,16 @@ export default async ({ reply, args, owner }: IBotData) => {
         if (login) {
             let vencimento = new Date();
             const dias = parseInt(comandos[1]);
-            if(dias){
+            if (dias) {
                 vencimento.setDate(vencimento.getDate() + dias);
                 vencimento.setHours(23, 59, 59, 998);
+                login.vencimento = vencimento.toISOString();
                 await updateLogin(login);
-                return await reply(`✅ Novo vencimento: ${vencimento.toLocaleString()} !`);
+                let options = {
+                    timeZone: 'America/Sao_Paulo',
+                    hour12: false
+                }
+                return await reply(`✅ Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}.`);
             }
             return await reply('Não foi possível fazer o desbloqueio, comando contém erros.');
         } else {

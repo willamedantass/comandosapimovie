@@ -3,7 +3,10 @@ import { Login } from "../type/login";
 require('dotenv/config')
 
 export const getAuth = async (login: Login) => {
-    
+    let options = {
+        timeZone: 'America/Sao_Paulo',
+        hour12: false
+    }
     const today = new Date(); 
     let auth_pass = auth;
     auth_pass['user_info'].username = login.user;
@@ -15,7 +18,7 @@ export const getAuth = async (login: Login) => {
     auth_pass['server_info'].url = process.env.SERVER_PROXY_IP;
     auth_pass['server_info'].port = process.env.SERVER_PROXY_PORT;
     auth_pass['server_info'].timestamp_now = today.getTime();
-    auth_pass['server_info'].time_now = today.toLocaleString();
+    auth_pass['server_info'].time_now = today.toLocaleString('pt-br',options);
     return auth_pass;
 
 }

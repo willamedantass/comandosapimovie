@@ -19,9 +19,13 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
             break;
     }
 
+    let options = {
+        timeZone: 'America/Sao_Paulo',
+        hour12: false
+    }
     msg += `👤 *USUARIO:* ${user} \n`;
     msg += `🔐 *SENHA:* ${password} \n`;
-    msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleString('pt-BR', {timeZone: 'UTC'})} \n`;
+    msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleString('pt-br', options)} \n`;
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
     msg += "             ℹ️ INFORMAÇÃO \n";
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";

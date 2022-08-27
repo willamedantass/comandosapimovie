@@ -46,7 +46,7 @@ export default async ({ remoteJid, reply, sendText, owner }: IBotData) => {
                     await reply(`▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n📌 *DETALHES DA COMPRA* 📌\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n🛍️ *PRODUTO:* ${description}\n💰 *PREÇO:* ${valor}\n📅 *VALIDADE:* 30 Dias\n🔰 *FORMA DE PAGAMENTO:* PIX COPIA E COLA`);
                     await sendText(false, data.body.point_of_interaction.transaction_data.qr_code);
                     await sendText(false, StringsMsg.pix)
-                    user.dataPix = new Date().toLocaleString();
+                    user.dataPix = new Date().toISOString();
                     await updateUser(user)
                 }).catch(async function (error) {
                     await reply(StringsMsg.errorPagamento)
