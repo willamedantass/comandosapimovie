@@ -1,14 +1,11 @@
-import { readJSON } from '../util/jsonConverte';
-import axios from 'axios';
-import path from 'path';
 import { Provedor } from '../type/provedor';
 import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
 
 export const getSeries = async () => {
+    const res_mygotv = await getAxiosResult('get_series', Provedor.mygotv);
     const res_clubtv = await getAxiosResult('get_series', Provedor.clubtv);
     const res_tigotv = await getAxiosResult('get_series', Provedor.tigotv);
-    const res_mygotv = await getAxiosResult('get_series', Provedor.mygotv);
     const res_elitetv = await getAxiosResult('get_series', Provedor.elitetv);
    
     console.log(`Séries MYGO: ${res_mygotv?.data.length}`);
@@ -19,7 +16,7 @@ export const getSeries = async () => {
     
     forEachSeries(res_clubtv, series, Provedor.clubtv);
     forEachSeries(res_elitetv, series, Provedor.elitetv);
-    forEachSeries(res_mygotv, series, Provedor.elitetv);
+    forEachSeries(res_mygotv, series, Provedor.mygotv);
 
     if (res_tigotv?.status == 200 && res_tigotv?.data.length > 1) {
         res_tigotv.data.forEach(element => {

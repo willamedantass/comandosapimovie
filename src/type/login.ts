@@ -4,11 +4,15 @@ export type Login = {
     user : string,
     password : string,
     conexoes? : string,
+    remoteIp?: string,
+    dataRemote?: string,
+    countForbiddenAccess?: number,
     dataCadastro: string,
     vencimento : string,
     vencLong?: string,
     live: boolean;
     isTrial?: boolean;
+    isAdult?: boolean,
     status? : string,
     actionRenovar? : string,
     actionDesbloqueioConfianca? : string,

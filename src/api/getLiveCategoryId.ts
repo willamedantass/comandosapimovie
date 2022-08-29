@@ -4,14 +4,15 @@ require('dotenv/config')
 
 export const getLiveCategoryId = async (category_id: string) => {
 
-    const res_tigotv = await getAxiosResult('get_live_streams', Provedor.tigotv,undefined,undefined,category_id);  
+    const id: string = category_id.substring(1);
+    const provedor: string = category_id.charAt(0);
+    const res = await getAxiosResult('get_live_streams', provedor,undefined,undefined,id);  
     let streamsJson = [];
 
-    console.log(`Canais Categoria: ${res_tigotv?.data.length}`);
-    if (res_tigotv?.status == 200 && res_tigotv?.data.length > 1) {
-        res_tigotv.data.forEach(element => {
-            const id = Provedor.tigotv + element.stream_id;
-            element.stream_id = id;
+    console.log(`Canais Categoria: ${res?.data.length}`);
+    if (res?.status == 200 && res?.data.length > 1) {
+        res.data.forEach(element => {
+            element.stream_id = provedor + element.stream_id;
             streamsJson.push(element);
         })
     }

@@ -29,11 +29,14 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
     msg += "             ℹ️ INFORMAÇÃO \n";
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "*APP SMARTERS LOGIN*\n";
+    msg += "*SMARTERS API XTREAM*\n";
     msg += "*1 -* movnow\n";
     msg += `*2 -* ${user} \n`;
     msg += `*3 -* ${password}\n`;
     msg += `*4 -* http://${process.env.SERVER_PROXY_DNS}\n`;
+    msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
+    msg += "*DNS SAMSUNG/LG*\n";
+    msg += `${process.env.SERVER_STB_IP}\n`;
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
     msg += "😍 GOSTOU? DIGITE #PIX PARA PAGAR";
 

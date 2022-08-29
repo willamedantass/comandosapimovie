@@ -1,4 +1,5 @@
 import { postWebCreateLoginController } from "./postWebCreateLoginController";
+import { buscarLogin, updateLogin } from "./loginDBController";
 import { readJSON, writeJSON } from "../util/jsonConverte";
 import { Provedor } from "../type/provedor";
 import { Login } from "../type/login";
@@ -12,8 +13,7 @@ export const urlPlayerController = async (req, res) => {
     const video: string = req.params.video.substring(1);
     const idProvedor: string = req.params.video.charAt(0);
 
-    const pathLogins = path.join(__dirname, "..", "..", "cache", "login.json");
-    let login: Login = readJSON(pathLogins).find(value => value.user === user);
+    let login: Login = buscarLogin(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
@@ -32,6 +32,25 @@ export const urlPlayerController = async (req, res) => {
 
     if (media === 'live' && !login.live) {
         return res.json({ "user_info": { "auth": 0 } });
+    }
+
+    const remoteIp = (req.headers['x-forwarded-for'] || '').split(',').pop() || // Recupera o IP de origem, caso a fonte esteja utilizando proxy
+        req.connection.remoteAddress || // Recupera o endereço remoto da chamada
+        req.socket.remoteAddress || // Recupera o endereço através do socket TCP
+        req.connection.socket.remoteAddress // Recupera o endereço através do socket da conexão
+    if (remoteIp !== login?.remoteIp) {
+        let dataRemote = login?.dataRemote ? new Date(login.dataRemote) : dataAcesso(-15);
+        if (agora > dataRemote) {
+            login.remoteIp = remoteIp;
+            login.dataRemote = dataAcesso(15).toISOString();
+            updateLogin(login);
+        } else {
+            const msg = 'Acesso Remoto não permitido, houve tentativa de acesso duplicado.';
+            console.log(msg);
+            login.countForbiddenAccess += 1;
+            updateLogin(login);
+            return res.json({ "user_info": { "auth": 0 } });
+        }
     }
 
     let link = '';
@@ -90,13 +109,16 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
             return getUrl(dnsProvedor, media, temp.user, temp.password, video);
         }
     }
-    //Obs.: Se cair nessa ultima opção tem q mudar o usuario e senha para o provedor que esta sendo usando
-    return getUrl(dnsProvedor, media, process.env.SERVER_TIGO_USER, process.env.SERVER_TIGO_PASSWORD, video);
+
+    const livePass: [] = readJSON(path.join(__dirname, "..", "..", "cache", "live_pass.json"));
+    const login = livePass[Math.floor(Math.random() * livePass.length)];
+    return getUrl(dnsProvedor, media, login["user"], login["password"], video);
 }
 
 const checkAvaibleLogin = async (dnsProvedor, logins) => {
     let uLogin, breakFor = false;
-    for (const login of logins) {
+    const sLogins = shuffle(logins);
+    for (const login of sLogins) {
         await axios(`${dnsProvedor}/player_api.php?username=${login.user}&password=${login.password}`, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } })
             .then(res => {
                 const max_connections = parseInt(res.data['user_info']['max_connections']);
@@ -118,6 +140,20 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
         }
     }
     return uLogin;
+}
+
+const dataAcesso = (minutes) => {
+    let dataAcesso = new Date();
+    dataAcesso.setMinutes(dataAcesso.getMinutes() + (minutes));
+    return dataAcesso;
+}
+
+const shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
 }
 
 const getUrl = (dnsProvedor: string, media: string, user: string, password: string, video: string) => {

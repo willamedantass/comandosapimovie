@@ -47,21 +47,22 @@ export const PlayerApi = async (req, res) => {
         return res.json({"user_info":{"auth":0}});
     }
     
+    const isAdult = login?.isAdult ? login.isAdult : false;
     switch (action) {
         case 'get_live_categories':
-            return res.json(await getLiveCategories());
+            return res.json(await getLiveCategories(isAdult));
         case 'get_live_streams':
             if(category_id){
                 return res.json(await getLiveCategoryId(category_id));
             }
-            return res.json(await getLiveStreams());
+            return res.json(await getLiveStreams(isAdult));
         case 'get_vod_categories':
-            return res.json(await getFilmsCategories());
+            return res.json(await getFilmsCategories(isAdult));
         case 'get_vod_streams':
             if(category_id){
                 return res.json(await getFilmsCategoryId(category_id));                
             }
-            return res.json(await getFilms());
+            return res.json(await getFilms(isAdult));
         case 'get_vod_info':
             const vod_id = req.query.vod_id;
             return res.json(await getMovieInfo(vod_id));

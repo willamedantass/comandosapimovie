@@ -1,11 +1,11 @@
+import { createLoginController } from "../controller/createLoginController";
 import { buscarUser, updateUser } from "../controller/userDBController";
+import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
+import { LoginTituloType } from "../type/login";
 import { StringsMsg } from "../util/stringsMsg";
 import { User } from "../type/user";
-import { createLoginController } from "../controller/createLoginController";
-import { getMensagemLogin } from "../util/getMensagem";
-import { LoginTituloType } from "../type/login";
 
 export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
     let user: User = buscarUser(remoteJid);
