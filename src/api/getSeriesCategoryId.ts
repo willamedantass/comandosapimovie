@@ -7,7 +7,7 @@ export const getSeriesCategoryId = async (category_id: string) => {
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
 
-    const res = await getAxiosResult('get_series', provedor,undefined,undefined,id);
+    const res = await getAxiosResult('get_series', provedor,id);
     let series=[];
     if(provedor === Provedor.tigotv){
         if (res?.status == 200 && res?.data.length > 1) {

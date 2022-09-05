@@ -1,26 +1,45 @@
+import { createAndUpdateOption, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { Cache } from '../type/cache';
 import { Provedor } from '../type/provedor';
 import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
 
 export const getFilms = async (isAdult: boolean) => {
 
-    const res_clubtv = await getAxiosResult('get_vod_streams', Provedor.clubtv);
-    const res_tigotv = await getAxiosResult('get_vod_streams', Provedor.tigotv);
-    const res_elitetv = await getAxiosResult('get_vod_streams', Provedor.elitetv);
+    const action = 'get_vod_streams';
+    const dataOld = new Date(readOption(action).data);
+    const dataNow = new Date();
+    if (dataOld.getDay() !== dataNow.getDay()) {
+        const res_clubtv = await getAxiosResult(action, Provedor.clubtv);
+        const res_tigotv = await getAxiosResult(action, Provedor.tigotv);
+        const res_elitetv = await getAxiosResult(action, Provedor.elitetv);
 
-    console.log(`Filmes CLUBTV: ${res_clubtv?.data.length}`);
-    console.log(`Filmes TIGOTV: ${res_tigotv?.data.length}`);
-    console.log(`Filmes ELITETV: ${res_elitetv?.data.length}`);
+        console.log(`Filmes CLUBTV: ${res_clubtv?.data.length}`);
+        console.log(`Filmes TIGOTV: ${res_tigotv?.data.length}`);
+        console.log(`Filmes ELITETV: ${res_elitetv?.data.length}`);
 
-    let films = [];
-    forEachFilms(res_clubtv, films, Provedor.clubtv, isAdult);
-    forEachFilms(res_tigotv, films, Provedor.tigotv, isAdult);
-    forEachFilms(res_elitetv, films, Provedor.elitetv, isAdult);
+        let films = [];
+        forEachFilms(res_clubtv, films, Provedor.clubtv, isAdult);
+        forEachFilms(res_tigotv, films, Provedor.tigotv, isAdult);
+        forEachFilms(res_elitetv, films, Provedor.elitetv, isAdult);
 
-    console.log(`Filmes Total: ${films.length}`)
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`Processo finalizado uso aproximado: ${Math.round(used * 100) / 100} MB`);
-    return films;
+        console.log(`Filmes Total: ${films.length}`)
+        const used = process.memoryUsage().heapUsed / 1024 / 1024;
+        console.log(`Processo finalizado uso aproximado: ${Math.round(used * 100) / 100} MB`);
+
+        const cache: Cache = {
+            data: new Date().toISOString(),
+            action: action,
+            
+        }
+        createAndUpdateOption(cache);
+        createCache(action, films)
+        return films;
+    } else {
+        return readCache(action);
+    }
+
+
 }
 
 const forEachFilms = (res, films, provedor: string, isAdult: boolean) => {

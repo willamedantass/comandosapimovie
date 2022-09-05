@@ -6,7 +6,7 @@ export const getLiveCategoryId = async (category_id: string) => {
 
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
-    const res = await getAxiosResult('get_live_streams', provedor,undefined,undefined,id);  
+    const res = await getAxiosResult('get_live_streams', provedor,id);  
     let streamsJson = [];
 
     console.log(`Canais Categoria: ${res?.data.length}`);

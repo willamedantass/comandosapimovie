@@ -1,5 +1,7 @@
-import { auth } from "../type/auth"
+import { auth } from "../type/auth";
 import { Login } from "../type/login";
+
+
 require('dotenv/config')
 
 export const getAuth = async (login: Login) => {

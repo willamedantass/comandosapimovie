@@ -78,7 +78,8 @@ export const PlayerApi = async (req, res) => {
             return res.json(await getSeriesInfo(series_id));
         case 'get_short_epg':
             const stream_id = req.query.stream_id;
-            return res.json(await getEpgShort(stream_id));
+            const limit = req.query.limit;
+            return res.json(await getEpgShort(stream_id,limit));
         default:
             break;
     }
