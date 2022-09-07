@@ -4,7 +4,7 @@ import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
 
 export const getLiveCategories = async (isAdult: boolean) => {
-    const provedor = process.env.PROVEDOR_LIVES_ENUM;
+    const provedor = process.env.PROVEDOR_LIVES_ID;
     const category_adult = process.env.CATEGORIA_XXX_LIVE;
     const action = 'get_live_categories';
     const dataOld = new Date(readOption(action).data);

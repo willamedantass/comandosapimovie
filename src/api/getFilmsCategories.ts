@@ -1,7 +1,8 @@
 import { createAndUpdateOption, createCache, readCache, readOption } from '../controller/cacheDBController';
-import { Cache } from '../type/cache';
-import { Provedor } from '../type/provedor';
 import { getAxiosResult } from '../util/getAxios';
+import { readJSON } from '../util/jsonConverte';
+import { Cache } from '../type/cache';
+import path from "path";
 require('dotenv/config')
 
 export const getFilmsCategories = async (isAdult: boolean) => {
@@ -11,14 +12,14 @@ export const getFilmsCategories = async (isAdult: boolean) => {
     const dataNow = new Date();
     if (dataOld.getDay() !== dataNow.getDay()) {
 
-        const res_clubtv = await getAxiosResult(action, Provedor.clubtv);
-        const res_tigotv = await getAxiosResult(action, Provedor.tigotv);
-        const res_elitetv = await getAxiosResult(action, Provedor.elitetv);
-
+        const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
         let filmsCategories = [];
-        forEachFilms(res_clubtv, filmsCategories, Provedor.clubtv, 'CLB', isAdult);
-        forEachFilms(res_tigotv, filmsCategories, Provedor.tigotv, 'TGO', isAdult);
-        forEachFilms(res_elitetv, filmsCategories, Provedor.elitetv, 'ELT', isAdult);
+        for(const login of logins){
+            let res = await getAxiosResult(action, login.id);
+            forEachFilms(res, filmsCategories, login.id, login.sigla, isAdult);
+
+        }
+
         if (isAdult) {
             const category_adult = { "category_id": "999999", "category_name": "XXX | Filmes ADULTOS", "parent_id": 0 };
             filmsCategories.push(category_adult)

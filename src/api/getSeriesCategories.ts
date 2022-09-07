@@ -1,5 +1,4 @@
 import { readJSON } from '../function';
-import { Provedor } from '../type/provedor';
 import { getAxiosResult } from '../util/getAxios';
 import path from "path";
 import { writeJSON } from '../util/jsonConverte';
@@ -13,33 +12,19 @@ export const getSeriesCategories = async () => {
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
     if (dataOld.getDay() !== dataNow.getDay()) {
-        const result = await getAxiosResult(action, Provedor.tigotv);
-        const res_club = await getAxiosResult(action, Provedor.clubtv);
-        const categorias = [{ "category_id": Provedor.mygotv, "category_name": "MYGOSERIES", "parent_id": 0 }, { "category_id": Provedor.clubtv, "category_name": "CLUBSERIES", "parent_id": 0 }, { "category_id": Provedor.elitetv, "category_name": "ELITESERIES", "parent_id": 0 }, { "category_id": "9", "category_name": "NOVELAS", "parent_id": 0 }];
+
+        const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
+        let categorias = [];
+        categorias.push({ "category_id": "9", "category_name": "NOVELAS", "parent_id": 0 });
         let category_novelas = []
-
-        if (result?.status == 200 && result?.data.length > 1) {
-            result?.data.forEach(element => {
-                const name: string = element.category_name.toLowerCase();
-                if (name.includes("novela") || name.includes("novelas")) {
-                    category_novelas.push(element.category_id)
-                    return
-                }
-                element.category_id = Provedor.tigotv + element.category_id;
-                categorias.push(element);
-            });
+        for(const login of logins){
+            let res = await getAxiosResult(action, login.id);
+            forEachCategories(res,categorias, category_novelas,login.id);
+            categorias.push({ "category_id": login.id, "category_name": `${login.sigla}SERIES`, "parent_id": 0 })
         }
-
-        if (res_club?.status == 200 && res_club?.data.length > 1) {
-            res_club?.data.forEach(element => {
-                const name: string = element.category_name.toLowerCase();
-                if (name.includes("novela") || name.includes("novelas")) {
-                    category_novelas.push(element.category_id);
-                }
-            });
-        }
-
+        
         writeJSON(path.join(__dirname, "..", "..", "cache", "categories_novelas.json"), category_novelas);
+        
         const cache: Cache = {
             data: new Date().toISOString(),
             action: action,
@@ -51,4 +36,22 @@ export const getSeriesCategories = async () => {
     } else {
         return readCache(action);
     }
+}
+
+const forEachCategories = (res, categorias, category_novelas, provedor: string) => {
+    require('dotenv/config');
+    const idProvedoQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
+    if (res?.status == 200 && res?.data.length > 1) {
+        res?.data.forEach(element => {
+            const name: string = element.category_name.toLowerCase();
+            if (name.includes("novela") || name.includes("novelas")) {
+                category_novelas.push(provedor + element.category_id)
+            }
+            if (idProvedoQueNaoModifica == provedor) {
+                element.category_id = provedor + element.category_id;
+                categorias.push(element);
+            }
+        });
+    }
+
 }

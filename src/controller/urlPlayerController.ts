@@ -1,10 +1,10 @@
 import { postWebCreateLoginController } from "./postWebCreateLoginController";
 import { buscarLogin, updateLogin } from "./loginDBController";
 import { readJSON, writeJSON } from "../util/jsonConverte";
-import { Provedor } from "../type/provedor";
 import { Login } from "../type/login";
 import axios from 'axios';
 import path from "path";
+import { provedorAcesso } from "../type/provedor";
 
 export const urlPlayerController = async (req, res) => {
     const media: string = req.params.media;
@@ -53,28 +53,11 @@ export const urlPlayerController = async (req, res) => {
         }
     }
 
-    let link = '';
-    switch (idProvedor) {
-        case Provedor.mygotv:
-            link = `${process.env.SERVER_DNS_MYGOTV}/${media}/${process.env.SERVER_MYGOTV_USER}/${process.env.SERVER_MYGOTV_PASSWORD}/${video}`;
-            break;
-        case Provedor.clubtv:
-            const clubPass: [] = readJSON(path.join(__dirname, "..", "..", "cache", "club_pass.json"));
-            const login = clubPass[Math.floor(Math.random() * clubPass.length)];
-            link = `${process.env.SERVER_DNS_CLUB}/${media}/${login["user"]}/${login["password"]}/${video}`;
-            break;
-        case Provedor.tigotv:
-            link = await gerenteCountLive(process.env.SERVER_DNS_TIGO, user, password, media, video);
-            break;
-        case Provedor.elitetv:
-            link = `${process.env.SERVER_DNS_ELITE}/${media}/${process.env.SERVER_ELITE_USER}/${process.env.SERVER_ELITE_PASSWORD}/${video}`;
-            break;
-        case Provedor.titanium:
-            link = `${process.env.SERVER_DNS_TITANIUM}/${media}/${user}/${password}/${video}`;
-            break;
-        default:
-            break;
-    }
+    const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idProvedor);
+    let link = await getUrl(idProvedor, acesso.dns,media,acesso.user,acesso.password,video);
+    console.log(link );
+    
+    
     res.set('location', link);
     res.status(301).send()
 }
@@ -82,7 +65,7 @@ export const urlPlayerController = async (req, res) => {
 export const gerenteCountLive = async (dnsProvedor: string, user: string, password: string, media: string, video: string) => {
 
     if (user.includes('meuteste')) {
-        return getUrl(dnsProvedor, media, user, password, video);
+        return `${dnsProvedor}/${media}/${user}/${password}/${video}`;
     }
 
     if (media === 'live') {
@@ -90,14 +73,14 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
 
         let login = await checkAvaibleLogin(dnsProvedor, live_pass);
         if (login) {
-            return getUrl(dnsProvedor, media, login.user, login.password, video);
+            return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
         }
 
         const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json");
         const live_temp = readJSON(pathTempLogin);
         login = await checkAvaibleLogin(dnsProvedor, live_temp);
         if (login) {
-            return getUrl(dnsProvedor, media, login.user, login.password, video);
+            return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
         }
 
         login = await postWebCreateLoginController('loginteste', true, true);
@@ -106,13 +89,24 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
             let liveTemp = readJSON(pathTempLogin);
             liveTemp.push(temp);
             writeJSON(pathTempLogin, liveTemp);
-            return getUrl(dnsProvedor, media, temp.user, temp.password, video);
+            return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
         }
     }
 
     const livePass: [] = readJSON(path.join(__dirname, "..", "..", "cache", "live_pass.json"));
     const login = livePass[Math.floor(Math.random() * livePass.length)];
-    return getUrl(dnsProvedor, media, login["user"], login["password"], video);
+    return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
+}
+
+const getUrl = async (provedor: string,dnsProvedor: string, media: string, user: string, password: string, video: string) => {
+    require('dotenv/config');
+    const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
+    if(provedor === idProvedorLive){
+        return await gerenteCountLive(dnsProvedor, user, password, media, video);
+    } else {
+
+        return `${dnsProvedor}/${media}/${user}/${password}/${video}`
+    }
 }
 
 const checkAvaibleLogin = async (dnsProvedor, logins) => {
@@ -154,8 +148,4 @@ const shuffle = (a) => {
         [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
-}
-
-const getUrl = (dnsProvedor: string, media: string, user: string, password: string, video: string) => {
-    return `${dnsProvedor}/${media}/${user}/${password}/${video}`
 }

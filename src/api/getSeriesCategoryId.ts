@@ -1,4 +1,3 @@
-import { Provedor } from '../type/provedor';
 import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
 
@@ -6,10 +5,11 @@ export const getSeriesCategoryId = async (category_id: string) => {
 
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
+    const idProvedoQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
 
     const res = await getAxiosResult('get_series', provedor,id);
     let series=[];
-    if(provedor === Provedor.tigotv){
+    if(provedor === idProvedoQueNaoModifica){
         if (res?.status == 200 && res?.data.length > 1) {
             res.data.forEach(element => {
                 element.series_id =  provedor + element.series_id

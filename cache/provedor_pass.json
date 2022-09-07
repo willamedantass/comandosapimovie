@@ -1,0 +1,34 @@
+[ 
+    {
+        "id": "1",
+        "provedor": "mygotv",
+        "user": "278543774",
+        "password": "378871912",
+        "sigla": "MGO",
+        "dns":"http://grtsvk.life"
+    },
+    {
+        "id": "2",
+        "provedor": "clubtv",
+        "user": "francisca.maria",
+        "password": "T9G1dp",
+        "sigla": "CLB",
+        "dns":"http://acsa.ws"
+    },
+    {
+        "id": "3",
+        "provedor": "tigotv",
+        "user": "jeffinho",
+        "password": "a1s2d3",
+        "sigla": "TGO",
+        "dns":"http://dns.tigotv.xyz"
+    },
+    {
+        "id": "4",
+        "provedor": "elitetv",
+        "user": "jacksparon",
+        "password": "81115316",
+        "sigla": "ELT",
+        "dns":"http://tntmais.com"
+    }
+]

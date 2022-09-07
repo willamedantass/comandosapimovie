@@ -1,18 +1,18 @@
+import { getSeriesCategoryId } from "../api/getSeriesCategoryId";
 import { getSeriesCategories } from "../api/getSeriesCategories";
+import { getFilmsCategoryId } from "../api/getFilmsCategoryId";
 import { getFilmsCategories } from "../api/getFilmsCategories";
+import { getLiveCategoryId } from "../api/getLiveCategoryId";
 import { getLiveCategories } from "../api/getLiveCategories";
 import { getLiveStreams } from "../api/getLiveStreams";
 import { getSeriesInfo } from "../api/getSeriesInfo";
 import { getMovieInfo } from "../api/getMovieInfo";
 import { buscarLogin } from "./loginDBController";
+import { getEpgShort } from "../api/getEpgShort";
 import { getSeries } from "../api/getSeries";
 import { getFilms } from "../api/getFilms";
 import { getAuth } from "../api/getAuth";
 import { Login } from "../type/login";
-import { getFilmsCategoryId } from "../api/getFilmsCategoryId";
-import { getSeriesCategoryId } from "../api/getSeriesCategoryId";
-import { getLiveCategoryId } from "../api/getLiveCategoryId";
-import { getEpgShort } from "../api/getEpgShort";
 
 export const PlayerApi = async (req, res) => {
     const user: string = req.query.username;

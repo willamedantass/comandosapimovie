@@ -1,4 +1,3 @@
-import { Provedor } from '../type/provedor';
 import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
 

@@ -1,13 +1,7 @@
 export class provedorAcesso {
-    servidorDNS: string;
+    id: string;
+    sigla: string;
+    dns: string;
     user: string;
     password: string;
-}
-
-export enum Provedor {
-    mygotv = '1',
-    clubtv = '2',
-    tigotv = '3',
-    elitetv = '4',
-    titanium = '5'
 }

@@ -10,13 +10,12 @@ export const getLiveStreams = async (isAdult: boolean) => {
     const dataNow = new Date();
     if (dataOld.getDay() !== dataNow.getDay()) {
 
-        const provedor = process.env.PROVEDOR_LIVES_ENUM;
+        const provedor = process.env.PROVEDOR_LIVES_ID;
         const category_adult = process.env.CATEGORIA_XXX_LIVE;
-        const res_tigotv = await getAxiosResult(action, provedor);
+        const res = await getAxiosResult(action, provedor);
         let streamsJson = [];
-
-        if (res_tigotv?.status == 200 && res_tigotv?.data.length > 1) {
-            res_tigotv.data.forEach(element => {
+        if (res?.status == 200 && res?.data.length > 1) {
+            res.data.forEach(element => {
                 if (element.category_id === category_adult) {
                     if (!isAdult) {
                         return
