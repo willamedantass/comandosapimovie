@@ -6,6 +6,7 @@ require('dotenv/config')
 export const getLiveStreams = async (isAdult: boolean) => {
 
     const action = 'get_live_streams';
+    const actionAdult = 'get_live_adult';
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
     if (dataOld.getDay() !== dataNow.getDay()) {
@@ -14,18 +15,18 @@ export const getLiveStreams = async (isAdult: boolean) => {
         const category_adult = process.env.CATEGORIA_XXX_LIVE;
         const res = await getAxiosResult(action, provedor);
         let streamsJson = [];
+        let streamsAdult = [];
         if (res?.status == 200 && res?.data.length > 1) {
             res.data.forEach(element => {
                 if (element.category_id === category_adult) {
-                    if (!isAdult) {
-                        return
-                    }
                     element.category_id = "999999";
+                    element.stream_id = provedor + element.stream_id;
+                    streamsAdult.push(element)
                 } else {
                     element.category_id = provedor + element.category_id;
+                    element.stream_id = provedor + element.stream_id;
+                    streamsJson.push(element);
                 }
-                element.stream_id = provedor + element.stream_id;
-                streamsJson.push(element);
             })
         }
 
@@ -39,9 +40,18 @@ export const getLiveStreams = async (isAdult: boolean) => {
             
         }
         createAndUpdateOption(cache);
-        createCache(action, streamsJson)
+        createCache(action, streamsJson);
+        createCache(actionAdult, streamsAdult);
+        if(isAdult){
+            return streamsJson.concat(streamsAdult);
+        }
         return streamsJson;
     } else {
-        return readCache(action);
+        const lives = await readCache(action);
+        if(isAdult){
+            const livesAdult = await readCache(actionAdult);
+            return lives.concat(livesAdult);
+        }
+        return lives;
     }
 }

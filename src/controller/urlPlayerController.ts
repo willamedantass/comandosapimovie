@@ -1,10 +1,10 @@
 import { postWebCreateLoginController } from "./postWebCreateLoginController";
 import { buscarLogin, updateLogin } from "./loginDBController";
 import { readJSON, writeJSON } from "../util/jsonConverte";
+import { provedorAcesso } from "../type/provedor";
 import { Login } from "../type/login";
 import axios from 'axios';
 import path from "path";
-import { provedorAcesso } from "../type/provedor";
 
 export const urlPlayerController = async (req, res) => {
     const media: string = req.params.media;
@@ -45,7 +45,7 @@ export const urlPlayerController = async (req, res) => {
             login.dataRemote = dataAcesso(15).toISOString();
             updateLogin(login);
         } else {
-            const msg = 'Acesso Remoto não permitido, houve tentativa de acesso duplicado.';
+            const msg = 'Acesso remoto não permitido, houve tentativa de acesso duplicado.';
             console.log(msg);
             login.countForbiddenAccess += 1;
             updateLogin(login);
@@ -54,10 +54,8 @@ export const urlPlayerController = async (req, res) => {
     }
 
     const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idProvedor);
-    let link = await getUrl(idProvedor, acesso.dns,media,acesso.user,acesso.password,video);
-    console.log(link );
-    
-    
+    let link = await getUrl(idProvedor, acesso.dns, media, acesso.user, acesso.password, video);
+    console.log(link);
     res.set('location', link);
     res.status(301).send()
 }
@@ -70,7 +68,6 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
 
     if (media === 'live') {
         const live_pass = readJSON(path.join(__dirname, "..", "..", "cache", "live_pass.json"));
-
         let login = await checkAvaibleLogin(dnsProvedor, live_pass);
         if (login) {
             return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
@@ -89,7 +86,7 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
             let liveTemp = readJSON(pathTempLogin);
             liveTemp.push(temp);
             writeJSON(pathTempLogin, liveTemp);
-            return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
+            return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
         }
     }
 
@@ -98,10 +95,10 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
     return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
 }
 
-const getUrl = async (provedor: string,dnsProvedor: string, media: string, user: string, password: string, video: string) => {
+const getUrl = async (provedor: string, dnsProvedor: string, media: string, user: string, password: string, video: string) => {
     require('dotenv/config');
     const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
-    if(provedor === idProvedorLive){
+    if (provedor === idProvedorLive) {
         return await gerenteCountLive(dnsProvedor, user, password, media, video);
     } else {
 
@@ -118,7 +115,7 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
                 const max_connections = parseInt(res.data['user_info']['max_connections']);
                 const active_cons = parseInt(res.data['user_info']['active_cons']);
                 const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
-                if (active_cons <= max_connections && ativo) {
+                if (active_cons < max_connections && ativo) {
                     uLogin = login;
                     breakFor = true;
                 } else if (!ativo && login.user.includes('meuteste')) {
@@ -136,9 +133,9 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
     return uLogin;
 }
 
-const dataAcesso = (minutes) => {
+const dataAcesso = (minutes: number) => {
     let dataAcesso = new Date();
-    dataAcesso.setMinutes(dataAcesso.getMinutes() + (minutes));
+    dataAcesso.setMinutes(dataAcesso.getMinutes() + minutes);
     return dataAcesso;
 }
 

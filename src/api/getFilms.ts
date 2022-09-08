@@ -8,16 +8,18 @@ require('dotenv/config')
 export const getFilms = async (isAdult: boolean) => {
 
     const action = 'get_vod_streams';
+    const actionAdult = 'get_vods_adult';
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
     if (dataOld.getDay() !== dataNow.getDay()) {
 
         const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
         let films = [];
-        for(const login of logins){
+        let filmsAdult = [];
+        for (const login of logins) {
             let res = await getAxiosResult(action, login.id);
             console.log(`Filmes ${login.provedor}: ${res?.data.length}`);
-            forEachFilms(res, films, login.id, isAdult);
+            forEachFilms(res, films, filmsAdult, login.id);
         }
 
         console.log(`Filmes Total: ${films.length}`)
@@ -26,31 +28,38 @@ export const getFilms = async (isAdult: boolean) => {
         const cache: Cache = {
             data: new Date().toISOString(),
             action: action,
-            
+
         }
         createAndUpdateOption(cache);
-        createCache(action, films)
+        createCache(action, films);
+        createCache(actionAdult, filmsAdult);
+        if(isAdult){
+            return films.concat(filmsAdult)
+        }
         return films;
     } else {
-        return readCache(action);
+        const films = await readCache(action);
+        if(isAdult){
+            const filmsAdult = await readCache(actionAdult);
+            return films.concat(filmsAdult);
+        }
+        return films;
     }
 }
 
-const forEachFilms = (res, films, provedor: string, isAdult: boolean) => {
+const forEachFilms = (res, films, filmsAdult, provedor: string) => {
     const categories_adult = process.env.CATEGORIA_XXX_FILME.split(',');
     if (res?.status == 200 && res?.data.length > 1) {
         res.data.forEach(element => {
             if (categories_adult.find(category => category == element.category_id)) {
-                if (!isAdult) {
-                    return
-                }
                 element.stream_id = provedor + element.stream_id;
                 element.category_id = "999999";
+                filmsAdult.push(element);
             } else {
                 element.stream_id = provedor + element.stream_id;
                 element.category_id = provedor + element.category_id;
+                films.push(element);
             }
-            films.push(element);
         })
     }
 }

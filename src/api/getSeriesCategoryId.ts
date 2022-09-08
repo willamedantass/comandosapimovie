@@ -1,15 +1,21 @@
 import { getAxiosResult } from '../util/getAxios';
+import path from "path";
+import { readJSON } from '../util/jsonConverte';
 require('dotenv/config')
 
 export const getSeriesCategoryId = async (category_id: string) => {
 
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
-    const idProvedoQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
+    const idProvedorQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
+
+    if(provedor === '9'){
+        return readJSON(path.join(__dirname, "..", "..", "cache", "get_novelas.json"));
+    }
 
     const res = await getAxiosResult('get_series', provedor,id);
     let series=[];
-    if(provedor === idProvedoQueNaoModifica){
+    if(provedor === idProvedorQueNaoModifica){
         if (res?.status == 200 && res?.data.length > 1) {
             res.data.forEach(element => {
                 element.series_id =  provedor + element.series_id

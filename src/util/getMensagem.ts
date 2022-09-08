@@ -25,7 +25,7 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
     }
     msg += `👤 *USUARIO:* ${user} \n`;
     msg += `🔐 *SENHA:* ${password} \n`;
-    msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleString('pt-br', options)} \n`;
+    msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleDateString('pt-br', options)} \n`;
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
     msg += "             ℹ️ INFORMAÇÃO \n";
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
