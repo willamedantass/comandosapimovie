@@ -25,6 +25,6 @@ export const getAxiosResult = async (action: string, provedor: string, id?: stri
         }
         return res;
     } catch (error) {
-        console.log(`Erro ao carregar servidor tigo, erro: ${error}`);
+        console.log(`Erro ao carregar servidor. Login: ${login} - Erro: ${error}`);
     }
 }

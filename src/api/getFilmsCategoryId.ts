@@ -1,13 +1,17 @@
 import { getAxiosResult } from '../util/getAxios';
-require('dotenv/config')
+import { readJSON } from '../util/jsonConverte';
+import path from 'path';
 
 export const getFilmsCategoryId = async (category_id: string) => {
 
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
 
+    if(provedor === '9'){
+        return readJSON(path.join(__dirname, "..", "..", "cache", "get_vods_adult.json"));
+    }
+
     const res = await getAxiosResult('get_vod_streams', provedor,id);
-   
     let filmsJson = [];
     if (res?.status == 200 && res?.data.length > 1) {
         res.data.forEach(element => {

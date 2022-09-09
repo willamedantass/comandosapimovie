@@ -53,18 +53,16 @@ export const urlPlayerController = async (req, res) => {
         }
     }
 
-    const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idProvedor);
-    let link = await getUrl(idProvedor, acesso.dns, media, acesso.user, acesso.password, video);
+    let link = await getUrl(idProvedor, media, user, password, video);
     console.log(link);
+    if(!link){
+        return res.status(400).end();
+    }
     res.set('location', link);
     res.status(301).send()
 }
 
 export const gerenteCountLive = async (dnsProvedor: string, user: string, password: string, media: string, video: string) => {
-
-    if (user.includes('meuteste')) {
-        return `${dnsProvedor}/${media}/${user}/${password}/${video}`;
-    }
 
     if (media === 'live') {
         const live_pass = readJSON(path.join(__dirname, "..", "..", "cache", "live_pass.json"));
@@ -89,20 +87,22 @@ export const gerenteCountLive = async (dnsProvedor: string, user: string, passwo
             return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
         }
     }
-
-    const livePass: [] = readJSON(path.join(__dirname, "..", "..", "cache", "live_pass.json"));
-    const login = livePass[Math.floor(Math.random() * livePass.length)];
-    return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
+    return `${dnsProvedor}/${media}/${user}/${password}/${video}`;
 }
 
-const getUrl = async (provedor: string, dnsProvedor: string, media: string, user: string, password: string, video: string) => {
+const getUrl = async (provedor: string, media: string, user: string, password: string, video: string) => {
     require('dotenv/config');
     const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
-    if (provedor === idProvedorLive) {
-        return await gerenteCountLive(dnsProvedor, user, password, media, video);
-    } else {
-
-        return `${dnsProvedor}/${media}/${user}/${password}/${video}`
+    const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === provedor);
+    if(acesso){
+        if (provedor === idProvedorLive) {
+            if (user.includes('meuteste')) {
+                return `${acesso.dns}/${media}/${user}/${password}/${video}`;
+            }
+            return await gerenteCountLive(acesso.dns, acesso.user, acesso.password, media, video);
+        } else {
+            return `${acesso.dns}/${media}/${acesso.user}/${acesso.password}/${video}`;
+        }
     }
 }
 

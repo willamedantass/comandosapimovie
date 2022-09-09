@@ -1,13 +1,5 @@
 [ 
     {
-        "id": "1",
-        "provedor": "mygotv",
-        "user": "278543774",
-        "password": "378871912",
-        "sigla": "MGO",
-        "dns":"http://grtsvk.life"
-    },
-    {
         "id": "2",
         "provedor": "clubtv",
         "user": "francisca.maria",

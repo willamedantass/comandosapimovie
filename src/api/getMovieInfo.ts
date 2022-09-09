@@ -6,11 +6,13 @@ export const getMovieInfo = async (id) => {
     const movieId = id.substr(1);
 
     const res = await getAxiosResult('get_vod_info', provedorId, movieId);
-    return setProvedorId(res.data, provedorId);
+    return setProvedorId(res, provedorId);
 }
 
-const setProvedorId = (res, provedor:string) => {       
-    let id = provedor + res["movie_data"].stream_id;
-    res["movie_data"].stream_id = id;    
-    return res;
+const setProvedorId = (res, provedor:string) => {    
+    if (res?.status == 200 && res.data["movie_data"]?.stream_id) {
+        let id = provedor + res.data["movie_data"].stream_id;
+        res.data["movie_data"].stream_id = id;    
+        return res.data;
+    }     
 }
