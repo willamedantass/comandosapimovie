@@ -34,7 +34,7 @@ export const PlayerApi = async (req, res) => {
     const agora = new Date();
     const vencimento = new Date(login.vencimento);
     if (agora > vencimento) {
-        console.log(`Usuário vencido! Usuário: ${password}`);
+        console.log(`Usuário ${user} vencido!`);
         return res.json(await getAuth(login));
     }
 

@@ -10,6 +10,10 @@ export const criarLogin = async (login: Login) => {
     await writeJSON(pathJson, arquivo);
 }
 
+export const readLogins = (user: string) => {
+    return readJSON(pathJson);
+}
+
 export const buscarLogin = (user: string) => {
     return readJSON(pathJson).find(value => value.user === user);
 }

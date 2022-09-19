@@ -1,5 +1,4 @@
 import { buscarLogin, updateLogin } from "../controller/loginDBController";
-import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
 import { Login } from "../type/login";

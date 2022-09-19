@@ -19,7 +19,7 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
             break;
     }
 
-    let options = {
+    const options = {
         timeZone: 'America/Sao_Paulo',
         hour12: false
     }
