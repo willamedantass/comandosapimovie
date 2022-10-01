@@ -1,10 +1,12 @@
 import { postWebCreateLoginController } from "./postWebCreateLoginController";
+import createWebLoginClub from "./createWebLoginClubController";
 import { buscarLogin, updateLogin } from "./loginDBController";
 import { readJSON, writeJSON } from "../util/jsonConverte";
 import { provedorAcesso } from "../type/provedor";
 import { Login } from "../type/login";
 import axios from 'axios';
 import path from "path";
+const idProvedorClub = '2'
 
 export const urlPlayerController = async (req, res) => {
     const media: string = req.params.media;
@@ -12,6 +14,10 @@ export const urlPlayerController = async (req, res) => {
     const password: string = req.params.password;
     const video: string = req.params.video.substring(1);
     const idProvedor: string = req.params.video.charAt(0);
+
+    if (!user) {
+        res.status(405).end();
+    }
 
     let login: Login = buscarLogin(user);
     if (!login) {
@@ -45,8 +51,7 @@ export const urlPlayerController = async (req, res) => {
             login.dataRemote = dataAcesso(15).toISOString();
             updateLogin(login);
         } else {
-            const msg = 'Acesso remoto não permitido, houve tentativa de acesso duplicado.';
-            console.log(msg);
+            console.log('Acesso remoto não permitido, houve tentativa de acesso duplicado.');
             login.countForbiddenAccess += 1;
             updateLogin(login);
             return res.json({ "user_info": { "auth": 0 } });
@@ -55,58 +60,69 @@ export const urlPlayerController = async (req, res) => {
 
     let link = await getUrl(idProvedor, media, user, password, video);
     console.log(link);
-    if(!link){
+    if (!link) {
         return res.status(400).end();
     }
     res.set('location', link);
     res.status(301).send()
 }
 
-export const gerenteCountLive = async (dnsProvedor: string, user: string, password: string, media: string, video: string) => {
-
-    if (media === 'live') {
-        const live_pass = readJSON(path.join(__dirname, "..", "..", "cache", "live_pass.json"));
-        let login = await checkAvaibleLogin(dnsProvedor, live_pass);
-        if (login) {
-            return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
-        }
-
-        const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json");
-        const live_temp = readJSON(pathTempLogin);
-        login = await checkAvaibleLogin(dnsProvedor, live_temp);
-        if (login) {
-            return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
-        }
-
-        login = await postWebCreateLoginController('loginteste', true, true);
-        if (login) {
-            const temp = { user: login['user'], password: login['pass'] };
-            let liveTemp = readJSON(pathTempLogin);
-            liveTemp.push(temp);
-            writeJSON(pathTempLogin, liveTemp);
-            return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
-        }
-    }
-    return `${dnsProvedor}/${media}/${user}/${password}/${video}`;
-}
-
 const getUrl = async (provedor: string, media: string, user: string, password: string, video: string) => {
     require('dotenv/config');
     const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
     const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === provedor);
-    if(acesso){
-        if (provedor === idProvedorLive) {
-            if (user.includes('meuteste')) {
-                return `${acesso.dns}/${media}/${user}/${password}/${video}`;
-            }
-            return await gerenteCountLive(acesso.dns, acesso.user, acesso.password, media, video);
+    if (acesso) {
+        if (media === 'live' && (provedor === idProvedorLive || provedor === idProvedorClub)) {
+            return await gerenteCountLive(provedor, acesso.dns, acesso.user, acesso.password, media, video);
         } else {
             return `${acesso.dns}/${media}/${acesso.user}/${acesso.password}/${video}`;
         }
     }
 }
 
+export const gerenteCountLive = async (provedor: string, dnsProvedor: string, user: string, password: string, media: string, video: string) => {
+
+    let pathLive;
+    let pathLiveTemp;
+    if (provedor === idProvedorClub) {
+        pathLive = path.join(__dirname, "..", "..", "cache", "club_pass.json");
+        pathLiveTemp = path.join(__dirname, "..", "..", "cache", "club_temp.json");
+    } else {
+        pathLive = path.join(__dirname, "..", "..", "cache", "live_pass.json");
+        pathLiveTemp = path.join(__dirname, "..", "..", "cache", "live_temp.json");
+    }
+
+    const live_pass = readJSON(pathLive);
+    let login = await checkAvaibleLogin(dnsProvedor, live_pass);
+    if (login) {
+        return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
+    }
+
+    const live_temp = readJSON(pathLiveTemp);
+    login = await checkAvaibleLogin(dnsProvedor, live_temp);
+    if (login) {
+        return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
+    }
+
+    if(provedor === idProvedorClub){
+        login = await createWebLoginClub(true);
+    } else{
+        login = await postWebCreateLoginController('loginteste', true, true);
+    }
+    if (login) {
+        const temp = { user: login['user'], password: login['pass'] };
+        let liveTemp = readJSON(pathLiveTemp);
+        liveTemp.push(temp);
+        writeJSON(pathLiveTemp, liveTemp);
+        return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
+    }
+
+}
+
 const checkAvaibleLogin = async (dnsProvedor, logins) => {
+    if(logins.length === 0){
+        return
+    }
     let uLogin, breakFor = false;
     const sLogins = shuffle(logins);
     for (const login of sLogins) {
@@ -115,17 +131,21 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
                 const max_connections = parseInt(res.data['user_info']['max_connections']);
                 const active_cons = parseInt(res.data['user_info']['active_cons']);
                 const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
-                if (active_cons < max_connections && ativo) {
-                    uLogin = login;
-                    breakFor = true;
-                } else if (!ativo && login.user.includes('meuteste')) {
-                    const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json")
-                    let live_temp = readJSON(pathTempLogin);
-                    const index = live_temp.findIndex((item) => item.user === login.user);
-                    live_temp.splice(index, 1);
-                    writeJSON(pathTempLogin, live_temp);
+                try {
+                    if (active_cons < max_connections && ativo) {
+                        uLogin = login;
+                        breakFor = true;
+                    } else if (!ativo && login.user.includes('meuteste')) {
+                        const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json")
+                        let live_temp = readJSON(pathTempLogin);
+                        const index = live_temp.findIndex((item) => item.user === login.user);
+                        live_temp.splice(index, 1);
+                        writeJSON(pathTempLogin, live_temp);
+                    }
+                } catch (error) {
+                    console.log(`Método checkAvaibleLogin gerou um erro no login: ${login}.\n`, error);
                 }
-            }).catch(error => console.log(error));
+            }).catch(res => console.log(`Erro ao consultar login. Login: ${login.user} - Erro: ${res.response.status}-${res.response.statusText}`));
         if (breakFor) {
             break;
         }

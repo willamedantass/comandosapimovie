@@ -22,8 +22,5 @@ export const getLiveCategoryId = async (category_id: string) => {
         })
     }
 
-    console.log(`Canais Total: ${streamsJson.length}`)
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`Processo finalizado uso aproximado: ${Math.round(used * 100) / 100} MB`);
     return streamsJson;
 }

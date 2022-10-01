@@ -1,8 +1,11 @@
-import fs from 'fs'
+import fs, { PathOrFileDescriptor } from 'fs'
 
-export const readJSON = (pathFileJson: String) => {
+export const readJSON = (pathFileJson: PathOrFileDescriptor) => {
     // @ts-ignore
-    return JSON.parse(fs.readFileSync(pathFileJson, 'utf-8'));
+    if(fs.existsSync(pathFileJson)){
+        return JSON.parse(fs.readFileSync(pathFileJson, 'utf-8'));
+    }
+    return [];
 };
 
 export const writeJSON = (pathFileJson: string, data: object) => {

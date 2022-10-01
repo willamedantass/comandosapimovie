@@ -30,6 +30,21 @@ export const getLiveStreams = async (isAdult: boolean) => {
             })
         }
 
+        //Para incluir algumas categorias do servidor club
+        const category_club = ['2480','4','488','489','490','1110','2113','1048'];
+        const provedor_club = '2';
+        const res_club = await getAxiosResult(action, provedor_club);
+        if (res_club?.status == 200 && res_club?.data.length > 1) {
+            res_club?.data.forEach(element => {
+                let category_id: string = element.category_id;
+                if (category_club.includes(category_id)) {
+                    element.category_id = provedor_club + element.category_id;
+                    element.stream_id = provedor_club + element.stream_id;
+                    streamsJson.push(element);
+                }
+            });
+        }
+
         console.log(`Canais Total: ${streamsJson.length}`)
         const used = process.memoryUsage().heapUsed / 1024 / 1024;
         console.log(`Processo finalizado uso aproximado: ${Math.round(used * 100) / 100} MB`);
