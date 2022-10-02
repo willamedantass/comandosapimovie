@@ -10,20 +10,16 @@ export const getFilmsCategories = async (isAdult: boolean) => {
     const action = 'get_vod_categories';
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
+    const category_adult = { "category_id": "999999", "category_name": "XXX | Filmes ADULTOS", "parent_id": 0 };
     if (dataOld.getDay() !== dataNow.getDay()) {
 
         const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
-        let filmsCategories = [];
-        for(const login of logins){
+        const filmsCategories = [];
+        for (const login of logins) {
             let res = await getAxiosResult(action, login.id);
             forEachFilms(res, filmsCategories, login.id, login.sigla, isAdult);
-
         }
-
-        if (isAdult) {
-            const category_adult = { "category_id": "999999", "category_name": "XXX | Filmes ADULTOS", "parent_id": 0 };
-            filmsCategories.push(category_adult)
-        }
+        
         const cache: Cache = {
             data: new Date().toISOString(),
             action: action,
@@ -31,10 +27,16 @@ export const getFilmsCategories = async (isAdult: boolean) => {
         }
         createAndUpdateOption(cache);
         createCache(action, filmsCategories)
-        return filmsCategories;
+    }
+   
+    if (isAdult) {
+        const categories = await readCache(action);
+        categories.push(category_adult);
+        return categories;
     } else {
         return readCache(action);
     }
+    
 }
 
 const forEachFilms = (res, films, provedor: string, siglaProvedor: string, isAdult: boolean) => {

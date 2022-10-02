@@ -135,7 +135,7 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
                     if (active_cons < max_connections && ativo) {
                         uLogin = login;
                         breakFor = true;
-                    } else if (!ativo && login.user.includes('meuteste')) {
+                    } else if (!ativo && login?.user.includes('meuteste')) {
                         const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json")
                         let live_temp = readJSON(pathTempLogin);
                         const index = live_temp.findIndex((item) => item.user === login.user);
