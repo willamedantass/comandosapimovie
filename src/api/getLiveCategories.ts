@@ -10,6 +10,7 @@ export const getLiveCategories = async (isAdult: boolean) => {
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
     const element_adult = { "category_id": "999999", "category_name": "CANAIS | CANAIS ADULTO", "parent_id": 0 };
+    const element_Channel_clubtv = { "category_id": "999990", "category_name": "CLUBTV | FHD/HD", "parent_id": 0 };
     if (dataOld.getDay() !== dataNow.getDay()) {
         const categorias = [];
         const res = await getAxiosResult(action, provedor);
@@ -23,8 +24,12 @@ export const getLiveCategories = async (isAdult: boolean) => {
                 categorias.push(element);
             });
         }
+
+        //Incluindo categoria FHD/HD do servidor club
+        categorias.push(element_Channel_clubtv);
+
         //Para incluir algumas categorias do servidor club
-        const category_club = ['2480', '4', '488', '489', '490', '1110', '2113', '1048'];
+        const category_club = ['2480', '4', '42', '488', '489', '490', '1110', '2113', '1048'];
         const provedor_club = '2';
         const res_club = await getAxiosResult(action, provedor_club);
         if (res_club?.status == 200 && res_club?.data.length > 1) {
@@ -42,7 +47,6 @@ export const getLiveCategories = async (isAdult: boolean) => {
             data: new Date().toISOString(),
             action: action,
         }
-
         createAndUpdateOption(cache)
         createCache(action, categorias);
     }
@@ -55,6 +59,4 @@ export const getLiveCategories = async (isAdult: boolean) => {
     } else {
         return readCache(action);
     }
-
-
 }

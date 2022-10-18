@@ -41,6 +41,9 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
         }
     }).catch(async (res) => {
         response = { result: false, msg: res?.response.data }
+        if(res?.response.status > 499 ){
+            isLogar = false;
+        }
     });
 
     if (isLogar && !response.result) {
