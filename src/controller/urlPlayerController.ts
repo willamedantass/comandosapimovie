@@ -4,7 +4,7 @@ import { buscarLogin, updateLogin } from "./loginDBController";
 import { readJSON, writeJSON } from "../util/jsonConverte";
 import { provedorAcesso } from "../type/provedor";
 import { Login } from "../type/login";
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import path from "path";
 const idProvedorClub = '2'
 
@@ -58,10 +58,10 @@ export const urlPlayerController = async (req, res) => {
         }
     }
 
-    let link = await getUrl(idProvedor, media, user, password, video);
+    const link = await getUrl(idProvedor, media, user, password, video);
     console.log(link);
     if (!link) {
-        return res.status(400).end();
+        return res.status(404).end();
     }
     res.set('location', link);
     res.status(301).send()
@@ -82,8 +82,7 @@ const getUrl = async (provedor: string, media: string, user: string, password: s
 
 export const gerenteCountLive = async (provedor: string, dnsProvedor: string, user: string, password: string, media: string, video: string) => {
 
-    let pathLive;
-    let pathLiveTemp;
+    let pathLive: string, pathLiveTemp: string, login;
     if (provedor === idProvedorClub) {
         pathLive = path.join(__dirname, "..", "..", "cache", "club_pass.json");
         pathLiveTemp = path.join(__dirname, "..", "..", "cache", "club_temp.json");
@@ -93,7 +92,7 @@ export const gerenteCountLive = async (provedor: string, dnsProvedor: string, us
     }
 
     const live_pass = readJSON(pathLive);
-    let login = await checkAvaibleLogin(dnsProvedor, live_pass);
+    login = await checkAvaibleLogin(dnsProvedor, live_pass);
     if (login) {
         return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
     }
@@ -104,48 +103,52 @@ export const gerenteCountLive = async (provedor: string, dnsProvedor: string, us
         return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
     }
 
-    if(provedor === idProvedorClub){
+    if (provedor === idProvedorClub) {
         login = await createWebLoginClub(true);
-    } else{
+    } else {
         login = await postWebCreateLoginController('loginteste', true, true);
     }
-    if (login) {
-        const temp = { user: login['user'], password: login['pass'] };
+
+    if (login && login['user']) {
+        const Login_temp = { user: login['user'], password: login['pass'] };
         let liveTemp = readJSON(pathLiveTemp);
-        liveTemp.push(temp);
+        liveTemp.push(Login_temp);
         writeJSON(pathLiveTemp, liveTemp);
         return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
     }
-
 }
 
 const checkAvaibleLogin = async (dnsProvedor, logins) => {
-    if(logins.length === 0){
+    if (logins.length === 0) {
         return
     }
     let uLogin, breakFor = false;
-    const sLogins = shuffle(logins);
-    for (const login of sLogins) {
-        await axios(`${dnsProvedor}/player_api.php?username=${login.user}&password=${login.password}`, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } })
-            .then(res => {
-                const max_connections = parseInt(res.data['user_info']['max_connections']);
-                const active_cons = parseInt(res.data['user_info']['active_cons']);
-                const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
-                try {
-                    if (active_cons < max_connections && ativo) {
-                        uLogin = login;
-                        breakFor = true;
-                    } else if (!ativo && login?.user.includes('meuteste')) {
-                        const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json")
-                        let live_temp = readJSON(pathTempLogin);
-                        const index = live_temp.findIndex((item) => item.user === login.user);
-                        live_temp.splice(index, 1);
-                        writeJSON(pathTempLogin, live_temp);
-                    }
-                } catch (error) {
-                    console.log(`Método checkAvaibleLogin gerou um erro no login: ${login}.\n`, error);
+    const shuffleLogins = shuffle(logins);
+    for (const login of shuffleLogins) {
+        const url = `${dnsProvedor}/player_api.php?username=${login.user}&password=${login.password}`;
+        const res = await axios(url, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } })
+            .catch(res => console.log(`URLPLAYERCONTROLLER: Erro ao consultar login ${login.user} - ${res}`)) as AxiosResponse;
+
+        if (res?.status == 200 && res?.data) {
+            const max_connections = parseInt(res.data['user_info']['max_connections']);
+            const active_cons = parseInt(res.data['user_info']['active_cons']);
+            const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
+            try {
+                if (active_cons < max_connections && ativo) {
+                    uLogin = login;
+                    breakFor = true;
+                } else if (!ativo && login.user?.includes('meuteste')) {
+                    const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json")
+                    let live_temp = readJSON(pathTempLogin);
+                    const index = live_temp.findIndex((item) => item.user === login.user);
+                    live_temp.splice(index, 1);
+                    writeJSON(pathTempLogin, live_temp);
                 }
-            }).catch(res => console.log(`Erro ao consultar login. Login: ${login.user} - Erro: ${res.response.status}-${res.response.statusText}`));
+            } catch (error) {
+                console.log(`URLPLAYERCONTROLLER: Erro no login: ${login.user}.\n`, error);
+            }
+        }
+
         if (breakFor) {
             break;
         }

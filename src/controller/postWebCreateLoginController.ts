@@ -52,7 +52,7 @@ export const postWebCreateLoginController = async (user: string, isTrial: boolea
     });
 
     
-    if (res.status == 200 && res.data.includes('https://tigotv.xyz/login/') && isLogar) {
+    if (res?.status == 200 && res.data?.includes('https://tigotv.xyz/login/') && isLogar) {
         console.log('Fazendo login...');
         isLogar = false;
         await loginController();
