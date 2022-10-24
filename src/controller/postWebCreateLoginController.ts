@@ -16,7 +16,7 @@ export const postWebCreateLoginController = async (user: string, isTrial: boolea
 
     if (isTrial) {
         form_data.append('create_custom_test', 1);
-        form_data.append('username', username); //'meuteste21'
+        form_data.append('username', username);
         form_data.append('password', password);
         url = 'https://tigotv.xyz/test/';
     } else {
@@ -51,22 +51,24 @@ export const postWebCreateLoginController = async (user: string, isTrial: boolea
         console.log(error)
     });
 
-    
-    if (res?.status == 200 && res.data?.includes('https://tigotv.xyz/login/') && isLogar) {
+
+    if (res && res?.status == 200 && res.data?.includes('https://tigotv.xyz/login/') && isLogar) {
         console.log('Fazendo login...');
         isLogar = false;
         await loginController();
         return postWebCreateLoginController(user, isTrial, false);
     }
 
-    const result: string = res['request'].path
-    let idLogin = '';
-    if (result.includes('client_id')) {
-        idLogin = result.split('=')[1];
-    }
+    if (res && res?.status === 200) {
+        const result: string = res['request'].path
+        let idLogin = '';
+        if (result.includes('client_id')) {
+            idLogin = result.split('=')[1];
+        }
 
-    if (idLogin) {
-        return { result: true, msg: 'Login criado com sucesso!', id: idLogin, user: username, pass: password };
+        if (idLogin) {
+            return { result: true, msg: 'Login criado com sucesso!', id: idLogin, user: username, pass: password };
+        }
     }
 
     return { result: false, msg: 'Erro ao gerar login!' };

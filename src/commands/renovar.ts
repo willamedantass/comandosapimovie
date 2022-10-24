@@ -7,7 +7,7 @@ import { Login } from "../type/login";
 import { User } from "../type/user";
 
 export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => {
-    const user: User = buscarUser(remoteJid)
+    const user: User = buscarUser(remoteJid);
     if (user || owner) {
         let credito: number = owner ? 1 : user.credito;
         if (credito <= 0) {
@@ -25,18 +25,19 @@ export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => 
 
         let login: Login = buscarLogin(usrLogin);
         if (login) {
-
             const agora = new Date();
             let vencimento = new Date(login.vencimento);
             if (agora > vencimento) {
                 vencimento.setDate(agora.getDate() + 30);
+            } else {
+                vencimento.setDate(vencimento.getDate() + 30);
             }
 
-            vencimento.setDate(vencimento.getDate() + 30);
             login.vencimento = vencimento.toISOString();
-            updateLogin(login)
+            updateLogin(login);
+            const options = { timeZone: 'America/Sao_Paulo', hour12: false }
             let msg = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n          📺 *MOVNOW* 📺 \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n \n';
-            msg += `Seu usuário ${login.user} foi renovado com sucesso! Para mais informações digite o comando #info.`;
+            msg += `Usuário ${login.user} renovado com sucesso! Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}`;
             return await sendText(true, msg);
         }
         reply(StringsMsg.errorLogin);

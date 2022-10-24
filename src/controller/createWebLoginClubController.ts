@@ -1,5 +1,7 @@
+import { createAndUpdateCache, readAction } from "./cacheDBController";
 import { getRandomString } from "../util/getRandomString";
 import { readJSON, writeJSON } from "../util/jsonConverte";
+import { Cache } from "../type/cache";
 import sleep from "../util/sleep";
 import path from "path";
 require('dotenv/config');
@@ -13,6 +15,14 @@ interface Response {
 }
 
 const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
+
+    const action = 'create_login_club'
+    let cache: Cache = await readAction(action);
+    const dataOld = new Date(cache.data);
+    const dataNow = new Date();
+    if (dataOld.getMinutes() === dataNow.getMinutes() && cache.count > 4) {
+        return { result: false, msg: 'Excesso de logins criado, tente novamente daqui 1 minuto.' }
+    }
 
     const axios = require('axios');
     const FormData = require('form-data');
@@ -36,21 +46,24 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
             'x_access_token': x_access_token
         }
     }).then((res) => {
+        console.log(`Clubtv Login: ${username}-${res?.data?.msg}`);
         if (res.data?.result) {
+            cache = { data: new Date().toISOString(), action: action, count: cache.count > 4 ? 0 : cache.count + 1} as Cache
+            createAndUpdateCache(cache);
             response = { result: true, msg: 'Login criado com sucesso!', user: username, pass: password };
         }
     }).catch(async (res) => {
         response = { result: false, msg: res?.response.data }
-        if(res?.response.status > 499 ){
+        if (res?.response.status > 499) {
             isLogar = false;
         }
     });
 
     if (isLogar && !response.result) {
-        console.log('Fazendo login...');
+        console.log(`Fazendo login... Islogar:${isLogar} Response:${response}`);
         isLogar = false;
         await loginCache();
-        await sleep(2000);
+        await sleep(3000);
         await createWebLoginClub(isLogar);
     }
     return response;

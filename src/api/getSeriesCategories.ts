@@ -2,7 +2,7 @@ import { readJSON } from '../function';
 import { getAxiosResult } from '../util/getAxios';
 import path from "path";
 import { writeJSON } from '../util/jsonConverte';
-import { createAndUpdateOption, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
 import { Cache } from '../type/cache';
 require('dotenv/config')
 
@@ -30,7 +30,7 @@ export const getSeriesCategories = async () => {
             action: action,
             
         }
-        createAndUpdateOption(cache);
+        createAndUpdateCache(cache);
         createCache(action, categorias)
         return categorias;
     } else {

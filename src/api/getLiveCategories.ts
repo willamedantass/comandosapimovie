@@ -1,4 +1,4 @@
-import { createAndUpdateOption, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
 import { Cache } from '../type/cache';
 import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
@@ -47,7 +47,7 @@ export const getLiveCategories = async (isAdult: boolean) => {
             data: new Date().toISOString(),
             action: action,
         }
-        createAndUpdateOption(cache)
+        createAndUpdateCache(cache)
         createCache(action, categorias);
     }
 

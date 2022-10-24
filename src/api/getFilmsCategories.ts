@@ -1,4 +1,4 @@
-import { createAndUpdateOption, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
 import { getAxiosResult } from '../util/getAxios';
 import { readJSON } from '../util/jsonConverte';
 import { Cache } from '../type/cache';
@@ -25,7 +25,7 @@ export const getFilmsCategories = async (isAdult: boolean) => {
             action: action,
 
         }
-        createAndUpdateOption(cache);
+        createAndUpdateCache(cache);
         createCache(action, filmsCategories)
     }
    

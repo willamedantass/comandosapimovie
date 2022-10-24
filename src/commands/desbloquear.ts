@@ -15,10 +15,7 @@ export default async ({ reply, args, owner }: IBotData) => {
                 vencimento.setHours(23, 59, 59, 998);
                 login.vencimento = vencimento.toISOString();
                 await updateLogin(login);
-                let options = {
-                    timeZone: 'America/Sao_Paulo',
-                    hour12: false
-                }
+                const options = { timeZone: 'America/Sao_Paulo', hour12: false }
                 return await reply(`✅ Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}.`);
             }
             return await reply('Não foi possível fazer o desbloqueio, comando contém erros.');

@@ -6,6 +6,8 @@ import { provedorAcesso } from "../type/provedor";
 import { Login } from "../type/login";
 import axios, { AxiosResponse } from 'axios';
 import path from "path";
+import { getAxiosResult } from "../util/getAxios";
+import sleep from "../util/sleep";
 const idProvedorClub = '2'
 
 export const urlPlayerController = async (req, res) => {
@@ -58,8 +60,15 @@ export const urlPlayerController = async (req, res) => {
         }
     }
 
+    const action = 'get_live_categories';
+    const estaNoAr = await getAxiosResult(action, idProvedor);
+    if (!estaNoAr || estaNoAr?.status > 201 || !estaNoAr?.data || estaNoAr?.data['error']) {
+        console.log(`Servidor id-${idProvedor} está fora do ar. Status: ${estaNoAr?.status} Erro: ${estaNoAr?.data}`);
+        return res.status(404).end();
+    }
+
     const link = await getUrl(idProvedor, media, user, password, video);
-    console.log(link);
+    console.log('Link Gerado: '+link);
     if (!link) {
         return res.status(404).end();
     }
@@ -127,9 +136,9 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
     for (const login of shuffleLogins) {
         const url = `${dnsProvedor}/player_api.php?username=${login.user}&password=${login.password}`;
         const res = await axios(url, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } })
-            .catch(res => console.log(`URLPLAYERCONTROLLER: Erro ao consultar login ${login.user} - ${res}`)) as AxiosResponse;
+            .catch(res => console.log(`URLPLAYERCONTROLLER: Erro ao consultar servidor DNS-${dnsProvedor} login ${login.user} - ${res}`)) as AxiosResponse;
 
-        if (res?.status == 200 && res?.data) {
+        if (res?.status === 200 && res?.data && !res.data['error']) {
             const max_connections = parseInt(res.data['user_info']['max_connections']);
             const active_cons = parseInt(res.data['user_info']['active_cons']);
             const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
@@ -145,7 +154,7 @@ const checkAvaibleLogin = async (dnsProvedor, logins) => {
                     writeJSON(pathTempLogin, live_temp);
                 }
             } catch (error) {
-                console.log(`URLPLAYERCONTROLLER: Erro no login: ${login.user}.\n`, error);
+                console.log(`URLPLAYERCONTROLLER: Erro no servidor ${dnsProvedor} login: ${login.user}.\n`, error);
             }
         }
 
