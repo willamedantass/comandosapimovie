@@ -1,4 +1,4 @@
-import { createAndUpdateOption, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
 import { Cache } from '../type/cache';
 import { getAxiosResult } from '../util/getAxios';
 require('dotenv/config')
@@ -61,7 +61,7 @@ export const getLiveStreams = async (isAdult: boolean) => {
             action: action,
             
         }
-        createAndUpdateOption(cache);
+        createAndUpdateCache(cache);
         createCache(action, streamsJson);
         createCache(action_adult, streamsAdult);
         createCache(action_club, streamsClub);
