@@ -7,7 +7,7 @@ const pathJson = path.join(__dirname, "..", "..", "cache", "login.json");
 export const criarLogin = async (login: Login) => {
     var arquivo = readJSON(pathJson);
     arquivo.push(login)
-    await writeJSON(pathJson, arquivo);
+    writeJSON(pathJson, arquivo);
 }
 
 export const readLogins = (user: string) => {
