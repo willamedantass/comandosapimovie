@@ -1,8 +1,8 @@
-import { postWebCreateLoginController } from "./postWebCreateLoginController";
 import { buscarLogin, criarLogin } from "./loginDBController";
 import { Login } from "../type/login";
 import { getRandomString } from "../util/getRandomString";
 import { uid } from "uid";
+import { createLoginWebKOfficeController } from "./createLoginWebKOfficeController";
 
 export const createLoginController = async (userLogin: string, isTrial: boolean, isLive: boolean) => {
     
@@ -22,7 +22,7 @@ export const createLoginController = async (userLogin: string, isTrial: boolean,
     const isLogar = true;
     let result = {result: true, msg: '', user: userLogin, pass: getRandomString() }
     if(isLive && isTrial){
-        result = await postWebCreateLoginController(userLogin, isTrial, isLogar);
+        result = await createLoginWebKOfficeController(isLogar);
     }    
 
     if (result['result'] == false) {

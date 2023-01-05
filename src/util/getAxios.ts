@@ -22,7 +22,7 @@ export const getAxiosResult = async (action: string, provedor: string, id?: stri
             } else if (action === "get_short_epg") {
                 res = await axios(`${login.dns}/player_api.php?username=${login.user}&password=${login.password}&action=${action}&stream_id=${id}&limit=${limit}`, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } });
             } else {
-                res = await axios(`${login.dns}/player_api.php?username=${login.user}&password=${login.password}&action=${action}`, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } });
+                res = await axios(`${login.dns}/player_api.php?username=${login.user}&password=${login.password}${action ? '&action='+action: ''}`, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } });
             }
         }
         return res;

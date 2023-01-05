@@ -4,6 +4,8 @@ import { readJSON, writeJSON } from "../util/jsonConverte";
 import { Cache } from "../type/cache";
 import sleep from "../util/sleep";
 import path from "path";
+import { StringClean } from "../util/stringClean";
+import { Names } from "../util/names";
 require('dotenv/config');
 const pathSessionClub = path.join(__dirname, "..", "..", "cache", "session_club.json");
 
@@ -30,7 +32,7 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
     const urlClubApi = process.env.URL_CLUBTV_API;
     const x_access_token = readJSON(pathSessionClub)?.token || '000000000';
     const url: string = `${urlClubApi}/listas/teste`;
-    const username: string = `meuteste${getRandomNumber()}`;
+    const username: string = StringClean(Names[Math.floor(Math.random() * Names.length)])+getRandomNumber();
     const password: string = (getRandomString() + '5');
     let response: Response = { result: false, msg: '' };
     form_data.append('adulto', 35);

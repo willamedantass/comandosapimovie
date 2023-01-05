@@ -9,7 +9,7 @@ export const loginController = async () => {
     form_data.append('username', process.env.LOGIN_PAINELWEB_USUARIO);
     form_data.append('password', process.env.LOGIN_PAINELWEB_SENHA);
     form_data.append('try_login', 1);
-    let res = await axios.post("http://tigotv.xyz/",
+    let res = await axios.post("https://tigotv.xyz/login/",
         form_data, { headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
             'content-type': 'multipart/form-data'

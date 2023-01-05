@@ -1,4 +1,3 @@
-import { postWebCreateLoginController } from "./postWebCreateLoginController";
 import createWebLoginClub from "./createWebLoginClubController";
 import { buscarLogin, updateLogin } from "./loginDBController";
 import { readJSON, writeJSON } from "../util/jsonConverte";
@@ -7,8 +6,10 @@ import { Login } from "../type/login";
 import axios, { AxiosResponse } from 'axios';
 import path from "path";
 import { getAxiosResult } from "../util/getAxios";
-import sleep from "../util/sleep";
+import { createLoginWebKOfficeController } from "./createLoginWebKOfficeController";
+import { deleteLoginKOffice } from "./deleteLoginKOffice";
 const idProvedorClub = '2'
+let isProcesslogin: boolean = false;
 
 export const urlPlayerController = async (req, res) => {
     const media: string = req.params.media;
@@ -60,15 +61,8 @@ export const urlPlayerController = async (req, res) => {
         }
     }
 
-    const action = 'get_live_categories';
-    const estaNoAr = await getAxiosResult(action, idProvedor);
-    if (!estaNoAr || estaNoAr?.status > 201 || !estaNoAr?.data || estaNoAr?.data['error']) {
-        console.log(`Servidor id-${idProvedor} está fora do ar. Status: ${estaNoAr?.status} Erro: ${estaNoAr?.data}`);
-        return res.status(404).end();
-    }
-
-    const link = await getUrl(idProvedor, media, user, password, video);
-    console.log('Link Gerado: '+link);
+    const link = await getUrl(idProvedor, media, video);
+    console.log(`Link Gerado: ${link}`);
     if (!link) {
         return res.status(404).end();
     }
@@ -76,20 +70,20 @@ export const urlPlayerController = async (req, res) => {
     res.status(301).send()
 }
 
-const getUrl = async (provedor: string, media: string, user: string, password: string, video: string) => {
+const getUrl = async (provedor: string, media: string, video: string) => {
     require('dotenv/config');
     const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
     const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === provedor);
     if (acesso) {
         if (media === 'live' && (provedor === idProvedorLive || provedor === idProvedorClub)) {
-            return await gerenteCountLive(provedor, acesso.dns, acesso.user, acesso.password, media, video);
+            return await gerenteCountLive(provedor, acesso.dns, media, video);
         } else {
             return `${acesso.dns}/${media}/${acesso.user}/${acesso.password}/${video}`;
         }
     }
 }
 
-export const gerenteCountLive = async (provedor: string, dnsProvedor: string, user: string, password: string, media: string, video: string) => {
+export const gerenteCountLive = async (provedor: string, dnsProvedor: string, media: string, video: string) => {
 
     let pathLive: string, pathLiveTemp: string, login;
     if (provedor === idProvedorClub) {
@@ -101,60 +95,74 @@ export const gerenteCountLive = async (provedor: string, dnsProvedor: string, us
     }
 
     const live_pass = readJSON(pathLive);
-    login = await checkAvaibleLogin(dnsProvedor, live_pass);
+    login = await checkAvaibleLogin(dnsProvedor, live_pass, false);
     if (login) {
         return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
     }
 
     const live_temp = readJSON(pathLiveTemp);
-    login = await checkAvaibleLogin(dnsProvedor, live_temp);
+    login = await checkAvaibleLogin(dnsProvedor, live_temp, true);
     if (login) {
         return `${dnsProvedor}/${media}/${login["user"]}/${login["password"]}/${video}`;
     }
 
-    if (provedor === idProvedorClub) {
-        login = await createWebLoginClub(true);
-    } else {
-        login = await postWebCreateLoginController('loginteste', true, true);
+    const action = 'get_live_categories';
+    const estaNoAr = await getAxiosResult(action, provedor);
+    if (!estaNoAr || estaNoAr?.status > 201 || !estaNoAr?.data || estaNoAr?.data['error']) {
+        return console.log(`Servidor id-${provedor} está fora do ar. Status: ${estaNoAr?.status} Erro: ${estaNoAr?.data}`);
     }
 
-    if (login && login['user']) {
-        const Login_temp = { user: login['user'], password: login['pass'] };
-        let liveTemp = readJSON(pathLiveTemp);
-        liveTemp.push(Login_temp);
-        writeJSON(pathLiveTemp, liveTemp);
-        return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
+    if (isProcesslogin) {
+        return console.log('Sistema está em processo de criação de login!');
     }
+
+    isProcesslogin = true;
+    for (let i = 0; i < 3; i++) {
+        if (provedor === idProvedorClub) {
+            login = await createWebLoginClub(true);
+        } else {
+            login = await createLoginWebKOfficeController(true);
+        }
+
+        if (login && login['user']) {
+            const Login_temp = { user: login['user'], password: login['pass'] };
+            let liveTemp = readJSON(pathLiveTemp);
+            liveTemp.push(Login_temp);
+            writeJSON(pathLiveTemp, liveTemp);
+        }
+    }
+
+    //Método só funciona nos paineis koffice.
+    if (provedor !== idProvedorClub) {
+        deleteLoginKOffice(true);
+    }
+    isProcesslogin = false;
+    return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
 }
 
-const checkAvaibleLogin = async (dnsProvedor, logins) => {
+const checkAvaibleLogin = async (dnsProvedor: string, logins, isTrialLogin: boolean) => {
     if (logins.length === 0) {
         return
     }
+
     let uLogin, breakFor = false;
     const shuffleLogins = shuffle(logins);
     for (const login of shuffleLogins) {
+        let isError404 = false;
         const url = `${dnsProvedor}/player_api.php?username=${login.user}&password=${login.password}`;
         const res = await axios(url, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } })
-            .catch(res => console.log(`URLPLAYERCONTROLLER: Erro ao consultar servidor DNS-${dnsProvedor} login ${login.user} - ${res}`)) as AxiosResponse;
+            .catch(res => {
+                isError404 = res?.response?.status === 404;
+                console.log(`URLPLAYERCONTROLLER: Erro ao consultar servidor DNS-${dnsProvedor} login ${login.user} - ${res}`)
+            }) as AxiosResponse;
 
-        if (res?.status === 200 && res?.data && !res.data['error']) {
+        if (!isError404 && res?.status === 200 && res?.data && !res.data['error']) {
             const max_connections = parseInt(res.data['user_info']['max_connections']);
             const active_cons = parseInt(res.data['user_info']['active_cons']);
             const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
-            try {
-                if (active_cons < max_connections && ativo) {
-                    uLogin = login;
-                    breakFor = true;
-                } else if (!ativo && login.user?.includes('meuteste')) {
-                    const pathTempLogin = path.join(__dirname, "..", "..", "cache", "live_temp.json")
-                    let live_temp = readJSON(pathTempLogin);
-                    const index = live_temp.findIndex((item) => item.user === login.user);
-                    live_temp.splice(index, 1);
-                    writeJSON(pathTempLogin, live_temp);
-                }
-            } catch (error) {
-                console.log(`URLPLAYERCONTROLLER: Erro no servidor ${dnsProvedor} login: ${login.user}.\n`, error);
+            if (active_cons < max_connections && ativo) {
+                uLogin = login;
+                breakFor = true;
             }
         }
 
