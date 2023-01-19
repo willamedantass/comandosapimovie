@@ -3,6 +3,7 @@ import { getAxiosResult } from '../util/getAxios';
 import { readJSON } from '../util/jsonConverte';
 import { Cache } from '../type/cache';
 import path from "path";
+import { StringClean } from '../util/stringClean';
 require('dotenv/config')
 
 export const getFilmsCategories = async (isAdult: boolean) => {
@@ -19,16 +20,25 @@ export const getFilmsCategories = async (isAdult: boolean) => {
             let res = await getAxiosResult(action, login.id);
             forEachFilms(res, filmsCategories, login.id, login.sigla, isAdult);
         }
-        
+
+        const filmsCategoriesNew = []
+        for (let category of filmsCategories) {
+            if (StringClean(category['category_name']).includes('lancamento')) {
+                filmsCategoriesNew.unshift(category);
+            } else {
+                filmsCategoriesNew.push(category);
+            }
+        }
+
         const cache: Cache = {
             data: new Date().toISOString(),
             action: action,
 
         }
         createAndUpdateCache(cache);
-        createCache(action, filmsCategories)
+        createCache(action, filmsCategoriesNew)
     }
-   
+
     if (isAdult) {
         const categories = await readCache(action);
         categories.push(category_adult);
@@ -36,7 +46,7 @@ export const getFilmsCategories = async (isAdult: boolean) => {
     } else {
         return readCache(action);
     }
-    
+
 }
 
 const forEachFilms = (res, films, provedor: string, siglaProvedor: string, isAdult: boolean) => {

@@ -1,5 +1,5 @@
 import { buscarLogin, updateLogin } from "../controller/loginDBController";
-import { buscarUser } from "../controller/userDBController";
+import { buscarUser, updateUser } from "../controller/userDBController";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
@@ -28,7 +28,8 @@ export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => 
             const agora = new Date();
             let vencimento = new Date(login.vencimento);
             if (agora > vencimento) {
-                vencimento.setDate(agora.getDate() + 30);
+                vencimento.setFullYear(agora.getFullYear(), agora.getMonth(), agora.getDate());
+                vencimento.setDate(vencimento.getDate() + 30);
             } else {
                 vencimento.setDate(vencimento.getDate() + 30);
             }
@@ -38,7 +39,10 @@ export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => 
             const options = { timeZone: 'America/Sao_Paulo', hour12: false }
             let msg = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n          📺 *MOVNOW* 📺 \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n \n';
             msg += `Usuário ${login.user} renovado com sucesso! Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}`;
-            return await sendText(true, msg);
+            user.credito -= 1;
+            updateUser(user);
+            await sendText(true, msg);
+            return await sendText(true,`Seu novo saldo em crédito: ${user.credito}`);
         }
         reply(StringsMsg.errorLogin);
     } else {
