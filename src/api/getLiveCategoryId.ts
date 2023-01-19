@@ -8,7 +8,7 @@ export const getLiveCategoryId = async (category_id: string) => {
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
     
-    if(id === '999990'){
+    if(id === '99990'){
         return readJSON(path.join(__dirname, "..", "..", "cache", "get_live_clubtv.json"));
     }
     

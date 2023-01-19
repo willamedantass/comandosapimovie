@@ -22,5 +22,13 @@
         "password": "81115316",
         "sigla": "ELT",
         "dns":"http://tntmais.com"
+    },
+    {
+        "id": "5",
+        "provedor": "vlplay",
+        "user": "3186143153",
+        "password": "0634042053",
+        "sigla": "VLP",
+        "dns":"http://np2t.top"
     }
 ]

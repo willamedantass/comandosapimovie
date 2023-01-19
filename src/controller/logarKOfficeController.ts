@@ -6,7 +6,6 @@ require('dotenv/config')
 export const logarKOfficeController = async () => {
     const axios = require('axios');
     const FormData = require('form-data');
-    const pathSession = path.join(__dirname, "..", "..", "cache", "sessionCookie.txt");
     const form_data = new FormData();
     form_data.append('username', process.env.LOGIN_PAINELWEB_USUARIO);
     form_data.append('password', process.env.LOGIN_PAINELWEB_SENHA);

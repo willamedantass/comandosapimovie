@@ -36,6 +36,7 @@ export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
         user.credito -= 1;
         updateUser(user);
         await sendText(true, msg);
+        await sendText(true,`Seu novo saldo em crédito: ${user.credito}`);
     } else {
         await reply(StringsMsg.errorUser);
     }

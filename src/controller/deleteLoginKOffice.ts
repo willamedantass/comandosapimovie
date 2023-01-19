@@ -1,5 +1,5 @@
 import path from "path";
-import { readJSON } from "../util/jsonConverte";
+import { readJSON, writeJSON } from "../util/jsonConverte";
 import { logarKOfficeController } from "./logarKOfficeController";
 const pathPhpSessid = path.join(__dirname, "..", "..", "cache", "phpsessid.json");
 const FormData = require('form-data');
@@ -7,7 +7,7 @@ require('dotenv/config')
 
 export const deleteLoginKOffice = async (isLogar: boolean) => {
     console.log('Executando exclusão dos logins expirados....');
-    
+
     const url_server = process.env.URL_PAINELWEB_KOFFICE;
     let isError404 = false;
     const phpSessid = readJSON(pathPhpSessid)?.token || 'PHPSESSID=osfqii9avtprc2khamohugfbsi';
@@ -36,6 +36,9 @@ export const deleteLoginKOffice = async (isLogar: boolean) => {
     }
 
     if (!isError404 && res && res?.status === 200 && typeof res?.data === 'object') {
+        const pathLoginTemp = path.join(__dirname, "..", "..", "cache", "live_temp.json");
+        let logins = readJSON(pathLoginTemp);
+
         for (let user of res.data['data']) {
             if (user[8].replace(/<span class="badge badge-warning">(.*?)<\/span>/, '$1') === 'Expirado') {
                 const url_delete = `${url_server}/clients/api/?delete_client&client_id=${user[0]}`;
@@ -51,13 +54,16 @@ export const deleteLoginKOffice = async (isLogar: boolean) => {
                 }).catch(res => {
                     console.log('Erro ao deletar usuário.');
                 });
+                const index = logins.findIndex((login) => login.user === user[1]);
+                if (index) {
+                    logins = logins.filter((login) => login.user !== user[1]);
+                }
                 console.log(`Login ${user[0]} excluido: ${res_delete?.data.result}`);
             }
         }
+        writeJSON(pathLoginTemp, logins);
     }
-
     console.log('Processo de exclusão dos logins expirados, finalizado com sucesso.');
-    
 }
 
 const FilterFormData = () => {

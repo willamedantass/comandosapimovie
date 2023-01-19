@@ -117,6 +117,7 @@ export const gerenteCountLive = async (provedor: string, dnsProvedor: string, me
     }
 
     isProcesslogin = true;
+    console.log('Sistema iniciando criacão de logins de teste!');
     for (let i = 0; i < 3; i++) {
         if (provedor === idProvedorClub) {
             login = await createWebLoginClub(true);
@@ -129,14 +130,16 @@ export const gerenteCountLive = async (provedor: string, dnsProvedor: string, me
             let liveTemp = readJSON(pathLiveTemp);
             liveTemp.push(Login_temp);
             writeJSON(pathLiveTemp, liveTemp);
+            console.log(`Login ${Login_temp.user} criado com sucesso!!!`);
         }
     }
-
+    
     //Método só funciona nos paineis koffice.
     if (provedor !== idProvedorClub) {
         deleteLoginKOffice(true);
     }
     isProcesslogin = false;
+    console.log('Sistema de criacão de logins finalizados!');
     return `${dnsProvedor}/${media}/${login['user']}/${login['pass']}/${video}`;
 }
 
