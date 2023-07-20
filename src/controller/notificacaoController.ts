@@ -1,6 +1,6 @@
 import { readJSON } from "../function";
 import path from "path";
-import { updateUser } from "./userDBController";
+import { updateUser } from "../data/userDB";
 import { User } from "../type/user";
 require('dotenv/config');
 

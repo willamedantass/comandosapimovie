@@ -19,7 +19,7 @@ export const listaController = async (req, res) => {
     }
 
     const today = new Date();
-    const vencimento = new Date(user.dataVencimento);
+    const vencimento = new Date(user.dataVencimento || today);
     if (today > vencimento) {
         return res.status(400).send('Usuário vencido!')
     }

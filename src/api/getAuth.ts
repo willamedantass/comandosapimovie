@@ -17,8 +17,8 @@ export const getAuth = async (login: Login) => {
     auth_pass['user_info'].status = (today > new Date(login.vencimento)) ? ': Esta Vencida!' : 'Active';
     auth_pass['user_info'].created_at = String(new Date(login.dataCadastro).getTime()).substring(0, 10);
     auth_pass['user_info'].exp_date = String(new Date(login.vencimento).getTime()).substring(0, 10);
-    auth_pass['server_info'].url = process.env.SERVER_PROXY_IP;
-    auth_pass['server_info'].port = process.env.SERVER_PROXY_PORT;
+    auth_pass['server_info'].url = process.env.SERVER_PROXY_IP as string;
+    auth_pass['server_info'].port = process.env.SERVER_PROXY_PORT as string;
     auth_pass['server_info'].timestamp_now = today.getTime();
     auth_pass['server_info'].time_now = today.toLocaleString('pt-br',options);
     return auth_pass;

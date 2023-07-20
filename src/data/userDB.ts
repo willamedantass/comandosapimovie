@@ -16,8 +16,8 @@ export const buscarUser = (remoteJid: string) => {
 }
 
 export const updateUser = async (user: User) => {
-    const users = readJSON(pathJson)
-    var usersNew = []
+    const users: any[] = readJSON(pathJson)
+    var usersNew: any[] = []
 
     users.forEach(value => {
         if (value.remoteJid === user.remoteJid) {
@@ -26,5 +26,5 @@ export const updateUser = async (user: User) => {
             usersNew.push(value)
         }
     });
-    await writeJSON(pathJson, usersNew);
+    writeJSON(pathJson, usersNew);
 }

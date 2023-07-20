@@ -6,14 +6,16 @@ import { apkDownload } from "../controller/apkDownload";
 import { PlayerApi } from "../controller/PlayerApi";
 import { xmltv } from "../controller/xmltv";
 import { Router } from "express";
+import { RenovacaoController } from "../controller/renovacaoController";
 
 const router = Router();
 router.post('/notificacoes', notificacaopix);
+router.get('/renovar/:login', RenovacaoController);
 router.get('/apk', apkDownload)
 router.get('/lista/:provedor/:login', listaController);
 router.get('/url/:provedor/:media/:login/:video', urlController);
 router.get('/:media/:user/:password/:video', urlPlayerController);
-router.get(['/player_api.php','/panel_api.php'], PlayerApi)
+router.get(['/player_api.php','/panel_api.php'], PlayerApi);
 router.get('/xmltv.php', xmltv)
 
 export default router;

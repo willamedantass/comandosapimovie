@@ -20,7 +20,7 @@ export const buscarLogin = (user: string) => {
 
 export const updateLogin = async (login: Login) => {
     const logins = readJSON(pathJson)
-    var loginsNew = []
+    var loginsNew: any[] = []
 
     logins.forEach(value => {
         if (value.user === login.user) {
@@ -33,7 +33,7 @@ export const updateLogin = async (login: Login) => {
 }
 
 export const removerTestes = () =>{
-    const logins = [];
+    const logins: any[] = [];
     const today = new Date();
     readJSON(pathJson).forEach(login => {
         if(login.isTrial && today > new Date(login.vencimento)){

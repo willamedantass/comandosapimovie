@@ -1,4 +1,4 @@
-import { updateUser } from "./controller/userDBController";
+import { updateUser } from "./data/userDB";
 import { Question, User } from "./type/user";
 import { clearEmotionAndEspace } from "./function";
 import { StringClean } from "./util/stringClean";

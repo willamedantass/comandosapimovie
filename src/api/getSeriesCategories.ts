@@ -2,7 +2,7 @@ import { readJSON } from '../function';
 import { getAxiosResult } from '../util/getAxios';
 import path from "path";
 import { writeJSON } from '../util/jsonConverte';
-import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
 import { Cache } from '../type/cache';
 require('dotenv/config')
 
@@ -14,7 +14,7 @@ export const getSeriesCategories = async () => {
     if (dataOld.getDay() !== dataNow.getDay()) {
 
         const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
-        let categorias = [];
+        let categorias: any[] = [];
         categorias.push({ "category_id": "9", "category_name": "NOVELAS", "parent_id": 0 });
         let category_novelas = []
         for(const login of logins){

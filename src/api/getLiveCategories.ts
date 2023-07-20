@@ -1,19 +1,25 @@
-import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
-import { Cache } from '../type/cache';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
 import { getAxiosResult } from '../util/getAxios';
+import { readJSON } from '../util/jsonConverte';
+import { Cache } from '../type/cache';
+import path from 'path';
 require('dotenv/config')
 
-export const getLiveCategories = async (isAdult: boolean) => {
-    const provedor = process.env.PROVEDOR_LIVES_ID;
-    const category_adult = process.env.CATEGORIA_XXX_LIVE;
+export const getLiveCategories = async (isAdult: boolean, isClubtv: boolean) => {
+
+    let categorias: any[];
+    const action_clubtv = 'get_live_categories_clubtv';
     const action = 'get_live_categories';
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
     const element_adult = { "category_id": "999999", "category_name": "CANAIS | CANAIS ADULTO", "parent_id": 0 };
-    const element_Channel_clubtv = { "category_id": "999990", "category_name": "CLUBTV | FHD/HD", "parent_id": 0 };
     if (dataOld.getDay() !== dataNow.getDay()) {
-        const categorias = [];
-        const res = await getAxiosResult(action, provedor);
+        const element_Channel_clubtv = { "category_id": "999990", "category_name": "CLUBTV | FHD/HD", "parent_id": 0 };
+        const provedor = process.env.PROVEDOR_LIVES_ID;
+        const category_adult = process.env.CATEGORIA_XXX_LIVE;
+        categorias = [];
+        const live_categorias = readJSON(path.join(__dirname, "..", "..", "cache", "live_categorias.json"));
+        let res = {status: 200, data: live_categorias} //await getAxiosResult(action, provedor);
         if (res?.status == 200 && res?.data.length > 1) {
             res?.data.forEach(element => {
                 const category_id = element.category_id;
@@ -43,20 +49,47 @@ export const getLiveCategories = async (isAdult: boolean) => {
             });
         }
 
-        const cache: Cache = {
+        let cache: Cache = {
             data: new Date().toISOString(),
             action: action,
         }
         createAndUpdateCache(cache)
         createCache(action, categorias);
+
+
+        //***listando os canais da clubtv***
+        categorias = [];
+
+        res = await getAxiosResult(action, '2');
+        if (res?.status == 200 && res?.data.length > 1) {
+            res?.data.forEach(element => {
+                const category_id = element.category_id;
+                if (category_id === '12') {
+                    return
+                }
+                element.category_id = '2' + category_id;
+                categorias.push(element);
+            });
+        }
+
+        cache = {
+            data: new Date().toISOString(),
+            action: action,
+        }
+        createAndUpdateCache(cache)
+        createCache(action_clubtv, categorias);
+
+    }
+
+    categorias = [];
+    if (isClubtv) {
+        categorias = categorias.concat(await readCache(action_clubtv));
+    } else {
+        categorias = categorias.concat(await readCache(action));
     }
 
     if (isAdult) {
-        const categorias = await readCache(action);
         categorias.push(element_adult);
-        return categorias;
-
-    } else {
-        return readCache(action);
     }
+    return categorias;
 }

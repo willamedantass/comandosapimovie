@@ -1,9 +1,9 @@
-import { buscarUser, updateUser } from "../controller/userDBController";
+import { buscarUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
 import { Acesso, User } from "../type/user";
 import { Login } from "../type/login";
-import { readLogins } from "../controller/loginDBController";
+import { readLogins } from "../data/loginDB";
 
 export default async ({ remoteJid, sendText, reply, owner }: IBotData) => {
     if (owner) {

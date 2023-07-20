@@ -17,15 +17,16 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/lodash": "^4.14.184",
-    "@types/morgan": "^1.9.3",
+    "@types/morgan": "^1.9.4",
     "@types/node": "^18.7.14",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@adiwajshing/baileys": "^4.4.0",
+    "@adiwajshing/keyed-db": "^0.2.4",
     "@antiadmin/anticaptchaofficial": "^1.0.26",
     "@hapi/boom": "^10.0.0",
+    "@whiskeysockets/baileys": "^6.2.1",
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
     "csv-writer": "^1.6.0",

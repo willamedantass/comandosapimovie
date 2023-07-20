@@ -1,4 +1,4 @@
-import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
 import { Cache } from '../type/cache';
 import { getAxiosResult } from '../util/getAxios';
 import { readJSON } from '../util/jsonConverte';
@@ -48,10 +48,10 @@ export const getFilms = async (isAdult: boolean) => {
 }
 
 const forEachFilms = (res, films, filmsAdult, provedor: string) => {
-    const categories_adult = process.env.CATEGORIA_XXX_FILME.split(',');
+    const categories_adult = process.env.CATEGORIA_XXX_FILME?.split(',');
     if (res?.status == 200 && res?.data.length > 1) {
         res.data.forEach(element => {
-            if (categories_adult.find(category => category == element.category_id)) {
+            if (categories_adult?.find(category => category == element.category_id)) {
                 element.stream_id = provedor + element.stream_id;
                 element.category_id = "999999";
                 filmsAdult.push(element);

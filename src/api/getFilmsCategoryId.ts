@@ -12,7 +12,7 @@ export const getFilmsCategoryId = async (category_id: string) => {
     }
 
     const res = await getAxiosResult('get_vod_streams', provedor,id);
-    let filmsJson = [];
+    let filmsJson: any[] = [];
     if (res?.status == 200 && res?.data.length > 1) {
         res.data.forEach(element => {
             element.stream_id = provedor + element.stream_id;

@@ -1,4 +1,4 @@
-import { buscarLogin, updateLogin } from "../controller/loginDBController";
+import { buscarLogin, updateLogin } from "../data/loginDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
 import { Login } from "../type/login";

@@ -1,4 +1,4 @@
-import { createAndUpdateCache, createCache, readCache, readOption } from '../controller/cacheDBController';
+import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
 import { getAxiosResult } from '../util/getAxios';
 import { readJSON } from '../util/jsonConverte';
 import { Cache } from '../type/cache';

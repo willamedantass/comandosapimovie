@@ -14,7 +14,7 @@ export const getSeriesCategoryId = async (category_id: string) => {
     }
 
     const res = await getAxiosResult('get_series', provedor,id);
-    let series=[];
+    let series:any[]=[];
     if(provedor === idProvedorQueNaoModifica){
         if (res?.status == 200 && res?.data.length > 1) {
             res.data.forEach(element => {
