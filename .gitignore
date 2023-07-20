@@ -1,5 +1,6 @@
 node_modules/
 build/
-cache/auth_info.json
+cache/*.json
 .env
-cache/get*
+cache/*
+baileys_store_multi.json

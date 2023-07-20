@@ -1,4 +1,4 @@
-import { createAndUpdateCache, readAction } from "./cacheDBController";
+import { createAndUpdateCache, readAction } from "../data/cacheDB";
 import { getRandomString } from "../util/getRandomString";
 import { readJSON, writeJSON } from "../util/jsonConverte";
 import { Cache } from "../type/cache";
@@ -6,8 +6,8 @@ import sleep from "../util/sleep";
 import path from "path";
 import { StringClean } from "../util/stringClean";
 import { Names } from "../util/names";
+import { createXAcessTokenClubtv } from "./createXAcessTokenClubtv";
 require('dotenv/config');
-const pathSessionClub = path.join(__dirname, "..", "..", "cache", "session_club.json");
 
 interface Response {
     result: boolean,
@@ -18,11 +18,13 @@ interface Response {
 
 const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
 
+    const pathSessionClub = path.join(__dirname, "..", "..", "cache", "session_club.json");
     const action = 'create_login_club'
     let cache: Cache = await readAction(action);
     const dataOld = new Date(cache.data);
     const dataNow = new Date();
-    if (dataOld.getMinutes() === dataNow.getMinutes() && cache.count > 4) {
+    const count = cache.count || 0;
+    if (dataOld.getMinutes() === dataNow.getMinutes() && count > 4) {
         return { result: false, msg: 'Excesso de logins criado, tente novamente daqui 1 minuto.' }
     }
 
@@ -32,7 +34,7 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
     const urlClubApi = process.env.URL_CLUBTV_API;
     const x_access_token = readJSON(pathSessionClub)?.token || '000000000';
     const url: string = `${urlClubApi}/listas/teste`;
-    const username: string = StringClean(Names[Math.floor(Math.random() * Names.length)])+getRandomNumber();
+    const username: string = StringClean(Names[Math.floor(Math.random() * Names.length)])+'mwsn';
     const password: string = (getRandomString() + '5');
     let response: Response = { result: false, msg: '' };
     form_data.append('adulto', 35);
@@ -50,7 +52,7 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
     }).then((res) => {
         console.log(`Clubtv Login: ${username}-${res?.data?.msg}`);
         if (res.data?.result) {
-            cache = { data: new Date().toISOString(), action: action, count: cache.count > 4 ? 0 : cache.count + 1} as Cache
+            cache = { data: new Date().toISOString(), action: action, count: count > 4 ? 0 : count + 1} as Cache
             createAndUpdateCache(cache);
             response = { result: true, msg: 'Login criado com sucesso!', user: username, pass: password };
         }
@@ -64,51 +66,11 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
     if (isLogar && !response.result) {
         console.log(`Fazendo login... Islogar:${isLogar} Response:${response}`);
         isLogar = false;
-        await loginCache();
+        await createXAcessTokenClubtv();
         await sleep(3000);
         await createWebLoginClub(isLogar);
     }
     return response;
-}
-
-const loginCache = async () => {
-    const axios = require('axios');
-    const FormData = require('form-data');
-    const form_data = new FormData();
-    const url_club_api = process.env.URL_CLUBTV_API;
-    const username = process.env.LOGIN_CLUBTV_PAINELWEB_USUARIO;
-    const password = process.env.LOGIN_CLUBTV_PAINELWEB_SENHA;
-    const chave_api = process.env.CHAVE_ANTICAPCHA_API;
-    const dataSiteKeyCapcha = process.env.DATA_SITEKEY_RECAPCHA;
-    let token_recapcha;
-
-    //Anti Capcha
-    const ac = require("@antiadmin/anticaptchaofficial");
-    ac.setAPIKey(chave_api);
-    ac.setSoftId(0);
-    await ac.solveRecaptchaV2Proxyless(url_club_api, dataSiteKeyCapcha)
-        .then(gresponse => {
-            token_recapcha = gresponse;
-            console.log(gresponse);
-
-        })
-        .catch(error => console.log('Não conseguiu resolver o captcha, erro:' + error));
-
-    form_data.append('username', username);
-    form_data.append('password', password);
-    form_data.append('g-recaptcha-response', token_recapcha);
-    await sleep(3000);
-    await axios.post(`${url_club_api}/login`, form_data, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
-        }
-    }).then((res) => {
-        if (res.data?.result) {
-            writeJSON(pathSessionClub, { token: res.data.token });
-        }
-    }).catch((res) => {
-        console.log('Não foi possível fazer login. Mensagem de erro:', res?.response.data.msg);
-    });
 }
 
 const getRandomNumber = (): string => {

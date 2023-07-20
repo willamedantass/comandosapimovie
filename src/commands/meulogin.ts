@@ -1,5 +1,5 @@
 import { createLoginController } from "../controller/createLoginController";
-import { buscarUser, updateUser } from "../controller/userDBController";
+import { buscarUser, updateUser } from "../data/userDB";
 import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
@@ -26,7 +26,7 @@ export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
         const isLive = true;
         const res = await createLoginController(userLogin, isTrial, isLive);
         if (!res['result']) {
-            return await reply(res['msg']);
+            return await reply(res['msg'] || '');
         }
         const msg: string = getMensagemLogin(res['login'].user, res['login'].password, res['login'].vencimento, LoginTituloType.login);
         if (!user?.logins) {

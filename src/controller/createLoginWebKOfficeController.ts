@@ -1,10 +1,10 @@
-import { createAndUpdateCache, readAction } from "./cacheDBController";
+import { createAndUpdateCache, readAction } from "../data/cacheDB";
 import { readJSON, writeJSON } from "../util/jsonConverte";
 import { Cache } from "../type/cache";
 import path from "path";
 import { logarKOfficeController } from "./logarKOfficeController";
 require('dotenv/config');
-const pathPhpSessid = path.join(__dirname, "..", "..", "cache", "phpsessid.json");
+const pathPhpSessid = path.join(__dirname, "..", "..", "cache", "koffice-phpsessid.json");
 
 export const createLoginWebKOfficeController = async (isLogar: boolean) => {
     const action = 'create_login'
@@ -12,7 +12,8 @@ export const createLoginWebKOfficeController = async (isLogar: boolean) => {
     let cache: Cache = await readAction(action);
     const dataOld = new Date(cache?.data);
     const dataNow = new Date();
-    if (dataOld.getMinutes() === dataNow.getMinutes() && cache.count > 4) {
+    const countCache = cache.count || 0;
+    if (dataOld.getMinutes() === dataNow.getMinutes() && countCache > 4) {
         return { result: false, msg: 'Excesso de logins criado, tente novamente daqui 1 minuto.' }
     }
     
@@ -42,7 +43,7 @@ export const createLoginWebKOfficeController = async (isLogar: boolean) => {
     }
 
     if (!isError404 && res && res?.status === 200 && typeof res?.data === 'object') {
-        cache = { data: new Date().toISOString(), action: action, count: cache.count > 4 ? 0 : cache.count + 1} as Cache
+        cache = { data: new Date().toISOString(), action: action, count: countCache > 4 ? 0 : countCache + 1} as Cache
         createAndUpdateCache(cache);
         const login = res.data.message.split('<br />').filter(line => line.includes('Usuário') || line.includes('Senha'));
         const username = login[0].split(':')[1].trim();

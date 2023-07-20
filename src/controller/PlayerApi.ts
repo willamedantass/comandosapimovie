@@ -7,7 +7,7 @@ import { getLiveCategories } from "../api/getLiveCategories";
 import { getLiveStreams } from "../api/getLiveStreams";
 import { getSeriesInfo } from "../api/getSeriesInfo";
 import { getMovieInfo } from "../api/getMovieInfo";
-import { buscarLogin } from "./loginDBController";
+import { buscarLogin } from "../data/loginDB";
 import { getEpgShort } from "../api/getEpgShort";
 import { getSeries } from "../api/getSeries";
 import { getFilms } from "../api/getFilms";
@@ -19,7 +19,8 @@ export const PlayerApi = async (req, res) => {
     const password: string = req.query.password;
     const action: string = req.query.action;
     const category_id: string = req.query.category_id;
-    //console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    //console.log(`${req.protocol}:
+    //${req.get('host')}${req.originalUrl}`);
 
     let login: Login = buscarLogin(user);
     if (!login) {
@@ -48,14 +49,15 @@ export const PlayerApi = async (req, res) => {
     }
 
     const isAdult = login?.isAdult ? login.isAdult : false;
+    const clubtv: boolean = login?.isClubtv ? login?.isClubtv : false;
     switch (action) {
         case 'get_live_categories':
-            return res.json(await getLiveCategories(isAdult));
+            return res.json(await getLiveCategories(isAdult, clubtv));
         case 'get_live_streams':
             if (category_id) {
                 return res.json(await getLiveCategoryId(category_id));
             }
-            return res.json(await getLiveStreams(isAdult));
+            return res.json(await getLiveStreams(isAdult, clubtv));
         case 'get_vod_categories':
             return res.json(await getFilmsCategories(isAdult));
         case 'get_vod_streams':
@@ -87,7 +89,9 @@ export const PlayerApi = async (req, res) => {
         case 'get_short_epg':
             const stream_id = req.query.stream_id;
             const limit = req.query.limit;
-            return res.json(await getEpgShort(stream_id, limit));
+            const url = await getEpgShort(stream_id, limit);
+            res.set('location', await getEpgShort(stream_id, limit));
+            return res.status(301).send();
         default:
             break;
     }

@@ -1,4 +1,4 @@
-import { proto } from '@adiwajshing/baileys'
+import { proto } from '@whiskeysockets/baileys'
 import { User } from '../type/user';
 
 export interface IBotData {
@@ -22,7 +22,7 @@ export interface IBotData {
     isDocument: boolean;
     command: string;
     args: string;
-    userJid: string;
+    userJid: string | undefined;
     messageText: string;
     user: User;
     owner: boolean;

@@ -1,4 +1,4 @@
-import { buscarUser, updateUser } from "../controller/userDBController";
+import { buscarUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
 import { User } from "../type/user";

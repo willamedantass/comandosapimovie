@@ -6,14 +6,14 @@ import { Login } from "../type/login";
 export default async ({reply, args}: IBotData) => {   
         const login: Login = buscarLogin(StringClean(args));
         if(login){
-            if(login?.isAdult){
-                login.isAdult = false;
+            if(login?.isClubtv){
+                login.isClubtv = false;
                 await updateLogin(login);
-                await reply("✅ Acesso canais/filmes adultos removido!");
+                await reply("✅ Acesso aos canais clubtv removido!");
             } else {
-                login.isAdult = true;
+                login.isClubtv = true;
                 await updateLogin(login);
-                await reply("❎ Acesso canais/filmes adultos liberado!");
+                await reply("❎ Acesso aos canais clubtv liberado!");
             }
         } else {
             reply('Usuário informado não existe!')

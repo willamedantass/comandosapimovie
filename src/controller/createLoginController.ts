@@ -1,4 +1,4 @@
-import { buscarLogin, criarLogin } from "./loginDBController";
+import { buscarLogin, criarLogin } from "../data/loginDB";
 import { Login } from "../type/login";
 import { getRandomString } from "../util/getRandomString";
 import { uid } from "uid";

@@ -1,5 +1,5 @@
-import { buscarLogin } from "../controller/loginDBController";
-import { buscarUser } from "../controller/userDBController";
+import { buscarLogin } from "../data/loginDB";
+import { buscarUser } from "../data/userDB";
 import { Login, LoginTituloType } from "../type/login";
 import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";

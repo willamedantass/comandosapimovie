@@ -20,7 +20,7 @@ export const urlController = async (req, res) => {
     }
 
     const today = new Date();
-    const vencimento = new Date(user.dataVencimento);
+    const vencimento = new Date(user.dataVencimento || today);
     if (today > vencimento) {
         return res.status(400).send('Usuário vencido!')
     }
@@ -31,15 +31,15 @@ export const urlController = async (req, res) => {
         switch (provedor) {
             case 'club':
                 pathM3U = path.join(__dirname, "..", "..", "cache", "club.m3u");
-                provedorDNS = process.env.SERVER_DNS_CLUB;
+                provedorDNS = process.env.SERVER_DNS_CLUB || '';
                 break;
             case 'elite':
                 pathM3U = path.join(__dirname, "..", "..", "cache", "elite.m3u");
-                provedorDNS = process.env.SERVER_DNS_ELITE;
+                provedorDNS = process.env.SERVER_DNS_ELITE || '';
                 break;
             case 'tigo':
                 pathM3U = path.join(__dirname, "..", "..", "cache", "tigo.m3u");
-                provedorDNS = process.env.SERVER_DNS_TIGO;
+                provedorDNS = process.env.SERVER_DNS_TIGO || '';
                 break;
             default:
                 break;

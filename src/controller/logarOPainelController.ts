@@ -1,17 +1,17 @@
 import { writeJSON } from "../util/jsonConverte";
 import path from "path";
-import { deleteLoginKOffice } from "./deleteLoginKOffice";
-const pathPhpSessid = path.join(__dirname, "..", "..", "cache", "koffice-phpsessid.json");
+const pathPhpSessid = path.join(__dirname, "..", "..", "cache", "opainel-phpsessid.json");
 require('dotenv/config')
 
-export const logarKOfficeController = async () => {
+export const logarOPainelController = async () => {
     const axios = require('axios');
     const FormData = require('form-data');
     const form_data = new FormData();
-    form_data.append('username', process.env.LOGIN_KOFFICE_USUARIO);
-    form_data.append('password', process.env.LOGIN_KOFFICE_SENHA);
-    form_data.append('try_login', 1);
-    const url = `${process.env.URL_PAINELWEB_KOFFICE}/login/`;
+    form_data.append('username', process.env.LOGIN_OPAINEL_USUARIO);
+    form_data.append('password', process.env.LOGIN_OPAINEL_SENHA);
+    form_data.append('AjaxAction', 'ExeLogin');
+    form_data.append('AjaxFile', 'Login');
+    const url = `${process.env.URL_PAINELWEB_OPAINEL}/src/ajax/Login.ajax.php`;
     let res = await axios.post(url,
         form_data, {
             headers: {
@@ -30,5 +30,4 @@ export const logarKOfficeController = async () => {
         writeJSON(pathPhpSessid, { token: sessionCookie });
     }
 
-    deleteLoginKOffice(true);
 }

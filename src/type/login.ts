@@ -3,6 +3,7 @@ export type Login = {
     uid : string,
     user : string,
     password : string,
+    isClubtv? : boolean,
     conexoes? : string,
     remoteIp?: string,
     dataRemote?: string,

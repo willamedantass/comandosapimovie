@@ -1,4 +1,4 @@
-import { buscarUser, updateUser } from "../controller/userDBController";
+import { buscarUser, updateUser } from "../data/userDB";
 import { isCriarPix } from "../function";
 import { IBotData } from "../Interface/IBotData";
 import { Acesso } from "../type/user";
@@ -7,10 +7,10 @@ import { StringsMsg } from "../util/stringsMsg";
 export default async ({ remoteJid, reply, sendText, owner }: IBotData) => {
     let user = buscarUser(remoteJid);
     if (user) {        
-        let valor = parseFloat(process.env.VALOR_LOGIN_1_ACESSO);
+        let valor = parseFloat(process.env.VALOR_LOGIN_1_ACESSO || '');
         let description = 'MOVNOW 30D'
         if(user.acesso === Acesso.revenda){
-            valor = parseFloat(process.env.VALOR_REVENDA);
+            valor = parseFloat(process.env.VALOR_REVENDA || '');
         }
         if (isCriarPix(user.dataPix) || user.acesso === Acesso.revenda || owner ) {
             var mercadopago = require('mercadopago');

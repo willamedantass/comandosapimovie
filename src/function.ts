@@ -5,7 +5,7 @@ import {
   GroupParticipant,
   isJidGroup,
   proto,
-} from "@adiwajshing/baileys";
+} from "@whiskeysockets/baileys";
 import fs from "fs";
 import { writeFile } from "fs/promises";
 import path from "path";
@@ -16,10 +16,10 @@ import { User } from "./type/user";
 export const getBotData = (
   socket: any,
   webMessage: proto.IWebMessageInfo,
-  user?: User
+  user: User
 ): IBotData => {
 
-  const { remoteJid } = webMessage.key;
+  const remoteJid = webMessage.key.remoteJid || '';
 
   const presenceTime = async (delayComposing: number, delayPaused: number) => {
     await socket.presenceSubscribe(remoteJid)
@@ -205,7 +205,7 @@ export const getBotData = (
     owner
   } = extractDataFromWebMessage(webMessage);
 
-  const { command, args } = extractCommandAndArgs(messageText);
+  const { command, args } = extractCommandAndArgs(messageText as string);
 
   return {
     presenceTime,
@@ -308,14 +308,14 @@ export const writeJSON = (pathFile: string, data: any) => {
 
 
 export const extractDataFromWebMessage = (message: proto.IWebMessageInfo) => {
-  let remoteJid: string;
-  let messageText: string | null | undefined;
-  let owner: boolean = message.key?.fromMe;
+  let remoteJid: string = '';
+  let messageText: string = '';
+  let owner: boolean = message.key?.fromMe || false;
 
   let isReply = false;
 
-  let replyJid: string | null = null;
-  let replyText: string | null = null;
+  let replyJid: string = '';
+  let replyText: string = '';
 
   const {
     key: { remoteJid: jid, participant: tempUserJid },
@@ -350,9 +350,9 @@ export const extractDataFromWebMessage = (message: proto.IWebMessageInfo) => {
     replyJid =
       extendedTextMessage && extendedTextMessage.contextInfo?.participant
         ? extendedTextMessage.contextInfo.participant
-        : null;
+        : '';
 
-    replyText = extendedTextMessage?.contextInfo?.quotedMessage?.conversation;
+    replyText = extendedTextMessage?.contextInfo?.quotedMessage?.conversation || '';
   }
 
   const userJid = tempUserJid?.replace(/:[0-9][0-9]|:[0-9]/g, "");

@@ -1,4 +1,4 @@
-import { readLogins } from "../controller/loginDBController";
+import { readLogins } from "../data/loginDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
 import { Login } from "../type/login";
