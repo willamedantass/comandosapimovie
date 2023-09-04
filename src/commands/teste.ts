@@ -1,33 +1,34 @@
-import { createLoginController } from '../controller/createLoginController';
-import { buscarUser, updateUser } from '../data/userDB';
-import { removerTestes } from '../data/loginDB';
+import { LoginController } from '../controller/loginController';
 import { getMensagemLogin } from '../util/getMensagem';
+import { StringClean } from '../util/stringClean';
+import { removerTestes } from '../data/loginDB';
 import { IBotData } from '../Interface/IBotData';
+import { mensagem } from '../util/jsonConverte';
 import { LoginTituloType } from '../type/login';
-import { StringsMsg } from '../util/stringsMsg';
-import { Acesso, User } from '../type/user';
-import { isCriarTeste } from '../function';
+import { buscarUser } from '../data/userDB';
+import { User } from '../type/user';
 
-
-export default async ({ reply, sendText, remoteJid, owner }: IBotData) => {
-    let user : User = buscarUser(remoteJid);
+export default async ({ reply, sendText, remoteJid, args }: IBotData) => {
+    let user: User = buscarUser(remoteJid);
     if (user) {
-        if (isCriarTeste(user?.dataTeste || '') || user.acesso === Acesso.revenda || owner) {
-            const isTrial = true;
-            const isLive = true;
-            const res = await createLoginController(user.nome, isTrial, isLive);
-            if(!res['result']){
-                return await reply(res['msg'] || '');
+        const isTrial = true;
+        const isReneew = false;
+        let username = StringClean(user.nome);
+        if (args) {
+            if (args.length < 8) {
+                return await reply(mensagem('errorLoginSize'));
             }
-            const msg : string = getMensagemLogin(res['login'].user, res['login'].password, res['login'].vencimento, LoginTituloType.teste)
-            await sendText(true, msg);
-            user.dataTeste = new Date().toISOString();
-            updateUser(user);
-            removerTestes();
-        } else {
-            await reply(StringsMsg.limite);
+            username = StringClean(args);
         }
+
+        const res = await LoginController(username, isTrial, isReneew, user);
+        if (!res.result) {
+            return await reply(res.msg);
+        }
+        const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste)
+        await sendText(true, msg);
+        removerTestes();
     } else {
-        await reply(StringsMsg.errorUser);
+        await reply(mensagem('errorUser'));
     }
-};
+}

@@ -1,32 +1,33 @@
-import path from "path";
-import { User } from "../type/user";
 import { readJSON } from "../util/jsonConverte";
+import { Login } from "../type/login";
+import path from "path";
+import fs from 'fs';
 require('dotenv/config');
-const fs = require('fs');
-const pathUsers = path.join(__dirname, "..", "..", "cache", "user.json");
+
+const pathUsers = path.join(__dirname, "..", "..", "cache", "login.json");
 
 export const listaController = async (req, res) => {
     const provedor = req.params.provedor;
-    const login = req.params.login;
+    const login_req = req.params.login;
     
-    if (!login && !provedor) {
+    if (!login_req && !provedor) {
         return res.status(400).send('Erro parâmetros não informados!');
     }
 
-    let user: User = readJSON(pathUsers).find(value => value.login === login);
-    if (!user) {
+    let login: Login = readJSON(pathUsers).find(value => value.user === login);
+    if (!login) {
         return res.status(400).send('Usuário não encontrado!');
     }
 
     const today = new Date();
-    const vencimento = new Date(user.dataVencimento || today);
+    const vencimento = new Date(login.vencimento || today);
     if (today > vencimento) {
         return res.status(400).send('Usuário vencido!')
     }
 
-    const file = path.join(__dirname, "..", "..", "cache", `${user.nome}-${provedor}.m3u`);
-    if (!fs.existsSync(file, provedor)) {
-        await processLineByLine(file, provedor, user.nome)
+    const file = path.join(__dirname, "..", "..", "cache", `${login.user}-${provedor}.m3u`);
+    if (!fs.existsSync(file)) {
+        await processLineByLine(file, provedor, login.user)
     }
 
     res.download(file);

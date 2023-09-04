@@ -1,8 +1,8 @@
 import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
 import { getAxiosResult } from '../util/getAxios';
-import { readJSON } from '../util/jsonConverte';
+// import { readJSON } from '../util/jsonConverte';
 import { Cache } from '../type/cache';
-import path from 'path';
+// import path from 'path';
 require('dotenv/config')
 
 export const getLiveCategories = async (isAdult: boolean, isClubtv: boolean) => {
@@ -14,12 +14,12 @@ export const getLiveCategories = async (isAdult: boolean, isClubtv: boolean) => 
     const dataNow = new Date();
     const element_adult = { "category_id": "999999", "category_name": "CANAIS | CANAIS ADULTO", "parent_id": 0 };
     if (dataOld.getDay() !== dataNow.getDay()) {
-        const element_Channel_clubtv = { "category_id": "999990", "category_name": "CLUBTV | FHD/HD", "parent_id": 0 };
-        const provedor = process.env.PROVEDOR_LIVES_ID;
+        const element_channel_clubtv = { "category_id": "999990", "category_name": "CLUBTV | FHD/HD", "parent_id": 0 };
+        let provedor = process.env.PROVEDOR_LIVES_ID as string;
         const category_adult = process.env.CATEGORIA_XXX_LIVE;
         categorias = [];
-        const live_categorias = readJSON(path.join(__dirname, "..", "..", "cache", "live_categorias.json"));
-        let res = {status: 200, data: live_categorias} //await getAxiosResult(action, provedor);
+        // const live_categorias = readJSON(path.join(__dirname, "..", "..", "cache", "live_categorias.json"));
+        let res = await getAxiosResult(action, provedor); //{status: 200, data: live_categorias}
         if (res?.status == 200 && res?.data.length > 1) {
             res?.data.forEach(element => {
                 const category_id = element.category_id;
@@ -32,7 +32,7 @@ export const getLiveCategories = async (isAdult: boolean, isClubtv: boolean) => 
         }
 
         //Incluindo categoria FHD/HD do servidor club
-        categorias.push(element_Channel_clubtv);
+        categorias.push(element_channel_clubtv);
 
         //Para incluir algumas categorias do servidor club
         const category_club = ['2480', '4', '42', '488', '489', '490', '1110', '2113', '1048'];

@@ -3,7 +3,6 @@ import { User } from '../type/user';
 
 export interface IBotData {
     presenceTime: any;
-    sendMenu: (nome: string) => Promise<proto.WebMessageInfo>;
     sendButton: (mensagem: string, textBtn1: string, textBtn2: string, textBtn3?: string) => Promise<proto.WebMessageInfo>;
     sendText: (ass: boolean, text: string) => Promise<proto.WebMessageInfo>;
     sendImage: (pathOrBuffer: string | Buffer, caption?: string, isReply?: boolean) => Promise<proto.WebMessageInfo>;

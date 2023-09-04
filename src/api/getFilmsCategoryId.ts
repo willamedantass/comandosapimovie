@@ -7,7 +7,11 @@ export const getFilmsCategoryId = async (category_id: string) => {
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
 
-    if(provedor === '9'){
+    if(provedor === '999989'){
+        return readJSON(path.join(__dirname, "..", "..", "cache", "get_vod_popular.json"));
+    }
+
+    if(category_id === '999999'){
         return readJSON(path.join(__dirname, "..", "..", "cache", "get_vods_adult.json"));
     }
 

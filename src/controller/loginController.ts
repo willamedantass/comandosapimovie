@@ -1,29 +1,76 @@
-import fs from 'fs'
-import path from "path";
+import { buscarLogin, criarLogin, updateLogin } from "../data/loginDB";
+import { getRandomString } from "../util/getRandomString";
+import { isCriarTeste } from "../util/isCreateTest";
+import { mensagem } from "../util/jsonConverte";
+import { updateUser } from "../data/userDB";
+import { Acesso, User } from "../type/user";
+import { Result } from "../util/result";
+import { Login } from "../type/login";
+import { uid } from "uid";
 
-export const loginController = async () => {
-    const axios = require('axios');
-    const FormData = require('form-data');
-    const pathSession = path.join(__dirname, "..","..", "cache", "sessionCookie.txt");
-    const form_data = new FormData();
-    form_data.append('username', process.env.LOGIN_PAINELWEB_USUARIO);
-    form_data.append('password', process.env.LOGIN_PAINELWEB_SENHA);
-    form_data.append('try_login', 1);
-    let res = await axios.post("https://tigotv.xyz/login/",
-        form_data, { headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
-            'content-type': 'multipart/form-data'
-        }  });
-        
-    if(res.status > 399){
-       return console.log(`Erro ao fazer login no painel web! Erro ${res.data}`);        
+export const LoginController = (username: string, isTrial: boolean, isReneew: boolean, user: User): Result => {
+
+    let credito: number = user.credito ? user.credito : 0;
+    let result: Result = { result: false, msg: '' };
+
+    if (username.length < 8) {
+        result = { result: false, msg: mensagem('errorLoginSize') };
+        return result;
     }
 
-    let sessionCookie: string = res.headers['set-cookie'][0].split(';')[0]
-    if (fs.existsSync(pathSession)) {
-        fs.unlinkSync(pathSession);
-        fs.writeFileSync(pathSession, sessionCookie);
+    const login = buscarLogin(username);
+    if (login && !isReneew) {
+        result = { result: false, msg: mensagem('user_existe') };
+        return result;
+    }
+
+    if (isTrial && user.acesso === Acesso.usuario && !isCriarTeste(user?.data_teste)) {
+        result = { result: false, msg: mensagem('limite') };
+        return result;
+    }
+
+    if (!isTrial && credito <= 0) {
+        result = { result: false, msg: mensagem('errorSaldo') };
+        return result;
+    }
+
+    const agora = new Date();
+    const vencimento = login?.vencimento ? new Date(login.vencimento) : new Date();
+    if (isTrial) {
+        vencimento.setHours(vencimento.getHours() + 6);
+    } else if (agora > vencimento) {
+        vencimento.setDate(vencimento.getDate() + 30);
+        vencimento.setHours(23, 59, 59, 998);
     } else {
-        fs.writeFileSync(pathSession, sessionCookie);
+        vencimento.setDate(vencimento.getDate() + 30);
     }
+
+    if (login) {
+        login.vencimento = vencimento.toISOString();
+        login.isTrial = false;
+        login.uid = user?.id ? user.id : '',
+        login.contato = user.remoteJid.split('@')[0],
+        updateLogin(login);
+        result = { result: true, msg: 'Login ativado com sucesso.', data: login }
+    } else {
+        const loginNew: Login = {
+            id: uid(8),
+            uid: user?.id ? user.id : '',
+            user: username,
+            contato: user.remoteJid.split('@')[0],
+            password: getRandomString(),
+            dataCadastro: new Date().toISOString(),
+            vencimento: vencimento.toISOString(),
+            isLive: true,
+            isTrial: isTrial ? true : false
+        }
+        criarLogin(loginNew)
+        result = { result: true, msg: 'Login criado com sucesso.', data: loginNew }
+    }
+
+    !isTrial && (user.credito -= 1);
+    isTrial && (user.data_teste = new Date().toISOString());
+    user.vencimento = vencimento.toISOString();
+    updateUser(user);
+    return result;
 }

@@ -1,14 +1,12 @@
-import { buscarUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
-import { Acesso, User } from "../type/user";
-import { Login } from "../type/login";
 import { readLogins } from "../data/loginDB";
+import { Login } from "../type/login";
 
-export default async ({ remoteJid, sendText, reply, owner }: IBotData) => {
+export default async ({ sendText, reply, owner }: IBotData) => {
     if (owner) {
         const options = {timeZone: 'America/Sao_Paulo', hour12: false};
-        let login: Login[] = readLogins(remoteJid);
+        let login: Login[] = readLogins();
         let msg: string = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
         login.forEach((element, index) => {
             msg += `${index+1} - ${element.user}\nVenc.: ${new Date(element.vencimento).toLocaleDateString('pt-br', options)}\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n`

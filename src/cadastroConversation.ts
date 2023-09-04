@@ -1,11 +1,11 @@
-import { updateUser } from "./data/userDB";
+import { ClearEmotionAndEspace, StringClean } from "./util/stringClean";
+import { mensagem } from "./util/jsonConverte";
 import { Question, User } from "./type/user";
-import { clearEmotionAndEspace } from "./function";
-import { StringClean } from "./util/stringClean";
+import { updateUser } from "./data/userDB";
 
-export const conversation = async (user: User, data) => {
+export const CadastroConversation = async (user: User, data: any) => {
     const resposta = StringClean(data.messageText);
-    if (user.conversation) {
+    if (user.cadastro) {
         switch (user.question) {
             case Question.Name:
                 if (resposta === 'sim') {
@@ -13,25 +13,25 @@ export const conversation = async (user: User, data) => {
                         user.question = Question.Info;
                         await updateUser(user);
                         await data.presenceTime(1000, 2000);
-                        await data.sendText(true,`${user.nome} seu cadastro foi criado com sucesso!`)
+                        await data.sendText(true,`Concluído, *${user.nome}* seu cadastro foi criado!`);
                     } else {
                         user.question = Question.NewName;
                         await updateUser(user);
                         await data.presenceTime(1000, 1000);
-                        await data.sendText(true, '❌ Seu nome esta curto, tente novamente!\nDigite seu nome e sobrenome:')
+                        await data.sendText(true, '❌ Seu nome está curto, tente novamente!\n\nDigite seu nome e sobrenome:')
                     }
                 } else if (resposta === 'nao') {
                     user.question = Question.NewName;
                     await updateUser(user);
                     await data.presenceTime(1000, 1000);
-                    await data.sendText(true, 'Como posso lhe chamar?');
+                    await data.sendText(true, 'Como posso lhe chamar?\nDigite seu nome e sobrenome por favor.');
                 } else {
                     await data.presenceTime(1000, 1000);
-                    await data.sendText(true, 'Para continuar seu atendimento, porfavor responda sim ou não.');
+                    await data.sendText(true, 'Para continuar seu atendimento, por favor responda sim ou não.');
                 }
                 break;
             case Question.NewName:
-                user.nome = clearEmotionAndEspace(data.messageText);
+                user.nome = ClearEmotionAndEspace(data.messageText);
                 user.question = Question.Name;
                 await updateUser(user);
                 await data.presenceTime(1000, 1000);
@@ -42,12 +42,12 @@ export const conversation = async (user: User, data) => {
         }
 
         if (user.question === Question.Info) {
-            user.conversation = false;
+            user.cadastro = false;
             await updateUser(user);
             await data.presenceTime(3000, 7000);
-            await data.sendText(true, `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n          📺 *MOVNOW* 📺 \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n✅Somos um servidor novo e com muito potêncial.\n✅Temos aplicativos para Smart, Android e IOS.\n✅Temos assistente virtual que irar agilizar nas tarefas de geração de teste, pagamento e renovação.\n✅Não fazemos devolução de pagamento, faça seu teste antes.`);
+            await data.sendText(false, `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n          📺 *MOVNOW* 📺 \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n✅Temos um servidor com muito potêncial.\n✅Temos aplicativos para SmartTv, Android e IOS.\n✅Temos assistente virtual que irar agilizar nas tarefas de geração de teste, pagamento e renovação.\n✅Não fazemos devolução de pagamento, faça seu teste antes.`);
             await data.presenceTime(2000, 8000);
-            await data.sendMenu(user.nome);
+            await data.sendText(false, mensagem('info_menu'));
         }
     }
 }

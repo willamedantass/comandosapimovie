@@ -6,7 +6,7 @@ import { Login } from "../type/login";
 export default async ({ reply, args, owner }: IBotData) => {
     if (owner) {
         const comandos = args.split(' ');
-        const login: Login = buscarLogin(comandos[0]);
+        const login: Login | undefined= buscarLogin(comandos[0]);
         if (login) {
             let vencimento = new Date();
             const dias = parseInt(comandos[1]);

@@ -1,14 +1,14 @@
 {
-  "name": "moviestore",
-  "version": "1.0.0",
+  "name": "movnow",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node ./build/start.js",
+    "start:dev": "ts-node-dev ./src/start.ts",
     "server": "node ./build/server.js",
+    "server:dev": "ts-node-dev ./src/server.ts",
     "build": "tsc",
-    "devstart": "ts-node-dev ./src/start.ts",
-    "devserver": "ts-node-dev ./src/server.ts",
     "test": "ts-node-dev ./src/teste.ts"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "@types/lodash": "^4.14.184",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.7.14",
+    "@types/prompt-sync": "^4.2.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
   },
@@ -26,7 +27,7 @@
     "@adiwajshing/keyed-db": "^0.2.4",
     "@antiadmin/anticaptchaofficial": "^1.0.26",
     "@hapi/boom": "^10.0.0",
-    "@whiskeysockets/baileys": "^6.2.1",
+    "@whiskeysockets/baileys": "^6.4.1",
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
     "csv-writer": "^1.6.0",
@@ -35,9 +36,10 @@
     "firebase": "^9.9.4",
     "googleapis": "^108.0.0",
     "lodash": "^4.17.21",
+    "mercadopago": "^1.5.17",
     "morgan": "^1.10.0",
     "qrcode-terminal": "^0.12.0",
-    "sharp": "^0.30.7",
+    "string-similarity": "^4.0.4",
     "uid": "^2.0.0"
   }
 }

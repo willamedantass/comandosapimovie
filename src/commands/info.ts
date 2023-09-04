@@ -14,7 +14,7 @@ export default async ({ args, remoteJid, reply, sendText, owner }: IBotData) => 
         if (args && owner) {
             usr = StringClean(args);
         }
-        const login: Login = buscarLogin(usr);
+        const login: Login | undefined= buscarLogin(usr);
         if(login){
             let msg:string = getMensagemLogin(login.user, login.password, login.vencimento, LoginTituloType.info);
             return await sendText(true, msg);

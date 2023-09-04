@@ -1,68 +1,61 @@
-import { readJSON } from "../function";
-import path from "path";
-import { updateUser } from "../data/userDB";
+import { buscarUser, updateUser } from "../data/userDB";
+import { mensagem } from "../util/jsonConverte";
+import { enviarMensagem } from "../bot";
 import { User } from "../type/user";
 require('dotenv/config');
 
-const P = require('pino')
-const pathUsers = path.join(__dirname, "..", "..", "cache", "user.json");
-
 export const notificacaopix = async (req, res) => {
+    let payment_info;
     const dados = req.query;
     if (!dados.hasOwnProperty('data.id') && !dados.hasOwnProperty('type')) {
-        console.log('Erro no envio dos parametros da notificação!')
-        res.status(400);
-        return;
+        console.error('Erro no envio dos parâmetros da notificação!')
+        return res.status(400).end();
     }
-    let payment_info;
     //faz a consulta na api para verificar os pagamentos
     if (dados['type'] === 'payment') {
         try {
             var mercadopago = require('mercadopago');
-            console.log(process.env.MP_ACCESSTOKEN)
             mercadopago.configurations.setAccessToken(process.env.MP_ACCESSTOKEN);
             payment_info = await mercadopago.payment.get(dados['data.id'])
         } catch (error) {
-            console.log('Log: Erro ao consultar api do mercado pago!\n' + error);
-            res.status(400);
-            return;
+            console.error('Erro ao consultar api do mercado pago!\n' + error);
+            return res.status(400).end();
         }
     } else {
-        res.status(400);
-        return;
+        return res.status(200).end();
     }
+    
+    console.log(payment_info.body);
+    
     //verifica se o pagamento está aprovado
-    if (payment_info.status === 200 && payment_info.response.status !== 'pending') {
-        let details = payment_info.response.transaction_details.transaction_id;
-
-        if (details && payment_info.response.status === 'approved') {
-            let remoteJid = payment_info.response.external_reference.trim();
-            let user : User = readJSON(pathUsers).find(value => value.remoteJid === remoteJid)
+    if (payment_info.status === 200 && payment_info.body.status !== 'pending') {
+        let details = payment_info.body.transaction_details.transaction_id;
+        if (details && payment_info.body.status === 'approved') {
+            let remoteJid = payment_info.body.external_reference.trim();
+            let user : User = buscarUser(remoteJid);
             //verifica se este pagamento já foi concluido.
-            let isPayment = user.idPgto?.includes(payment_info.response.id)
+            let isPayment = user.pgtos_id?.includes(payment_info.body.id);
             if (isPayment === undefined) {
                 isPayment = false;
-                user.idPgto = [];
+                user.pgtos_id = [];
             }
             if (isPayment) {
-                console.log('Pagamento já processado.')
-                res.status(400);
-                return;
+                console.info('Pagamento já foi processado.');
+                return res.status(200).end();
             }
-
             let credito: number = 0;
             if (user?.credito) {
                 credito = user.credito;
             }
             credito += 1
-            user.idPgto.push(payment_info.response.id); 
+            user.pgtos_id.push(payment_info.body.id); 
             user.credito = credito;
             updateUser(user)
+            enviarMensagem(null, mensagem('pix_aprovado'), remoteJid);
         } else {
-            console.log('Não pode criar login.')
+            console.info(`Pagamento de transação ${payment_info.body.id} ainda não foi aprovado.`);
         }
     }
-    res.status(400);
-    return;
+    res.status(200).end();
 }
 

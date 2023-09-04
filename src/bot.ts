@@ -1,25 +1,28 @@
-import { clearEmotionAndEspace, getBotData, getCommand, isCommand, readJSON } from "./function";
-import { criarUser } from "./data/userDB";
+import { getUserState, removeUserState, updateUserState } from "./menubot/UserState";
+import { ConversationMenuMain } from "./menubot/ConversationMenuMain";
+import { getBotData, getCommand, isCommand } from "./function";
+import { CadastroConversation } from "./cadastroConversation";
+import { ClearEmotionAndEspace } from "./util/stringClean";
+import { MenuLevel, menuTexts } from "./menubot/Menu";
 import { Acesso, Question, User } from "./type/user";
 import { general } from "./configuration/general";
-import { conversation } from "./conversation";
+import { readJSON } from "./util/jsonConverte";
+import { criarUser } from "./data/userDB";
 import { connect } from "./connection";
+import { uid } from "uid";
 import path from "path";
 const pathUsers = path.join(__dirname, "..", "cache", "user.json");
 const pathBlacklist = path.join(__dirname, "..", "cache", "blacklist.json");
+let socket: any;
 
 export default async () => {
-    const socket = await connect();
-
+    socket = await connect();
     socket.ev.process(
-        // events is a map for event name => event data
         async (events) => {
             if (events['messages.upsert']) {
                 const upsert = events['messages.upsert']
-
                 if (upsert.type === 'notify') {
                     for (const msg of upsert.messages) {
-
                         //ignorar mensagens de brodcast
                         if (msg.key?.remoteJid === "status@broadcast") {
                             return;
@@ -31,35 +34,60 @@ export default async () => {
 
                         let user: User = readJSON(pathUsers).find(value => value.remoteJid === msg.key.remoteJid)
                         const { command, ...data } = getBotData(socket, msg, user);
-                        if (!msg.key.fromMe) {
+                        const userState = getUserState(data.remoteJid);
+                        if (!data.owner) {
                             if (!user) {
                                 const userNew: User = {
-                                    nome: clearEmotionAndEspace(data.webMessage.pushName || ''),
+                                    id: uid(8),
+                                    nome: ClearEmotionAndEspace(data.webMessage.pushName || ''),
                                     remoteJid: data.remoteJid,
-                                    dataCadastro: new Date().toISOString(),
-                                    conversation: true,
+                                    data_cadastro: new Date().toISOString(),
+                                    cadastro: true,
                                     question: Question.Name,
                                     acesso: Acesso.usuario,
-                                    idPgto: [],
+                                    pgtos_id: [],
                                     credito: 0
                                 }
                                 await criarUser(userNew);
-                                await data.sendText(false, `Olá, seja bem vindo à *MOVNOW*.\n \nMeu nome é *${general.botName}* sou um assistente virtual, nesse primeiro momento siga as instruções para pesornalizar seu atendimento.`)
+                                await data.sendText(false, `Olá, seja bem vindo à *MOVNOW*.\n \nMeu nome é *${general.botName}* sou um assistente virtual. Seu contato foi salvo para personalizar seu atendimento.`)
                                 await data.presenceTime(1000, 2000);
                                 await data.sendText(true, `Posso lhe chamar por *${userNew.nome}*?`);
-                            } else if (user?.conversation) {
-                                conversation(user, data);
+                            } else if (user?.cadastro) {
+                                CadastroConversation(user, data);
+                            }
+
+                            const msg_conversation = data.messageText.toLowerCase();
+                            const menu: boolean = msg_conversation === 'menu' ? true : false;
+                            if (menu) {
+                                const expire = new Date();
+                                expire.setMinutes(expire.getMinutes() + 15);
+                                updateUserState(data.remoteJid, MenuLevel.MAIN, expire);
+                                return await data.sendText(true, menuTexts[MenuLevel.MAIN])
+                            }
+
+                            const isCancel: boolean = (msg_conversation === 'sair' || msg_conversation === 'cancelar' || msg_conversation === 'desativar') ? true : false;
+                            if (userState && isCancel) {
+                                removeUserState(data.remoteJid);
+                                return await data.sendText(true, 'MovBot desativado, para retornar é só enviar a palavra *MENU*.')
+                            }
+
+                            if (userState) {
+                                switch (userState.menuLevel) {
+                                    case MenuLevel.MAIN:
+                                        ConversationMenuMain(user, msg_conversation, data);
+                                        break;
+                                }
+                                return
                             }
                         }
 
-                        if (!isCommand(command)) return;
-
-                        if ((user && !user?.conversation) || msg.key.fromMe) {
+                        if (!isCommand(command) || userState instanceof Object) return;
+                        if ((user && !user?.cadastro) || data.owner) {
                             try {
                                 const action = await getCommand(command.replace(general.prefix, ""));
                                 await action({ command, ...data });
                             } catch (error) {
-                                console.log('Log_bot: ' + error);
+                                console.error('Log_bot: ' + error);
                             }
                         }
 
@@ -68,7 +96,18 @@ export default async () => {
             }
         }
     )
+};
 
-    // socket.ev.on('messages.upsert', async (message) => {
-    // });
+export const enviarMensagem = async (contato: string | null, mensagem: string, remoteJID?: string) => {
+    if (!socket) {
+        console.error('Socket não inicializado.');
+    }
+
+    try {
+        const remoteJid = remoteJID ? remoteJID : `55${contato}@s.whatsapp.net`;
+        const assinatura = `${general.prefixEmoji} *${general.botName}:* \n`
+        await socket.sendMessage(remoteJid, { text: `${assinatura}${mensagem}` });
+    } catch (error) {
+        console.error('Erro ao enviar mensagem:', error);
+    }
 };

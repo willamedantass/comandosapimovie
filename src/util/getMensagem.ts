@@ -1,7 +1,7 @@
 import { LoginTituloType } from "../type/login";
 
 
-export const getMensagemLogin = (user: string, password: string, vencimento: string, loginType : string ) =>{
+export const getMensagemLogin = (user: string, password: string, vencimento: string, loginType: string) => {
     let msg = '';
 
     switch (loginType) {
@@ -14,7 +14,7 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
         case LoginTituloType.login:
             msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n            ✅ *MOVNOW 30D* ✅\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
             break;
-    
+
         default:
             break;
     }
@@ -27,18 +27,29 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
     msg += `🔐 *SENHA:* ${password} \n`;
     msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleDateString('pt-br', options)} \n`;
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "             ℹ️ INFORMAÇÃO \n";
+    msg += "             ℹ️ *XTREAM CODE* \n";
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "*SMARTERS API XTREAM*\n";
+    msg += "SMARTERS OU DUPLECAST\n";
     msg += "*1 -* movnow\n";
     msg += `*2 -* ${user} \n`;
     msg += `*3 -* ${password}\n`;
     msg += `*4 -* http://${process.env.SERVER_PROXY_DNS}\n`;
+    // msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
+    // msg += "*DNS SAMSUNG/LG*\n";
+    // msg += `${process.env.SERVER_STB_IP}\n`;
     msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "*DNS SAMSUNG/LG*\n";
-    msg += `${process.env.SERVER_STB_IP}\n`;
-    msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "😍 GOSTOU? DIGITE #PIX PARA PAGAR";
+    loginType === LoginTituloType.teste ? msg += "😍 GOSTOU? DIGITE #PIX PARA ATIVAR" : '';
 
+    return msg;
+}
+
+export const getMensagemPix = (transacao: string, valor: string) => {
+    let msg = '';
+    msg += '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n📌 *DETALHES DA COMPRA* 📌\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n';
+    msg += '🛍️ *Produto:* MOVNOW 30D\n';
+    msg += `🏦 *Transação:* ${transacao} \n`
+    msg += `💰 *Valor:* R$ ${valor}\n`
+    msg += '📅 *Validade:* 30 Dias\n'
+    msg += '🔰 *Método de Pagamento:* Pix Cópia e Cola'
     return msg;
 }

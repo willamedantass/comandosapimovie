@@ -3,7 +3,7 @@ import { livePass } from "../type/livePass";
 import path from "path";
 const pathJson = path.join(__dirname, "..", "..", "cache", "live_pass.json");
 
-export const criarLivePass = async (login: livePass) => {
+export const addLivePass = async (login: livePass) => {
     var arquivo = readJSON(pathJson);
     arquivo.push(login)
     writeJSON(pathJson, arquivo);

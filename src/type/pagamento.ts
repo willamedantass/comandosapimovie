@@ -1,5 +1,5 @@
 export type Pagamento = {
-    idPgto : number;
+    id : number;
     remoteJid: string;
     data: string;
 }

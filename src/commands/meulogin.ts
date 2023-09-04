@@ -1,43 +1,36 @@
-import { createLoginController } from "../controller/createLoginController";
+
 import { buscarUser, updateUser } from "../data/userDB";
 import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
 import { LoginTituloType } from "../type/login";
-import { StringsMsg } from "../util/stringsMsg";
 import { User } from "../type/user";
+import { mensagem } from "../util/jsonConverte";
+import { LoginController } from "../controller/loginController";
 
 export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
     let user: User = buscarUser(remoteJid);
     if (user) {
-        let credito: number = user.credito ? user.credito : 0;
-        if (credito <= 0) {
-            return reply(StringsMsg.errorSaldo);
-        }
-        let userLogin = StringClean(user.nome);
+        const isTrial = false;
+        const isReneew = false;
+
+        let username = StringClean(user.nome);
         if (args) {
             if (args.length < 8) {
-                return await reply(StringsMsg.errorLoginSize);
+                return await reply(mensagem('errorLoginSize'));
             }
-            userLogin = StringClean(args);
+            username = StringClean(args);
         }
 
-        const isTrial = false;
-        const isLive = true;
-        const res = await createLoginController(userLogin, isTrial, isLive);
-        if (!res['result']) {
-            return await reply(res['msg'] || '');
+        const res = LoginController(username, isTrial, isReneew, user);
+        if (!res.result) {
+            return await reply(res.msg)
         }
-        const msg: string = getMensagemLogin(res['login'].user, res['login'].password, res['login'].vencimento, LoginTituloType.login);
-        if (!user?.logins) {
-            user.logins = [];
-        }
-        user.logins.push(res['login'].uid);
-        user.credito -= 1;
-        updateUser(user);
+        const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste);
         await sendText(true, msg);
-        await sendText(true,`Seu novo saldo em crédito: ${user.credito}`);
+        user = buscarUser(remoteJid);
+        await sendText(true, `Seu novo saldo em crédito: ${user.credito}`);
     } else {
-        await reply(StringsMsg.errorUser);
+        await reply(mensagem('errorUser'));
     }
 }

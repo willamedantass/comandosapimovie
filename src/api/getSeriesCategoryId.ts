@@ -13,6 +13,10 @@ export const getSeriesCategoryId = async (category_id: string) => {
         return readJSON(path.join(__dirname, "..", "..", "cache", "get_novelas.json"));
     }
 
+    if(category_id === '10'){
+        return readJSON(path.join(__dirname, "..", "..", "cache", "get_series_popular.json"));
+    }
+
     const res = await getAxiosResult('get_series', provedor,id);
     let series:any[]=[];
     if(provedor === idProvedorQueNaoModifica){

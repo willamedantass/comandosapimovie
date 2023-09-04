@@ -12,6 +12,7 @@ import path from "path";
 import { general } from "./configuration/general";
 import { IBotData } from "./Interface/IBotData";
 import { User } from "./type/user";
+import { readJSON, writeJSON } from "./util/jsonConverte";
 
 export const getBotData = (
   socket: any,
@@ -30,7 +31,7 @@ export const getBotData = (
   }
 
   const sendText = async (ass: boolean, text: string) => {
-    let assinatura = ass ? `${general.prefixEmoji} *${general.botName}:* \n` : '';
+    let assinatura = ass ? `${general.prefixEmoji} *${general.botName}* \n\n` : '';
     return await socket.sendMessage(remoteJid, {
       text: `${assinatura}${text}`,
     });
@@ -52,39 +53,13 @@ export const getBotData = (
       buttons: buttons,
       headerType: 1
     }
-
     return await socket.sendMessage(remoteJid, buttonMessage)
   }
 
-  const sendMenu = async (nome: string) => {
-    const sections = [
-      {
-        rows: [
-          { title: "Criar Teste", rowId: "#teste" },
-          { title: "Solicitar Pix", rowId: "#pix" },
-          { title: "Meu Login", rowId: "#meulogin" },
-          { title: "Renovar Login", rowId: "#renovar" },
-          { title: "Consultar Login", rowId: "#info" },
-        ]
-      },
-    ]
-
-    const listMessage = {
-      text: `${nome} aqui está nosso menu fique a vontade para gerar seu teste, solicitar pagamento e receber seu login mensal.`,
-      footer: "Aperte menu e escolha uma opção",
-      title: `${general.prefixEmoji} *${general.botName}:*`,
-      buttonText: "Menu",
-      sections
-    }
-
-    return await socket.sendMessage(remoteJid, listMessage);
-  };
-
   const reply = async (text: string) => {
-
     return await socket.sendMessage(
       webMessage.key.remoteJid,
-      { text: `${general.prefixEmoji} *${general.botName}:* \n${text}` },
+      { text: `${general.prefixEmoji} *${general.botName}*\n\n${text}` },
       { quoted: webMessage }
     );
   };
@@ -210,7 +185,6 @@ export const getBotData = (
   return {
     presenceTime,
     sendButton,
-    sendMenu,
     sendText,
     sendImage,
     sendSticker,
@@ -234,37 +208,6 @@ export const getBotData = (
     owner
   };
 };
-
-export const clearEmotionAndEspace = (text: string) => {
-  return text.replace(/[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2580-\u27BF]|\uD83E[\uDD10-\uDDFF]/g, '').trim();
-}
-
-export const isCriarTeste = (dataTeste: string) => {
-  if (dataTeste) {
-    try {
-      var data = new Date(dataTeste)
-      return Math.floor((new Date().getTime() - data.getTime()) / (1000 * 60 * 60 * 24)) > 0;
-    } catch (error) {
-      console.log('Erro ao tentar converter data no metodos function isCriarTeste')
-    }
-  } else {
-    return true
-  }
-}
-
-export const isCriarPix = (dataPix: string) => {
-  if (dataPix) {
-    try {
-      var data = new Date(dataPix)
-      let resposta = Math.floor((new Date().getTime() - data.getTime()) / (1000 * 60 * 60 * 24)) > 0;
-      return resposta;
-    } catch (error) {
-      console.log('Erro ao tentar converter data no metodos function isCriarTeste')
-    }
-  } else {
-    return true
-  }
-}
 
 export const getCommand = (commandName: string) => {
   const pathCache = path.join(__dirname, "..", "cache", "commands.json");
@@ -294,15 +237,6 @@ export const getCommand = (commandName: string) => {
   }
 
   return require(`./commands/${cacheCommand}`).default;
-};
-
-export const readJSON = (pathFile: string) => {
-  // @ts-ignore
-  return JSON.parse(fs.readFileSync(pathFile));
-};
-
-export const writeJSON = (pathFile: string, data: any) => {
-  fs.writeFileSync(pathFile, JSON.stringify(data));
 };
 
 
@@ -422,7 +356,7 @@ export const extractCommandAndArgs = (message: string) => {
 };
 
 export const isCommand = (message: string) =>
-  message.length > 1 && message.startsWith(general.prefix);
+  message.length > 2 && message.startsWith(general.prefix);
 
 export const getRandomName = (extension?: string) => {
   const fileName = Math.floor(Math.random() * 10000);

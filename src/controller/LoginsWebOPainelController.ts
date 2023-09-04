@@ -1,7 +1,7 @@
 import { createAndUpdateCache, readAction } from "../data/cacheDB";
 import { logarOPainelController } from "./logarOPainelController";
 import { toStringDate } from "../util/toStringDate";
-import { criarLivePass } from "../data/livePassDB";
+import { addLivePass } from "../data/livePassDB";
 import { readJSON } from "../util/jsonConverte";
 import { livePass } from "../type/livePass";
 import { Cache } from "../type/cache";
@@ -37,7 +37,7 @@ export const createLoginOPainel = async (isLogar: boolean) => {
 
         if (!isError404 && res_login && res_login?.status === 200 && typeof res_login?.data.content === 'object') {
             const login = res_login?.data.content['#ModalBody'].split('\r\n').filter(line => line.includes('Usuário') || line.includes('Senha') || line.includes('Data de validade'));
-            criarLivePass({
+            addLivePass({
                 id: id,
                 username: login[0].split('*')[2].trim(),
                 password: login[1].split('*')[2].trim(),
@@ -54,35 +54,22 @@ export const createLoginOPainel = async (isLogar: boolean) => {
         }
     }
 }
+
 export const createLoginAPI = async (): Promise<boolean> => {
 
-    const res = await axios.get(`${process.env.SERVER_API}/createtest`, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
-            'authorization': process.env.SECRET_ACESS as string
-        }
-    }).catch(e => console.log('Não foi possível conectar com a api.'));
+    const res = await axios.post(`${process.env.SERVER_API}/createtest`, null, {
+        headers: { 'authorization': process.env.SECRET_ACESS as string }
+    }).catch(e => console.log('Não foi possível conectar com a api.', e?.message));
 
     if (res?.status === 200 && res?.data.result === true) {
-        const logins: livePass[] = res.data.data;
-        for (let login of logins) {
-            criarLivePass({
-                id: login.id,
-                username: login.username,
-                password: login.password,
-                vencimento: login.vencimento,
-                isTrial: login.isTrial,
-                isDelete: login.isDelete,
-                countUsed: login.countUsed,
-                isUsed: login.isUsed
-            } as livePass);
-            console.log(`Login ${login.username}, criado com sucesso.`);
-        }
+        const login: livePass = res.data.data;
+        addLivePass(login);
+        console.info(`Login ${login.username}, criado com sucesso.`);
         return true;
     }
 
     if (res?.status === 200 && res?.data.result === false) {
-        console.log(`Erro ao processar os logins. Mensagem da api: ${res?.data.msg}`);
+        console.error(`Erro ao processar os logins. Mensagem da api: ${res?.data.msg}`);
     }
     return false;
 }
@@ -109,11 +96,8 @@ export const deleteLoginOPainel = async (isLogar: boolean, id: string) => {
 
 export const deleteLoginAPI = async (id: string) => {
 
-    const res = await axios.get(`${process.env.SERVER_API}/deletetest?id=${id}`, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
-            'authorization': process.env.SECRET_ACESS as string
-        }
+    const res = await axios.post(`${process.env.SERVER_API}/deletetest?id=${id}`, null, {
+        headers: { 'authorization': process.env.SECRET_ACESS as string }
     }).catch(e => console.log(e));
 
     if (res.status === 200 && res?.data) {
@@ -132,7 +116,7 @@ const axios_res = async (ajaxfile: string, ajaxAction: string, id?: string) => {
     form_data.append('AjaxAction', ajaxAction);
     id ? form_data.append('id', id) : null
 
-    const res = await axios.post(url, form_data, {
+    const res = await axios.post(url, form_data, null, {
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
             'Cookie': phpSessid

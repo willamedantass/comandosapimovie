@@ -1,13 +1,13 @@
-import { readLogins } from "../data/loginDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
+import { readLogins } from "../data/loginDB";
 import { Login } from "../type/login";
 
-export default async ({ remoteJid, sendText, reply, owner }: IBotData) => {
+export default async ({ sendText, reply, owner }: IBotData) => {
     if (owner) {
         const options = { timeZone: 'America/Sao_Paulo', hour12: false };
         const hoje = new Date();
-        let login: Login[] = readLogins(remoteJid);
+        let login: Login[] = readLogins();
         let msg: string = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
         login.forEach((element, index) => {
             if (new Date(element.vencimento) < hoje) {

@@ -1,9 +1,9 @@
 import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
 import { getAxiosResult } from '../util/getAxios';
+import { StringClean } from '../util/stringClean';
 import { readJSON } from '../util/jsonConverte';
 import { Cache } from '../type/cache';
 import path from "path";
-import { StringClean } from '../util/stringClean';
 require('dotenv/config')
 
 export const getFilmsCategories = async (isAdult: boolean) => {
@@ -11,17 +11,16 @@ export const getFilmsCategories = async (isAdult: boolean) => {
     const action = 'get_vod_categories';
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
-    const category_adult = { "category_id": "999999", "category_name": "XXX | Filmes ADULTOS", "parent_id": 0 };
+    const category_adult = { "category_id": "999999", "category_name": "XXX | FILMES ADULTOS", "parent_id": 0 };
     if (dataOld.getDay() !== dataNow.getDay()) {
-
         const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
         const filmsCategories = [];
         for (const login of logins) {
             let res = await getAxiosResult(action, login.id);
-            forEachFilms(res, filmsCategories, login.id, login.sigla, isAdult);
+            forEachFilms(res, filmsCategories, login.id, login.sigla);
         }
 
-        const filmsCategoriesNew = []
+        const filmsCategoriesNew: any = []
         for (let category of filmsCategories) {
             if (StringClean(category['category_name']).includes('lancamento')) {
                 filmsCategoriesNew.unshift(category);
@@ -30,6 +29,8 @@ export const getFilmsCategories = async (isAdult: boolean) => {
             }
         }
 
+        filmsCategoriesNew.unshift({ "category_id": "999989", "category_name": "TOP POPULARES", "parent_id": 0 })
+        
         const cache: Cache = {
             data: new Date().toISOString(),
             action: action,
@@ -49,7 +50,7 @@ export const getFilmsCategories = async (isAdult: boolean) => {
 
 }
 
-const forEachFilms = (res, films, provedor: string, siglaProvedor: string, isAdult: boolean) => {
+const forEachFilms = (res, films, provedor: string, siglaProvedor: string) => {
     const categories_adult = process.env.CATEGORIA_XXX_FILME?.split(',');
     if (res?.status == 200 && res?.data.length > 1) {
         res.data.forEach(element => {

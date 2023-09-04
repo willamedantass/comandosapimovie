@@ -22,7 +22,7 @@ export const PlayerApi = async (req, res) => {
     //console.log(`${req.protocol}:
     //${req.get('host')}${req.originalUrl}`);
 
-    let login: Login = buscarLogin(user);
+    let login: Login | undefined= buscarLogin(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
@@ -43,8 +43,8 @@ export const PlayerApi = async (req, res) => {
         return res.json(await getAuth(login));
     }
 
-    if (action === 'get_live_categories' && !login.live ||
-        action === 'get_live_streams' && !login.live) {
+    if (action === 'get_live_categories' && !login.isLive ||
+        action === 'get_live_streams' && !login.isLive) {
         return res.json({ "user_info": { "auth": 0 } });
     }
 

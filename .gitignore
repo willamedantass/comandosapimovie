@@ -1,6 +1,5 @@
 node_modules/
 build/
-cache/*.json
 .env
-cache/*
+cache/
 baileys_store_multi.json

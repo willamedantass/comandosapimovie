@@ -9,7 +9,7 @@ export const RenovacaoController = async (req, res) => {
         return res.status(400).end();
     }
     
-    let login: Login = buscarLogin(req_login);
+    let login: Login | undefined= buscarLogin(req_login);
     if (login) {
         const agora = new Date();
         let vencimento = new Date(login.vencimento);

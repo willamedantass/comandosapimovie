@@ -1,10 +1,11 @@
 import path from "path";
 import { User } from "../type/user";
 import { readJSON } from "../util/jsonConverte";
+import { Login } from "../type/login";
 require('dotenv/config');
 
 export const urlController = async (req, res) => {
-    const pathUsers = path.join(__dirname, "..", "..", "cache", "user.json");
+    const pathLogins = path.join(__dirname, "..", "..", "cache", "login.json");
     const provedor = req.params.provedor;
     const media = req.params.media;
     const login = req.params.login;
@@ -14,13 +15,13 @@ export const urlController = async (req, res) => {
         return res.status(400).send('Erro parâmetros não informados!');
     }
 
-    let user: User = readJSON(pathUsers).find(value => value.login === login);
-    if (!user) {
+    let Login: Login = readJSON(pathLogins).find(value => value.user === login);
+    if (!login) {
         return res.status(400).send('Usuário não encontrado!');
     }
 
     const today = new Date();
-    const vencimento = new Date(user.dataVencimento || today);
+    const vencimento = new Date(login.vencimento || today);
     if (today > vencimento) {
         return res.status(400).send('Usuário vencido!')
     }

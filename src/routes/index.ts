@@ -1,4 +1,5 @@
 import { urlPlayerController } from "../controller/urlPlayerController";
+import { RenovacaoController } from "../controller/renovacaoController";
 import { notificacaopix } from "../controller/notificacaoController";
 import { listaController } from "../controller/listaController";
 import { urlController } from "../controller/urlController";
@@ -6,7 +7,6 @@ import { apkDownload } from "../controller/apkDownload";
 import { PlayerApi } from "../controller/PlayerApi";
 import { xmltv } from "../controller/xmltv";
 import { Router } from "express";
-import { RenovacaoController } from "../controller/renovacaoController";
 
 const router = Router();
 router.post('/notificacoes', notificacaopix);

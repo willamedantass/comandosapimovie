@@ -13,7 +13,7 @@ const setProvedorId = (res, provedor: string) => {
     if (res && res.data.episodes) {
         Object.keys(res.data.episodes).forEach(key => {
             const value = res.data.episodes[key];
-            value.forEach((element, index) => {
+            value.forEach((_, index) => {
                 const id = res.data.episodes[key][index].id;
                 res.data.episodes[key][index].id = `${provedor}${id}`;
             });

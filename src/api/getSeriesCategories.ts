@@ -1,9 +1,8 @@
-import { readJSON } from '../function';
-import { getAxiosResult } from '../util/getAxios';
-import path from "path";
-import { writeJSON } from '../util/jsonConverte';
 import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
+import { readJSON, writeJSON } from '../util/jsonConverte';
+import { getAxiosResult } from '../util/getAxios';
 import { Cache } from '../type/cache';
+import path from "path";
 require('dotenv/config')
 
 export const getSeriesCategories = async () => {
@@ -16,6 +15,7 @@ export const getSeriesCategories = async () => {
         const logins = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json"));
         let categorias: any[] = [];
         categorias.push({ "category_id": "9", "category_name": "NOVELAS", "parent_id": 0 });
+        categorias.push({ "category_id": "10", "category_name": "TOP SERIES", "parent_id": 0 });
         let category_novelas = []
         for(const login of logins){
             let res = await getAxiosResult(action, login.id);
@@ -39,7 +39,6 @@ export const getSeriesCategories = async () => {
 }
 
 const forEachCategories = (res, categorias, category_novelas, provedor: string) => {
-    require('dotenv/config');
     const idProvedoQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
     if (res?.status == 200 && res?.data.length > 1) {
         res?.data.forEach(element => {

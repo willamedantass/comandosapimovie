@@ -6,6 +6,7 @@ import { userFluxoAcesso } from "../type/userFluxoAcesso";
 import { provedorAcesso } from "../type/provedor";
 import { readJSON } from "../util/jsonConverte";
 import { livePass } from "../type/livePass";
+import { enviarMensagem } from "../bot";
 import { Login } from "../type/login";
 import path from "path";
 const idProvedorClub = '2';
@@ -19,7 +20,7 @@ export const urlPlayerController = async (req, res) => {
         res.status(405).end();
     }
 
-    let login: Login = buscarLogin(user);
+    let login: Login | undefined= buscarLogin(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
@@ -32,11 +33,17 @@ export const urlPlayerController = async (req, res) => {
     const agora = new Date();
     const vencimento = new Date(login.vencimento);
     if (agora > vencimento) {
-        console.log(`Login expirado! Usuário: ${user}`);
+        const dataMensagem = login?.data_msg_vencimento ? new Date(login?.data_msg_vencimento) : null;
+        if(dataMensagem && dataMensagem.getDay() !== agora.getDay()){
+            const mensagens = readJSON(path.join(__dirname, '..','..','cache','mensagens.json'));
+            const contato = login?.contato ? login.contato : '8588199556';
+            await enviarMensagem(contato, mensagens.vencimento);
+        }
+        console.info(`Login expirado! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
     }
 
-    if (media === 'live' && !login.live) {
+    if (media === 'live' && !login.isLive) {
         return res.json({ "user_info": { "auth": 0 } });
     }
 
@@ -72,12 +79,17 @@ const getUrl = async (idProvedor: string, media: string, video: string, user: st
     require('dotenv/config');
 
     // const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
-    const acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idProvedor);
+    let acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idProvedor);
     if (acesso) {
         if (media === 'live') {
-            return await processLogin(idProvedor, acesso.dns, media, video, user);
+            return await processLogin(idProvedor, acesso?.dns, media, video, user);
         } else {
-            return `${acesso.dns}/${media}/${acesso.user}/${acesso.password}/${video}`;
+            if (acesso.id === '5') {
+                const login = unusedUserLivePass(true) as livePass;
+                acesso.user = login.username;
+                acesso.password = login.password;
+            };
+            return `${acesso?.dns}/${media}/${acesso?.user}/${acesso?.password}/${video}`;
         }
     }
 }
@@ -119,15 +131,16 @@ export const processLogin = async (provedor: string, dnsProvedor: string, media:
             return `${dnsProvedor}/${media}/${live_pass.username}/${live_pass.password}/${video}`;
         }
 
+        //Cria testes e verifica se não foi criado retorna um login randomico.
         const result: boolean = await createLoginAPI();
-        if(!result){
+        if (!result) {
             isRandom = true;
             live_pass = unusedUserLivePass(isRandom) as livePass;
             return `${dnsProvedor}/${media}/${live_pass.username}/${live_pass.password}/${video}`;
         }
 
         const expired: livePass[] = readLivePass().filter(user => user?.isDelete == true);
-        for (let user of expired ) {
+        for (let user of expired) {
             await deleteLoginAPI(user.id);
             deleteLivePass(user.username);
         }
@@ -142,13 +155,13 @@ export const processLogin = async (provedor: string, dnsProvedor: string, media:
 const RegisterFluxo = (user: string, live_pass: livePass) => {
     const data_expirar = new Date();
     const login = live_pass.username, password = live_pass.password;
-    data_expirar.setHours(data_expirar.getHours() + 8);
-    createUserFluxo({ 
-        user: user, 
-        login: login, 
-        password: password, 
-        expire: data_expirar.toISOString(), 
-        data: new Date().toISOString() 
+    data_expirar.setHours(data_expirar.getHours() + 2);
+    createUserFluxo({
+        user: user,
+        login: login,
+        password: password,
+        expire: data_expirar.toISOString(),
+        data: new Date().toISOString()
     } as userFluxoAcesso);
 }
 

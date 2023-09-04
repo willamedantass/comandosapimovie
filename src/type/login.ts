@@ -1,31 +1,27 @@
 export type Login = {
-    id? : string,
-    uid : string,
-    user : string,
-    password : string,
-    isClubtv? : boolean,
-    conexoes? : string,
+    id?: string,
+    uid: string,
+    user: string,
+    password: string,
+    dataCadastro: string,
+    vencimento: string,
+    isLive: boolean;
+    contato?: string;
+    data_msg_vencimento?: string;
+    isClubtv?: boolean,
+    conexoes?: string,
     remoteIp?: string,
     dataRemote?: string,
     countForbiddenAccess?: number,
-    dataCadastro: string,
-    vencimento : string,
     vencLong?: string,
-    live: boolean;
     isTrial?: boolean;
     isAdult?: boolean,
-    status? : string,
-    actionRenovar? : string,
-    actionDesbloqueioConfianca? : string,
-    actionResetar? : string,
-    actionMigrarCodigo? : string,
-    actionMigrarP2p? : string,
-    actionOnOff? : string
+    status?: string,
 }
 
 export enum LoginTituloType {
     teste = 'teste',
     info = 'info',
-    login = 'login'    
+    login = 'login'
 
 }

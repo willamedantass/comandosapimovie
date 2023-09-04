@@ -15,10 +15,10 @@ export const getLiveStreams = async (isAdult: boolean, isClubtv: boolean) => {
     const dataNow = new Date();
     let streamsJson: any[] = [];
     if (dataOld.getDay() !== dataNow.getDay()) {
-        const provedor = process.env.PROVEDOR_LIVES_ID;
+        const provedor = process.env.PROVEDOR_LIVES_ID as string;
         const category_adult = process.env.CATEGORIA_XXX_LIVE;
-        const live_categorias = readJSON(path.join(__dirname, "..", "..", "cache", "live_streams.json"));
-        const res = {status: 200, data: live_categorias} //await getAxiosResult(action, provedor);
+        // const live_categorias = readJSON(path.join(__dirname, "..", "..", "cache", "live_streams.json"));
+        const res = await getAxiosResult(action, provedor); //{status: 200, data: live_categorias}
         let streamsAdult: any[] = [];
         if (res?.status == 200 && res?.data.length > 1) {
             res.data.forEach(element => {
@@ -85,7 +85,6 @@ export const getLiveStreams = async (isAdult: boolean, isClubtv: boolean) => {
         }
 
         createCache(action_club, streamsJson);
-
         console.log(`Canais Total: ${streamsJson.length}`)
         const used = process.memoryUsage().heapUsed / 1024 / 1024;
         console.log(`Processo finalizado uso aproximado: ${Math.round(used * 100) / 100} MB`);
@@ -101,6 +100,5 @@ export const getLiveStreams = async (isAdult: boolean, isClubtv: boolean) => {
     if (isAdult) {
         streamsJson = streamsJson.concat(await readCache(action_adult));
     }
-
     return streamsJson;
 }

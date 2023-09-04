@@ -1,16 +1,18 @@
-export type User = {
+export interface User {
+    id?: string;
     nome: string;
-    dataCadastro: string;
-    dataVencimento?: string;
+    data_cadastro: string;
     remoteJid: string;
-    dataTeste?: string;
-    dataPix?: string;
-    idPgto: number[];
-    logins?: string[];
-    conversation: boolean;
+    pgtos_id: number[];
+    cadastro: boolean;
     question: Question;
     acesso: Acesso;
     credito: number;
+    valor?: string;
+    data_teste?: string;
+    data_pix?: string;
+    vencimento?: string;
+    logins?: string[];
 }
 
 export enum Question {
@@ -21,6 +23,7 @@ export enum Question {
 }
 
 export enum Acesso {
+    adm = 'adm',
     revenda = 'revenda',
     usuario = 'usuario'
 }

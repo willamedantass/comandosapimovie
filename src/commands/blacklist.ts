@@ -1,7 +1,7 @@
+import { readJSON, writeJSON } from '../util/jsonConverte';
 import { IBotData } from '../Interface/IBotData';
 import { StringsMsg } from '../util/stringsMsg';
 import path from 'path';
-import { readJSON, writeJSON } from '../function';
 
 export default async ({ reply, owner, remoteJid }: IBotData) => {
     if (owner) {
