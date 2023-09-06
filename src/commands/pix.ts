@@ -1,13 +1,13 @@
 import { PixController } from "../controller/PixController";
-import { buscarUser, updateUser } from "../data/userDB";
+import { searchUser, updateUser } from "../data/userDB";
 import { getMensagemPix } from "../util/getMensagem";
 import { IBotData } from "../Interface/IBotData";
 import { mensagem } from "../util/jsonConverte";
 import { User } from "../type/user";
 
-export default async ({ remoteJid, reply, sendText, owner }: IBotData) => {
-    const user: User = buscarUser(remoteJid);
-    if (user || owner) {
+export default async ({ remoteJid, reply, sendText }: IBotData) => {
+    const user: User | undefined = searchUser(remoteJid);
+    if (user) {
         const pix_data = await PixController(user);
         if(pix_data.result){
             await reply(getMensagemPix(pix_data?.data.id, pix_data?.data.transaction_amount));

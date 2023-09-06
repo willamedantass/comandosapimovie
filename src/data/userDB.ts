@@ -4,14 +4,17 @@ import { readJSON, writeJSON } from "../util/jsonConverte";
 
 const pathJson = path.join(__dirname, "..", "..", "cache", "user.json");
 
-export const criarUser = async (user: User) => {
+export const createUser = async (user: User) => {
     const arquivo = readJSON(pathJson);
     arquivo.push(user)
     await writeJSON(pathJson, arquivo);
 }
 
-export const buscarUser = (remoteJid: string): User => {
-    return readJSON(pathJson).find(value => value.remoteJid === remoteJid);
+export const searchUser = (remoteJid: string): User | undefined => {
+    return allUser().find(value => value.remoteJid === remoteJid);
+}
+export const allUser = (): User[] => {
+    return readJSON(pathJson);
 }
 
 export const updateUser = (user: User): void => {

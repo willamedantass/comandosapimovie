@@ -7,7 +7,7 @@ import { MenuLevel, menuTexts } from "./menubot/Menu";
 import { Acesso, Question, User } from "./type/user";
 import { general } from "./configuration/general";
 import { readJSON } from "./util/jsonConverte";
-import { criarUser } from "./data/userDB";
+import { createUser } from "./data/userDB";
 import { connect } from "./connection";
 import { uid } from "uid";
 import path from "path";
@@ -48,7 +48,7 @@ export default async () => {
                                     pgtos_id: [],
                                     credito: 0
                                 }
-                                await criarUser(userNew);
+                                await createUser(userNew);
                                 await data.sendText(false, `Olá, seja bem vindo à *MOVNOW*.\n \nMeu nome é *${general.botName}* sou um assistente virtual. Seu contato foi salvo para personalizar seu atendimento.`)
                                 await data.presenceTime(1000, 2000);
                                 await data.sendText(true, `Posso lhe chamar por *${userNew.nome}*?`);
@@ -98,16 +98,25 @@ export default async () => {
     )
 };
 
-export const enviarMensagem = async (contato: string | null, mensagem: string, remoteJID?: string) => {
-    if (!socket) {
-        console.error('Socket não inicializado.');
+export const sendZap = async (req, res) => {
+
+    const body = req.body
+    const contato = body?.contato || null;
+    const remoteJid = body?.remoteJid || null;
+    const mensagem = body?.mensagem || '';
+
+    if (!contato && !remoteJid) {
+        console.error('Não foi possível enviar a mensagem, parâmetros não foi enviado.');
+        return res.status(400).end();
     }
 
     try {
-        const remoteJid = remoteJID ? remoteJID : `55${contato}@s.whatsapp.net`;
+        const JID = remoteJid ? remoteJid : `55${contato}@s.whatsapp.net`;
         const assinatura = `${general.prefixEmoji} *${general.botName}:* \n`
-        await socket.sendMessage(remoteJid, { text: `${assinatura}${mensagem}` });
+        await socket.sendMessage(JID, { text: `${assinatura}${mensagem}` });
+        res.status(200).end();
     } catch (error) {
         console.error('Erro ao enviar mensagem:', error);
+        res.status(400).end();
     }
 };

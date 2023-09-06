@@ -3,12 +3,12 @@ import { deleteLivePass, readLivePass, searchLivePass, unusedUserLivePass } from
 import { createLoginAPI, deleteLoginAPI } from "./LoginsWebOPainelController";
 import { buscarLogin, updateLogin } from "../data/loginDB";
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
+import { mensagem, readJSON } from "../util/jsonConverte";
 import { provedorAcesso } from "../type/provedor";
-import { readJSON } from "../util/jsonConverte";
 import { livePass } from "../type/livePass";
-import { enviarMensagem } from "../bot";
 import { Login } from "../type/login";
 import path from "path";
+import { sendMessage } from "../util/sendMessage";
 const idProvedorClub = '2';
 
 export const urlPlayerController = async (req, res) => {
@@ -35,9 +35,10 @@ export const urlPlayerController = async (req, res) => {
     if (agora > vencimento) {
         const dataMensagem = login?.data_msg_vencimento ? new Date(login?.data_msg_vencimento) : null;
         if(dataMensagem && dataMensagem.getDay() !== agora.getDay()){
-            const mensagens = readJSON(path.join(__dirname, '..','..','cache','mensagens.json'));
             const contato = login?.contato ? login.contato : '8588199556';
-            await enviarMensagem(contato, mensagens.vencimento);
+            await sendMessage(contato, mensagem('vencimento'));
+            login.data_msg_vencimento = dataMensagem.toISOString();
+            updateLogin(login);
         }
         console.info(`Login expirado! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });

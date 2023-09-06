@@ -1,16 +1,16 @@
-import { buscarLogin, updateLogin } from "../data/loginDB";
-import { buscarUser, updateUser } from "../data/userDB";
+import { LoginController } from "../controller/loginController";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
+import { mensagem } from "../util/jsonConverte";
 import { StringsMsg } from "../util/stringsMsg";
+import { buscarLogin } from "../data/loginDB";
+import { searchUser } from "../data/userDB";
 import { Login } from "../type/login";
 import { User } from "../type/user";
-import { mensagem } from "../util/jsonConverte";
-import { LoginController } from "../controller/loginController";
 
 export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => {
-    let user: User = buscarUser(remoteJid);
-    if (user || owner) {
+    let user: User | undefined = searchUser(remoteJid);
+    if (user) {
         let username = StringClean(user.nome);
         if (args) {
             if (args.length < 8) {
@@ -30,7 +30,7 @@ export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => 
             const options = { timeZone: 'America/Sao_Paulo', hour12: false }
             let msg = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n          📺 *MOVNOW* 📺 \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n \n';
             msg += `Usuário *${login.user}* renovado com sucesso!\nNovo vencimento: ${new Date(res.data.vencimento).toLocaleString('pt-br', options)}`;
-            user = buscarUser(remoteJid);
+            user = searchUser(remoteJid) as User;
             await sendText(true, msg);
             return await sendText(true,`Seu novo saldo em crédito: ${user.credito}`);
         } else {

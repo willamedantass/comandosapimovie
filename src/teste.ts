@@ -1,15 +1,13 @@
-import { PixController } from "./controller/PixController";
-import { LoginController } from "./controller/loginController";
-import { buscarUser } from "./data/userDB";
-import { StringClean } from "./util/stringClean";
+import axios from "axios";
+import { error } from "console";
+import { sendMessage } from "./util/sendMessage";
+
 require('dotenv/config');
 
 (async function iniciar() {
-
-    const options = { timeZone: 'America/Sao_Paulo', hour12: false }
-    const vencimento = new Date().toISOString();
-    console.log(new Date(vencimento).toLocaleString('pt-br', options));
     
+
+
 
     //   key: {
     //     remoteJid: '558588199556@s.whatsapp.net',

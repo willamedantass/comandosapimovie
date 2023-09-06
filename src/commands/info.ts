@@ -1,5 +1,5 @@
 import { buscarLogin } from "../data/loginDB";
-import { buscarUser } from "../data/userDB";
+import { searchUser } from "../data/userDB";
 import { Login, LoginTituloType } from "../type/login";
 import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";
@@ -8,7 +8,7 @@ import { StringsMsg } from "../util/stringsMsg";
 import { User } from "../type/user";
 
 export default async ({ args, remoteJid, reply, sendText, owner }: IBotData) => {
-    let user: User = buscarUser(remoteJid);
+    let user: User | undefined = searchUser(remoteJid);
     if (user) {
         let usr: string =  StringClean(user.nome);
         if (args && owner) {

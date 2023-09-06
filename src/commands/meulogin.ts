@@ -1,15 +1,14 @@
-
-import { buscarUser, updateUser } from "../data/userDB";
+import { LoginController } from "../controller/loginController";
 import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
 import { LoginTituloType } from "../type/login";
-import { User } from "../type/user";
 import { mensagem } from "../util/jsonConverte";
-import { LoginController } from "../controller/loginController";
+import { searchUser } from "../data/userDB";
+import { User } from "../type/user";
 
 export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
-    let user: User = buscarUser(remoteJid);
+    let user: User | undefined = searchUser(remoteJid);
     if (user) {
         const isTrial = false;
         const isReneew = false;
@@ -28,7 +27,7 @@ export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
         }
         const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste);
         await sendText(true, msg);
-        user = buscarUser(remoteJid);
+        user = searchUser(remoteJid) as User;
         await sendText(true, `Seu novo saldo em crédito: ${user.credito}`);
     } else {
         await reply(mensagem('errorUser'));

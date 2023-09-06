@@ -227,7 +227,7 @@ export const getCommand = (commandName: string) => {
       .find((file) => file.includes(commandName));
     if (!command) {
       throw new Error(
-        `❌ Comando não encontrado! Digite ${general.prefix}menu para ver todos os comandos disponíveis!`
+        `❌ Comando _${commandName}_ não encontrado! Digite ${general.prefix}menu para ver todos os comandos disponíveis!`
       );
     }
 

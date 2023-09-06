@@ -1,15 +1,15 @@
 import { LoginController } from '../controller/loginController';
 import { getMensagemLogin } from '../util/getMensagem';
 import { StringClean } from '../util/stringClean';
-import { removerTestes } from '../data/loginDB';
 import { IBotData } from '../Interface/IBotData';
 import { mensagem } from '../util/jsonConverte';
 import { LoginTituloType } from '../type/login';
-import { buscarUser } from '../data/userDB';
+import { removerTestes } from '../data/loginDB';
+import { searchUser } from '../data/userDB';
 import { User } from '../type/user';
 
 export default async ({ reply, sendText, remoteJid, args }: IBotData) => {
-    let user: User = buscarUser(remoteJid);
+    let user: User | undefined = searchUser(remoteJid);
     if (user) {
         const isTrial = true;
         const isReneew = false;

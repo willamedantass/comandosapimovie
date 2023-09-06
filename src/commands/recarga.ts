@@ -1,11 +1,11 @@
-import { buscarUser, updateUser } from "../data/userDB";
+import {  searchUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
 import { StringsMsg } from "../util/stringsMsg";
 import { User } from "../type/user";
 
 export default async ({ owner, remoteJid, args, reply }: IBotData) => {    
     if (owner) {
-        let user: User = buscarUser(remoteJid);
+        let user: User | undefined = searchUser(remoteJid);
         if (!user) {
             reply(StringsMsg.errorUser)
             return

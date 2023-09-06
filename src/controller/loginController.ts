@@ -35,14 +35,17 @@ export const LoginController = (username: string, isTrial: boolean, isReneew: bo
     }
 
     const agora = new Date();
-    const vencimento = login?.vencimento ? new Date(login.vencimento) : new Date();
+    let vencimento = login?.vencimento ? new Date(login.vencimento) : new Date();
     if (isTrial) {
-        vencimento.setHours(vencimento.getHours() + 6);
-    } else if (agora > vencimento) {
+        vencimento = new Date()
+        vencimento.setHours(agora.getHours() + 6);
+    } else if (vencimento > agora) {
         vencimento.setDate(vencimento.getDate() + 30);
         vencimento.setHours(23, 59, 59, 998);
     } else {
-        vencimento.setDate(vencimento.getDate() + 30);
+        vencimento = new Date()
+        vencimento.setDate(agora.getDate() + 30);
+        vencimento.setHours(23, 59, 59, 998);
     }
 
     if (login) {

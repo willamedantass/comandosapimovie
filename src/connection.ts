@@ -27,11 +27,10 @@ export const connect = async () => {
 
   bot.ev.on("connection.update", (update) => {
     const { connection, lastDisconnect } = update;
-    console.error(`Update ${JSON.stringify(update)}`);
 
     if (connection === "close") {
-      const shouldReconnect =
-        lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut;
+      // const shouldReconnect =
+      //   lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut;
 
       // if (shouldReconnect) {
       console.error('Iniciando nova conexão com o whatsapp.');
