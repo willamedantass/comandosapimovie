@@ -1,10 +1,6 @@
+import { UserState } from "../type/UserState";
+import { User } from "../type/user";
 import { MenuLevel } from "./Menu";
-
-interface UserState {
-    remoteJid: string;
-    menuLevel: MenuLevel;
-    expire: Date;
-}
 
 const userStates: UserState[] = [];
 
@@ -22,12 +18,20 @@ export const getUserState = (remoteJid: string): UserState | undefined => {
     return userStates.find(state => state.remoteJid === remoteJid);
 }
 
-export const updateUserState = (remoteJid: string, menuLevel: MenuLevel, expire: Date): void => {
-    const existingState = getUserState(remoteJid);
+export const createUserState = (remoteJid: string, user: User, menuLevel: MenuLevel, opcaoMenu?: string) : UserState => {
+    const expire = new Date();
+    expire.setMinutes(expire.getMinutes() + 15);
+    const status = false;
+    const index = userStates.push({remoteJid, user, menuLevel, expire, opcaoMenu, status});
+    return userStates[index];
+}
+
+export const updateUserState = (userState: UserState): void => {
+    const existingState = getUserState(userState.remoteJid);
     if (existingState) {
-        existingState.menuLevel = menuLevel;
-    } else {
-        userStates.push({ remoteJid, menuLevel, expire });
+        existingState.menuLevel = userState.menuLevel;
+        existingState.opcaoMenu = userState.opcaoMenu;
+        existingState.renovacaoState = userState.renovacaoState;
     }
 }
 

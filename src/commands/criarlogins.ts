@@ -1,18 +1,12 @@
-import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
 import { createLoginAPI } from "../controller/LoginsWebOPainelController";
+import { IBotData } from "../Interface/IBotData";
+import { mensagem } from "../util/jsonConverte";
 
 export default async ({ reply, owner }: IBotData) => {
     if (owner) {
         await criarLoginsComIntervalo(0,reply)
-        // for(let i = 0; i < 6; i++){
-        //     let result: boolean = false;
-        //     const tempoDeEspera = Math.floor(Math.random() * (30000 - 20000 + 1)) + 20000;
-        //     await setTimeout(async ()=> result = await createLoginAPI(), tempoDeEspera);
-            
-        // }
     } else {
-        reply(StringsMsg.acessoNegado);
+        reply(mensagem('acessoNegado'));
     }
 }
 

@@ -1,7 +1,7 @@
 import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
 import { readLogins } from "../data/loginDB";
 import { Login } from "../type/login";
+import { mensagem } from "../util/jsonConverte";
 
 export default async ({ sendText, reply, owner }: IBotData) => {
     if (owner) {
@@ -16,6 +16,6 @@ export default async ({ sendText, reply, owner }: IBotData) => {
         });
         await sendText(true, msg);
     } else {
-        reply(StringsMsg.acessoNegado);
+        await reply(mensagem('acessoNegado'));
     }
 };

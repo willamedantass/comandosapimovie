@@ -1,6 +1,6 @@
 import { searchUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
+import { mensagem } from "../util/jsonConverte";
 import { Acesso, User } from "../type/user";
 
 export default async ({remoteJid, reply, owner}: IBotData) => {
@@ -9,17 +9,17 @@ export default async ({remoteJid, reply, owner}: IBotData) => {
         if(user){
             if(user.acesso === Acesso.usuario){
                 user.acesso = Acesso.revenda;
-                await updateUser(user);
+                updateUser(user);
                 await reply("✅ Acesso de revendedor liberado!");
             } else {
                 user.acesso = Acesso.usuario;
-                await updateUser(user);
+                updateUser(user);
                 await reply("❎ Acesso de revendedor removido!");
             }
         } else {
-            reply(StringsMsg.errorUser)
+            await reply(mensagem('errorUser'))
         }
     } else {
-        reply(StringsMsg.acessoNegado);
+        await reply(mensagem('acessoNegado'))
     }
 };

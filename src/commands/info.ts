@@ -4,23 +4,23 @@ import { Login, LoginTituloType } from "../type/login";
 import { getMensagemLogin } from "../util/getMensagem";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
+import { mensagem } from "../util/jsonConverte";
 import { User } from "../type/user";
 
 export default async ({ args, remoteJid, reply, sendText, owner }: IBotData) => {
     let user: User | undefined = searchUser(remoteJid);
     if (user) {
-        let usr: string =  StringClean(user.nome);
+        let usr: string = StringClean(user.nome);
         if (args && owner) {
             usr = StringClean(args);
         }
-        const login: Login | undefined= buscarLogin(usr);
-        if(login){
-            let msg:string = getMensagemLogin(login.user, login.password, login.vencimento, LoginTituloType.info);
+        const login: Login | undefined = buscarLogin(usr);
+        if (login) {
+            let msg: string = getMensagemLogin(login.user, login.password, login.vencimento, LoginTituloType.info);
             return await sendText(true, msg);
         }
-        reply(StringsMsg.errorLogin);
+        await reply(mensagem('errorLogin'));
     } else {
-        reply(StringsMsg.errorUser);
+        await reply(mensagem('errorUser'));
     }
 }

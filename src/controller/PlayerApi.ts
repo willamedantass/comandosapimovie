@@ -1,3 +1,4 @@
+import { isVencimentoController } from "./isVencimentoController";
 import { getSeriesCategoryId } from "../api/getSeriesCategoryId";
 import { getSeriesCategories } from "../api/getSeriesCategories";
 import { getFilmsCategoryId } from "../api/getFilmsCategoryId";
@@ -7,8 +8,8 @@ import { getLiveCategories } from "../api/getLiveCategories";
 import { getLiveStreams } from "../api/getLiveStreams";
 import { getSeriesInfo } from "../api/getSeriesInfo";
 import { getMovieInfo } from "../api/getMovieInfo";
-import { buscarLogin } from "../data/loginDB";
 import { getEpgShort } from "../api/getEpgShort";
+import { buscarLogin } from "../data/loginDB";
 import { getSeries } from "../api/getSeries";
 import { getFilms } from "../api/getFilms";
 import { getAuth } from "../api/getAuth";
@@ -19,10 +20,8 @@ export const PlayerApi = async (req, res) => {
     const password: string = req.query.password;
     const action: string = req.query.action;
     const category_id: string = req.query.category_id;
-    //console.log(`${req.protocol}:
-    //${req.get('host')}${req.originalUrl}`);
 
-    let login: Login | undefined= buscarLogin(user);
+    let login: Login | undefined = buscarLogin(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
@@ -32,11 +31,9 @@ export const PlayerApi = async (req, res) => {
         return res.json({ "user_info": { "auth": 0 } });
     }
 
-    const agora = new Date();
-    const vencimento = new Date(login.vencimento);
-    if (agora > vencimento) {
-        console.log(`Usuário ${user} vencido!`);
-        return res.json(await getAuth(login));
+    const isVencido = await isVencimentoController(login);
+    if (isVencido) {
+        return res.json({ "user_info": { "auth": 0 } });
     }
 
     if (!action) {

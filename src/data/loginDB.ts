@@ -13,8 +13,14 @@ export const readLogins = (): Login[] => {
     return readJSON(pathJson);
 }
 
-export const buscarLogin = (user: string): Login | undefined => {
-    return readLogins().find((value: Login) => value.user === user);
+export const searchLoginPorUsername = (username: string): Login | undefined => {
+    return readLogins().find((value: Login) => value.user === username);
+}
+
+export const searchLoginsPorUId = (uid: string): Login[] => {
+    return readLogins().filter((value: Login) => {
+        return value.uid === uid;
+    });
 }
 
 export const updateLogin = (login: Login): void => {

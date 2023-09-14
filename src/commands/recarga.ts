@@ -1,28 +1,25 @@
 import {  searchUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
 import { User } from "../type/user";
+import { mensagem } from "../util/jsonConverte";
 
 export default async ({ owner, remoteJid, args, reply }: IBotData) => {    
     if (owner) {
         let user: User | undefined = searchUser(remoteJid);
         if (!user) {
-            reply(StringsMsg.errorUser)
-            return
+            return await reply(mensagem('errorUser'));
         }
         if(!args){
-            reply(StringsMsg.errorArgs)
-            return
+            return await reply(mensagem('errorArgs'));
         }
         let credito: number = parseInt(args);
         if(!credito){
-            reply(StringsMsg.errorArgs)
-            return
+            return await reply(mensagem('errorArgs'));
         }
         user.credito += credito;
-        await updateUser(user)  
-        await reply(StringsMsg.recarga + user.credito)      
+        updateUser(user)  
+        await reply(mensagem('recarga') + user.credito)      
     } else {
-        reply(StringsMsg.acessoNegado);
+        await reply(mensagem('acessoNegado'));
     }
 };

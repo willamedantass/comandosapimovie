@@ -14,32 +14,35 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
         case LoginTituloType.login:
             msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n            ✅ *MOVNOW 30D* ✅\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
             break;
-
+        case LoginTituloType.renovacao:
+            msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n         📺🌟 *MOVNOW* 🌟📺 \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n";
+            break;
         default:
             break;
     }
 
-    const options = {
-        timeZone: 'America/Sao_Paulo',
-        hour12: false
-    }
-    msg += `👤 *USUARIO:* ${user} \n`;
-    msg += `🔐 *SENHA:* ${password} \n`;
-    msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleDateString('pt-br', options)} \n`;
-    msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "             ℹ️ *XTREAM CODE* \n";
-    msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    msg += "SMARTERS OU DUPLECAST\n";
-    msg += "*1 -* movnow\n";
-    msg += `*2 -* ${user} \n`;
-    msg += `*3 -* ${password}\n`;
-    msg += `*4 -* http://${process.env.SERVER_PROXY_DNS}\n`;
-    // msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    // msg += "*DNS SAMSUNG/LG*\n";
-    // msg += `${process.env.SERVER_STB_IP}\n`;
-    msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
-    loginType === LoginTituloType.teste ? msg += "😍 GOSTOU? DIGITE #PIX PARA ATIVAR" : '';
+    const options = {timeZone: 'America/Sao_Paulo',hour12: false}
 
+    if(loginType === LoginTituloType.renovacao) {
+        msg += `Login *${user}* renovado com sucesso!\nNovo vencimento: ${new Date(vencimento).toLocaleString('pt-br', options)}`;
+    } else {
+        msg += `👤 *USUARIO:* ${user} \n`;
+        msg += `🔐 *SENHA:* ${password} \n`;
+        msg += `⏰ *Expira:* ${new Date(vencimento).toLocaleDateString('pt-br', options)} \n`;
+        msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
+        msg += "             ℹ️ *XTREAM CODE* \n";
+        msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
+        msg += "SMARTERS OU DUPLECAST\n";
+        msg += "*1 -* movnow\n";
+        msg += `*2 -* ${user} \n`;
+        msg += `*3 -* ${password}\n`;
+        msg += `*4 -* http://${process.env.SERVER_PROXY_DNS}\n`;
+        // msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
+        // msg += "*DNS SAMSUNG/LG*\n";
+        // msg += `${process.env.SERVER_STB_IP}\n`;
+        msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
+        loginType === LoginTituloType.teste ? msg += "😍 GOSTOU? DIGITE #PIX PARA ATIVAR" : '';
+    }
     return msg;
 }
 

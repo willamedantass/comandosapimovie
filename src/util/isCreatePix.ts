@@ -1,13 +1,22 @@
-export const isCriarPix = (dataPix: string | undefined) => {
-    if (dataPix) {
-      try {
-        var data = new Date(dataPix)
-        let resposta = Math.floor((new Date().getTime() - data.getTime()) / (1000 * 60 * 60 * 24)) > 0;
-        return resposta;
-      } catch (error) {
-        console.error('Erro ao tentar converter data no metodos function isCriarTeste')
-      }
+import { updateUser } from "../data/userDB";
+import { User } from "../type/user";
+
+export const isCriarPix = (user: User) => {
+  const agora = new Date();
+  const dataPix = new Date(user.data_pix);
+  if (dataPix.getDate() === agora.getDate()) {
+    const limite = user.limite_pix;
+    if (limite < 5) {
+      user.limite_pix = limite + 1;
+      updateUser(user);
+      return true;
     } else {
-      return true
+      return false;
     }
+  } else {
+    user.limite_pix = user.limite_pix + 1;
+    user.data_pix = agora.toISOString();
+    updateUser(user);
+    return true;
   }
+}

@@ -1,32 +1,18 @@
+import { uid } from "uid";
+import { mensagem } from "./util/jsonConverte";
 import axios from "axios";
-import { error } from "console";
-import { sendMessage } from "./util/sendMessage";
+import { StringClean } from "./util/stringClean";
 
 require('dotenv/config');
 
 (async function iniciar() {
+
+    // console.log(StringClean("William Dant~)*$#@s"));
     
 
-
-
-    //   key: {
-    //     remoteJid: '558588199556@s.whatsapp.net',
-    //     fromMe: false,
-    //     id: 'E980329AC3652E0EC199FCB7245C0A48',
-    //     participant: undefined
-    //   },
-    //   messageTimestamp: 1693232788,
-    //   pushName: 'Will',
-    //   broadcast: false,
-    //   message: Message {
-    //     conversation: 'Oi',
-    //     messageContextInfo: MessageContextInfo {
-    //       deviceListMetadata: [DeviceListMetadata],
-    //       deviceListMetadataVersion: 2
-    //     }
-    //   }
-    // }
-
+    // const { data }= await axios.get('https://mantosdofutebol.com.br/guia-de-jogos-tv-hoje-ao-vivo/')
+    // console.log(data);
+    
 
 })();
 

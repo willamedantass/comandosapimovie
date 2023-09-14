@@ -10,7 +10,7 @@ export const PixController = async (user: User): Promise<Result> => {
     if (user.acesso === Acesso.revenda) {
         valor = parseFloat(user?.valor || process.env.VALOR_REVENDA || '15');
     }
-    if (isCriarPix(user?.data_pix) || user.acesso === Acesso.revenda || user.acesso === Acesso.adm) {
+    if (isCriarPix(user) || user.acesso === Acesso.revenda || user.acesso === Acesso.adm) {
         var mercadopago = require('mercadopago');
         mercadopago.configurations.setAccessToken(process.env.MP_ACCESSTOKEN);
 

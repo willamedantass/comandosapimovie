@@ -1,6 +1,5 @@
-import { readJSON, writeJSON } from '../util/jsonConverte';
+import { mensagem, readJSON, writeJSON } from '../util/jsonConverte';
 import { IBotData } from '../Interface/IBotData';
-import { StringsMsg } from '../util/stringsMsg';
 import path from 'path';
 
 export default async ({ reply, owner, remoteJid }: IBotData) => {
@@ -20,6 +19,6 @@ export default async ({ reply, owner, remoteJid }: IBotData) => {
             await reply('Bot ativado para o seu contato!')
         }
     } else {
-        reply(StringsMsg.acessoNegado);
+        await reply(mensagem('acessoNegado'));
     }
 };

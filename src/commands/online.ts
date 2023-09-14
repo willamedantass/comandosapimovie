@@ -1,7 +1,7 @@
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
 import { readUserFluxo } from "../data/fluxoAcessoDB";
 import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
+import { mensagem } from "../util/jsonConverte";
 
 export default async ({ reply, owner }: IBotData) => {
     if (owner) {
@@ -17,6 +17,6 @@ export default async ({ reply, owner }: IBotData) => {
         });
         return await reply(`**Clientes Online** ${online}`);
     } else {
-        reply(StringsMsg.acessoNegado);
+        await reply(mensagem('acessoNegado'));
     }
 };

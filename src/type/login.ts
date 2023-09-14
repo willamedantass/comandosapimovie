@@ -22,6 +22,7 @@ export type Login = {
 export enum LoginTituloType {
     teste = 'teste',
     info = 'info',
-    login = 'login'
+    login = 'login',
+    renovacao = 'renovacao'
 
 }

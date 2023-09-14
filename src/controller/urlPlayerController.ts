@@ -1,14 +1,14 @@
 import { createUserFluxo, processUserFluxo, readUserFluxo, updateUserFluxo } from "../data/fluxoAcessoDB";
 import { deleteLivePass, readLivePass, searchLivePass, unusedUserLivePass } from "../data/livePassDB";
 import { createLoginAPI, deleteLoginAPI } from "./LoginsWebOPainelController";
+import { isVencimentoController } from "./isVencimentoController";
 import { buscarLogin, updateLogin } from "../data/loginDB";
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
-import { mensagem, readJSON } from "../util/jsonConverte";
 import { provedorAcesso } from "../type/provedor";
+import { readJSON } from "../util/jsonConverte";
 import { livePass } from "../type/livePass";
 import { Login } from "../type/login";
 import path from "path";
-import { sendMessage } from "../util/sendMessage";
 const idProvedorClub = '2';
 
 export const urlPlayerController = async (req, res) => {
@@ -16,31 +16,19 @@ export const urlPlayerController = async (req, res) => {
     const video: string = req.params.video.substring(1);
     const idProvedor: string = req.params.video.charAt(0);
 
-    if (!user) {
-        res.status(405).end();
-    }
-
-    let login: Login | undefined= buscarLogin(user);
+    let login: Login | undefined = buscarLogin(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
     }
+
     if (password !== login.password) {
         console.log(`Senha inválida! Senha usada: ${password}`);
         return res.json({ "user_info": { "auth": 0 } });
     }
 
-    const agora = new Date();
-    const vencimento = new Date(login.vencimento);
-    if (agora > vencimento) {
-        const dataMensagem = login?.data_msg_vencimento ? new Date(login?.data_msg_vencimento) : null;
-        if(dataMensagem && dataMensagem.getDay() !== agora.getDay()){
-            const contato = login?.contato ? login.contato : '8588199556';
-            await sendMessage(contato, mensagem('vencimento'));
-            login.data_msg_vencimento = dataMensagem.toISOString();
-            updateLogin(login);
-        }
-        console.info(`Login expirado! Usuário: ${user}`);
+    const isVencido = await isVencimentoController(login);
+    if (isVencido) {
         return res.json({ "user_info": { "auth": 0 } });
     }
 
@@ -48,6 +36,7 @@ export const urlPlayerController = async (req, res) => {
         return res.json({ "user_info": { "auth": 0 } });
     }
 
+    const agora = new Date();
     const remoteIp = (req.headers['x-forwarded-for'] || '').split(',').pop() || // Recupera o IP de origem, caso a fonte esteja utilizando proxy
         req.connection.remoteAddress || // Recupera o endereço remoto da chamada
         req.socket.remoteAddress || // Recupera o endereço através do socket TCP

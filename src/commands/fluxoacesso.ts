@@ -1,7 +1,8 @@
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
 import { readUserFluxo } from "../data/fluxoAcessoDB";
 import { IBotData } from "../Interface/IBotData";
-import { StringsMsg } from "../util/stringsMsg";
+import { mensagem } from "../util/jsonConverte";
+
 
 export default async ({ sendText, reply, owner }: IBotData) => {
     if (owner) {
@@ -9,7 +10,7 @@ export default async ({ sendText, reply, owner }: IBotData) => {
         let online: string = '';
         const options = { timeZone: 'America/Sao_Paulo', hour12: false }
 
-        if(!users.length){
+        if (!users.length) {
             return await reply('Nenhum usuário conectado.');
         }
 
@@ -18,9 +19,9 @@ export default async ({ sendText, reply, owner }: IBotData) => {
             ${user.user.toUpperCase()} - 
             Acesso: ${new Date(user.data).toLocaleString('pt-br', options)}`);
         });
-        
+
         await sendText(true, `   **Clientes Online** ${online}`);
     } else {
-        reply(StringsMsg.acessoNegado);
+        await reply(mensagem('acessoNegado'));
     }
 };

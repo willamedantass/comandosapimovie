@@ -14,6 +14,7 @@ export default async ({ remoteJid, reply, sendText }: IBotData) => {
             await sendText(false,  pix_data?.data.point_of_interaction.transaction_data.qr_code);
             await sendText(false, mensagem('pix'));
             user.data_pix = new Date().toISOString();
+            user.limite_pix = user?.limite_pix ? user.limite_pix + 1 : 1;
             updateUser(user);
         } else {
             await sendText(true, pix_data.msg);

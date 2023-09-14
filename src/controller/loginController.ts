@@ -1,4 +1,4 @@
-import { buscarLogin, criarLogin, updateLogin } from "../data/loginDB";
+import { criarLogin, searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { getRandomString } from "../util/getRandomString";
 import { isCriarTeste } from "../util/isCreateTest";
 import { mensagem } from "../util/jsonConverte";
@@ -18,7 +18,7 @@ export const LoginController = (username: string, isTrial: boolean, isReneew: bo
         return result;
     }
 
-    const login = buscarLogin(username);
+    const login = searchLoginPorUsername(username);
     if (login && !isReneew) {
         result = { result: false, msg: mensagem('user_existe') };
         return result;
@@ -52,8 +52,8 @@ export const LoginController = (username: string, isTrial: boolean, isReneew: bo
         login.vencimento = vencimento.toISOString();
         login.isTrial = false;
         login.uid = user?.id ? user.id : '',
-        login.contato = user.remoteJid.split('@')[0],
-        updateLogin(login);
+            login.contato = user.remoteJid.split('@')[0],
+            updateLogin(login);
         result = { result: true, msg: 'Login ativado com sucesso.', data: login }
     } else {
         const loginNew: Login = {
@@ -71,7 +71,10 @@ export const LoginController = (username: string, isTrial: boolean, isReneew: bo
         result = { result: true, msg: 'Login criado com sucesso.', data: loginNew }
     }
 
-    !isTrial && (user.credito -= 1);
+    if (!isTrial) {
+        user.credito -= 1;
+        result.msg = `Seu novo saldo em crédito: ${user.credito}`;
+    }
     isTrial && (user.data_teste = new Date().toISOString());
     user.vencimento = vencimento.toISOString();
     updateUser(user);

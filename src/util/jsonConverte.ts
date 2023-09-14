@@ -15,10 +15,12 @@ export const readJSON = (pathFileJson: PathLike) => {
     return [];
 };
 
-export const mensagem = (key: string): string => {
+export const mensagem = (key: string, nome?:string): string => {
     const pathFileJson = path.join(__dirname, '..', '..', 'cache', 'mensagens.json');
     const mensagens = JSON.parse(fs.readFileSync(pathFileJson, 'utf-8'));
-    return mensagens[key];
+    let msg = mensagens[key];
+    msg = nome ? msg = msg.replace(/\*\*\*/g, nome) : msg.replace(/\*\*\*/g, '') ;
+    return msg;
 };
 
 export const writeJSON = (pathFileJson: string, data: object) => {

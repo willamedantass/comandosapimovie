@@ -1,5 +1,5 @@
 export interface User {
-    id?: string;
+    id: string;
     nome: string;
     data_cadastro: string;
     remoteJid: string;
@@ -10,7 +10,8 @@ export interface User {
     credito: number;
     valor?: string;
     data_teste?: string;
-    data_pix?: string;
+    data_pix: string;
+    limite_pix: number;
     vencimento?: string;
     logins?: string[];
 }

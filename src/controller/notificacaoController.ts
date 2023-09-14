@@ -54,7 +54,8 @@ export const notificacaopix = async (req, res) => {
             user.pgtos_id.push(payment_info.body.id);
             user.credito = credito;
             updateUser(user)
-            sendMessage('', mensagem('pix_aprovado'), remoteJid);
+            await sendMessage('', mensagem('pix_aprovado'), remoteJid);
+            await sendMessage('', `Seu novo saldo em crédito: ${user.credito}`, remoteJid);
         } else {
             console.info(`Pagamento de transação ${payment_info.body.id} ainda não foi aprovado.`);
         }

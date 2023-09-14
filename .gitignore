@@ -1,6 +1,7 @@
-node_modules/
-build/
 .env
 package-lock.json
-cache/
 baileys_store_multi.json
+src/teste.ts
+node_modules/
+build/
+cache/
