@@ -1,10 +1,10 @@
-import { buscarLogin, updateLogin } from "../data/loginDB";
+import {  searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
 import { Login } from "../type/login";
 
 export default async ({reply, args}: IBotData) => {   
-        const login: Login | undefined = buscarLogin(StringClean(args));
+        const login: Login | undefined = searchLoginPorUsername(StringClean(args));
         if(login){
             if(login?.isAdult){
                 login.isAdult = false;

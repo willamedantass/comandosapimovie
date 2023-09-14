@@ -2,7 +2,7 @@ import { createUserFluxo, processUserFluxo, readUserFluxo, updateUserFluxo } fro
 import { deleteLivePass, readLivePass, searchLivePass, unusedUserLivePass } from "../data/livePassDB";
 import { createLoginAPI, deleteLoginAPI } from "./LoginsWebOPainelController";
 import { isVencimentoController } from "./isVencimentoController";
-import { buscarLogin, updateLogin } from "../data/loginDB";
+import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
 import { provedorAcesso } from "../type/provedor";
 import { readJSON } from "../util/jsonConverte";
@@ -16,7 +16,7 @@ export const urlPlayerController = async (req, res) => {
     const video: string = req.params.video.substring(1);
     const idProvedor: string = req.params.video.charAt(0);
 
-    let login: Login | undefined = buscarLogin(user);
+    let login: Login | undefined = searchLoginPorUsername(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });

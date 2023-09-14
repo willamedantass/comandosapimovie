@@ -1,4 +1,4 @@
-import { buscarLogin, updateLogin } from "../data/loginDB";
+import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { IBotData } from "../Interface/IBotData";
 import { Login } from "../type/login";
 import { mensagem } from "../util/jsonConverte";
@@ -6,7 +6,7 @@ import { mensagem } from "../util/jsonConverte";
 export default async ({ reply, args, owner }: IBotData) => {
     if (owner) {
         const comandos = args.split(' ');
-        const login: Login | undefined = buscarLogin(comandos[0]);
+        const login: Login | undefined = searchLoginPorUsername(comandos[0]);
         if (login) {
             let vencimento = new Date();
             const dias = parseInt(comandos[1]);

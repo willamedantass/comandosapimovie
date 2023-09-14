@@ -5,11 +5,11 @@ import { getFilmsCategoryId } from "../api/getFilmsCategoryId";
 import { getFilmsCategories } from "../api/getFilmsCategories";
 import { getLiveCategoryId } from "../api/getLiveCategoryId";
 import { getLiveCategories } from "../api/getLiveCategories";
+import { searchLoginPorUsername } from "../data/loginDB";
 import { getLiveStreams } from "../api/getLiveStreams";
 import { getSeriesInfo } from "../api/getSeriesInfo";
 import { getMovieInfo } from "../api/getMovieInfo";
 import { getEpgShort } from "../api/getEpgShort";
-import { buscarLogin } from "../data/loginDB";
 import { getSeries } from "../api/getSeries";
 import { getFilms } from "../api/getFilms";
 import { getAuth } from "../api/getAuth";
@@ -21,7 +21,7 @@ export const PlayerApi = async (req, res) => {
     const action: string = req.query.action;
     const category_id: string = req.query.category_id;
 
-    let login: Login | undefined = buscarLogin(user);
+    let login: Login | undefined = searchLoginPorUsername(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });

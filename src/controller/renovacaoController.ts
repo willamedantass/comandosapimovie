@@ -1,4 +1,4 @@
-import { buscarLogin, updateLogin } from "../data/loginDB";
+import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { Login } from "../type/login";
 require('dotenv/config');
 
@@ -8,8 +8,8 @@ export const RenovacaoController = async (req, res) => {
         console.log(`Erro no envio dos parametros! Req: ${req_login}`);
         return res.status(400).end();
     }
-    
-    let login: Login | undefined= buscarLogin(req_login);
+
+    let login: Login | undefined = searchLoginPorUsername(req_login);
     if (login) {
         const agora = new Date();
         let vencimento = new Date(login.vencimento);
@@ -27,7 +27,7 @@ export const RenovacaoController = async (req, res) => {
         msg += `<h3>Usuário ${login.user} renovado com sucesso! Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}</h3>`;
         return res.send(msg).end();
     }
-    
+
     res.send(`<h3>Usuário ${req_login} não existe`).end();
 }
 

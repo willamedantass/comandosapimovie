@@ -1,4 +1,4 @@
-import { buscarLogin } from "../data/loginDB";
+import { searchLoginPorUsername } from "../data/loginDB";
 import { searchUser } from "../data/userDB";
 import { Login, LoginTituloType } from "../type/login";
 import { getMensagemLogin } from "../util/getMensagem";
@@ -14,7 +14,7 @@ export default async ({ args, remoteJid, reply, sendText, owner }: IBotData) => 
         if (args && owner) {
             usr = StringClean(args);
         }
-        const login: Login | undefined = buscarLogin(usr);
+        const login: Login | undefined = searchLoginPorUsername(usr);
         if (login) {
             let msg: string = getMensagemLogin(login.user, login.password, login.vencimento, LoginTituloType.info);
             return await sendText(true, msg);
