@@ -65,9 +65,9 @@ export const getBotData = (
   };
 
   const sendImage = async (
-    pathOrBuffer: string | Buffer,
-    caption = "",
-    isReply = true
+    url: string,
+    message = "",
+    isReply = false
   ) => {
     let options = {};
 
@@ -77,19 +77,12 @@ export const getBotData = (
       };
     }
 
-    const image =
-      pathOrBuffer instanceof Buffer
-        ? pathOrBuffer
-        : fs.readFileSync(pathOrBuffer);
-
-    const params = caption
-      ? {
-        image,
-        caption: `${general.prefixEmoji} *${general.botName}:* \n${caption}`,
-      }
-      : { image };
-
-    return await socket.sendMessage(remoteJid, params, options);
+    const buttonMessage = {
+      image: { url: url },
+      caption: message,
+      headerType: 4
+    }
+    return await socket.sendMessage(remoteJid, buttonMessage)
   };
 
   const sendSticker = async (pathOrBuffer: string | Buffer, isReply = true) => {

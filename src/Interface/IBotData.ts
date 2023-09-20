@@ -5,7 +5,7 @@ export interface IBotData {
     presenceTime: any;
     sendButton: (mensagem: string, textBtn1: string, textBtn2: string, textBtn3?: string) => Promise<proto.WebMessageInfo>;
     sendText: (ass: boolean, text: string) => Promise<proto.WebMessageInfo>;
-    sendImage: (pathOrBuffer: string | Buffer, caption?: string, isReply?: boolean) => Promise<proto.WebMessageInfo>;
+    sendImage: (url: string, message?: string, isReply?: boolean) => Promise<proto.WebMessageInfo>;
     sendSticker: (pathOrBuffer: string | Buffer, isReply?: boolean) => Promise<proto.WebMessageInfo>;
     sendAudio: (pathOrBuffer: string | Buffer, isReply?: boolean, ptt?: boolean) => Promise<proto.WebMessageInfo>;
     sendApk: () => Promise<proto.WebMessageInfo>;

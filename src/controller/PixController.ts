@@ -5,7 +5,7 @@ import { Result } from "../util/result";
 require('dotenv/config');
 
 export const PixController = async (user: User): Promise<Result> => {
-    let valor = parseInt(user?.valor || process.env.VALOR_LOGIN_1_ACESSO || '30');
+    let valor = parseFloat(user?.valor || process.env.VALOR_LOGIN_1_ACESSO || '30');
     let result: Result = { result: false, msg: 'Não foi possível processar o pix no banco.' };
     if (user.acesso === Acesso.revenda) {
         valor = parseFloat(user?.valor || process.env.VALOR_REVENDA || '15');

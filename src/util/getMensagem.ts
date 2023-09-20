@@ -1,9 +1,7 @@
 import { LoginTituloType } from "../type/login";
 
-
 export const getMensagemLogin = (user: string, password: string, vencimento: string, loginType: string) => {
     let msg = '';
-
     switch (loginType) {
         case LoginTituloType.teste:
             msg += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n            ✅ *TESTE CRIADO* ✅\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n";
@@ -47,11 +45,13 @@ export const getMensagemLogin = (user: string, password: string, vencimento: str
 }
 
 export const getMensagemPix = (transacao: string, valor: string) => {
+    var numero = parseFloat(valor);
+    var moedaFormatada = numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     let msg = '';
     msg += '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n📌 *DETALHES DA COMPRA* 📌\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n';
     msg += '🛍️ *Produto:* MOVNOW 30D\n';
     msg += `🏦 *Transação:* ${transacao} \n`
-    msg += `💰 *Valor:* R$ ${valor}\n`
+    msg += `💰 *Valor:* R$ ${moedaFormatada}\n`
     msg += '📅 *Validade:* 30 Dias\n'
     msg += '🔰 *Método de Pagamento:* Pix Cópia e Cola'
     return msg;

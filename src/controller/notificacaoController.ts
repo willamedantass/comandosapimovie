@@ -8,6 +8,11 @@ export const notificacaopix = async (req, res) => {
     let payment_info;
     const dados = req.query;
 
+    if (dados.hasOwnProperty('data.id') && dados.hasOwnProperty('type')) {
+        console.info('Notificação descartada por parâmetros enviados.');
+        return res.status(200).end();
+    }
+
     if (!dados.hasOwnProperty('id') || !dados.hasOwnProperty('topic')) {
         console.error('Erro no envio dos parâmetros da notificação!');
         return res.status(400).end();

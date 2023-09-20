@@ -25,7 +25,7 @@ export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
         if (!res.result) {
             return await reply(res.msg)
         }
-        const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste);
+        const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.login);
         await sendText(true, msg);
         user = searchUser(remoteJid) as User;
         await sendText(true, `Seu novo saldo em crédito: ${user.credito}`);
