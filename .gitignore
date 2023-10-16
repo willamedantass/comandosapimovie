@@ -1,5 +1,8 @@
 .env
 package-lock.json
+movvnow-firebase.json
+login.old
+user.old
 baileys_store_multi.json
 src/teste.ts
 node_modules/

@@ -1,24 +1,30 @@
-import path from "path";
-import { User } from "../type/user";
+import { FirestoreUserCreate, FirestoreUserUpdate } from "./userFirestore";
 import { readJSON, writeJSON } from "../util/jsonConverte";
-import { Login } from "../type/login";
 import { searchLoginsPorUId } from "./loginDB";
-
+import { Login } from "../type/login";
+import { User } from "../type/user";
+import path from "path";
 const pathJson = path.join(__dirname, "..", "..", "cache", "user.json");
 
-export const createUser = async (user: User) => {
-    const arquivo = readJSON(pathJson);
-    arquivo.push(user)
-    await writeJSON(pathJson, arquivo);
+export const createUser = async (user: User): Promise<string | undefined> => {
+    try {
+        const users = allUser();
+        const userNew = await FirestoreUserCreate(user);
+        users.push(userNew);
+        saveAllUser(users);
+        return userNew.id;
+    } catch (error) {
+        console.error(`Erro ao criar usuário. ${error}`);
+    }
 }
 
 export const searchUser = (remoteJid: string): User | undefined => {
     return allUser().find(value => value.remoteJid === remoteJid);
 }
 
-export const searchUserLogins = (remoteJid: string): Login[] => { 
+export const searchUserLogins = (remoteJid: string): Login[] => {
     const user = allUser().find(value => value.remoteJid === remoteJid);
-    if(user){
+    if (user) {
         return searchLoginsPorUId(user.id);
     }
     return [];
@@ -28,16 +34,21 @@ export const allUser = (): User[] => {
     return readJSON(pathJson);
 }
 
-export const updateUser = (user: User): void => {
-    const users: any[] = readJSON(pathJson)
-    var usersNew: any[] = []
+export const saveAllUser = (users: User[]) => {
+    writeJSON(pathJson, users);
+}
 
-    users.forEach(value => {
-        if (value.remoteJid === user.remoteJid) {
-            usersNew.push(user)
-        } else {
-            usersNew.push(value)
-        }
-    });
-    writeJSON(pathJson, usersNew);
+export const updateUser = async (user: User) => {
+    try {
+        const usersNew = allUser().map(usr => {
+            if (usr.remoteJid === user.remoteJid) {
+                return user;
+            }
+            return usr;
+        });
+        await FirestoreUserUpdate(user);
+        saveAllUser(usersNew);
+    } catch (error) {
+        console.error(`Erro ao atualizar usuário. ${error}`);
+    }
 }

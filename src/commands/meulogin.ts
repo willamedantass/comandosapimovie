@@ -21,7 +21,7 @@ export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
             username = StringClean(args);
         }
 
-        const res = LoginController(username, isTrial, isReneew, user);
+        const res = await LoginController(username, isTrial, isReneew, user);
         if (!res.result) {
             return await reply(res.msg)
         }

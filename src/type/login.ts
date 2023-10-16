@@ -1,11 +1,12 @@
 export type Login = {
-    id?: string,
+    id: string,
     uid: string,
     user: string,
     password: string,
     dataCadastro: string,
     vencimento: string,
     isLive: boolean;
+    isTrial: boolean;
     contato?: string;
     data_msg_vencimento?: string;
     isClubtv?: boolean,
@@ -14,7 +15,6 @@ export type Login = {
     dataRemote?: string,
     countForbiddenAccess?: number,
     vencLong?: string,
-    isTrial?: boolean;
     isAdult?: boolean,
     status?: string,
 }

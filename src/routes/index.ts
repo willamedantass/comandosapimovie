@@ -11,11 +11,11 @@ import { Router } from "express";
 const router = Router();
 router.post('/notificacoes', notificacaopix);
 router.get('/renovar/:login', RenovacaoController);
-router.get('/apk', apkDownload)
+router.get('/apk', apkDownload);
 router.get('/lista/:provedor/:login', listaController);
 router.get('/url/:provedor/:media/:login/:video', urlController);
 router.get('/:media/:user/:password/:video', urlPlayerController);
 router.get(['/player_api.php','/panel_api.php'], PlayerApi);
-router.get('/xmltv.php', xmltv)
+router.get('/xmltv.php', xmltv);
 
 export default router;

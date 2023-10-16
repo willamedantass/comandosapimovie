@@ -88,7 +88,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
             const login = logins[userState.renovacaoState.selectedLogin || 0];
             userState.process = true;
             UpdateUserState(userState);
-            const result = LoginController(login.user, isTrial, isReneew, userState.user);
+            const result = await LoginController(login.user, isTrial, isReneew, userState.user);
             if (result.result) {
                 const msg: string = getMensagemLogin(result.data.user, result.data.password, result.data.vencimento, LoginTituloType.renovacao);
                 await data.sendText(true, msg);
@@ -101,7 +101,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
                 return;
             }
         } else {
-            await data.reply('Opção inválida.');
+            await data.reply(mensagem('opcao_invalida'));
         }
 
     }
@@ -118,7 +118,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         await data.sendText(true, msg);
     } else if (logins.length === 1 || searchLoginPorUsername(username)) {
         const user = logins.length === 1 ? logins[0].user : username;
-        const result = LoginController(user, isTrial, isReneew, userState.user);
+        const result = await LoginController(user, isTrial, isReneew, userState.user);
 
         if (result.result === false) return await data.sendText(true, result.msg);
 
@@ -135,7 +135,7 @@ const CriarTeste = async (userState: UserState, data: any) => {
     const isTrial = true;
     const isReneew = false;
     const username = StringClean(userState.user.nome);
-    const res = LoginController(username, isTrial, isReneew, userState.user);
+    const res = await LoginController(username, isTrial, isReneew, userState.user);
     if (!res.result) {
         return await data.reply(res.msg)
     }
@@ -150,7 +150,7 @@ const PixCopiaECola = async (userState: UserState, data: any) => {
         await data.sendText(false, msg);
         await data.sendText(false, pix_data?.data.point_of_interaction.transaction_data.qr_code);
         await data.sendText(false, mensagem('pix'));
-        // removeUserState(user.remoteJid);
+        await DesativarBotService(userState, data);
     } else {
         await data.sendText(true, pix_data.msg);
     }

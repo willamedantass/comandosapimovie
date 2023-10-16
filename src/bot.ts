@@ -1,72 +1,122 @@
+import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, makeInMemoryStore, proto, useMultiFileAuthState, WAMessageContent, WAMessageKey } from '@whiskeysockets/baileys';
 import { CreateUserState, getUserState, UpdateUserState } from "./menubot/UserState";
 import { MenuEntretenimentoOpcoes } from "./menubot/MenuEntretenimentoOpcoes";
 import { MenuLevel, menuTexts, OpcoesMenuMain } from "./menubot/MenuBot";
 import { ClearEmotionAndEspace, StringClean } from "./util/stringClean";
 import { getBotData, getCommand, isCommand } from "./function";
-import { CadastroConversation } from "./cadastroConversation";
 import { MenuMainOpcoes } from "./menubot/MenuMainOpcoes";
 import { mensagem, readJSON } from "./util/jsonConverte";
-import { createUser } from "./data/userDB";
-import { Acesso, Question, User } from "./type/user";
+import { createUser, searchUser } from "./data/userDB";
 import { general } from "./configuration/general";
+import { CadastroUser } from './cadastroUser';
 import { UserState } from "./type/UserState";
-import { connect } from "./connection";
+import MAIN_LOGGER from './util/logger';
+import NodeCache from 'node-cache';
+import { pid } from 'node:process';
+import { Boom } from '@hapi/boom';
 import { uid } from "uid";
 import path from "path";
-const pathUsers = path.join(__dirname, "..", "cache", "user.json");
-const pathBlacklist = path.join(__dirname, "..", "cache", "blacklist.json");
-let socket: any;
 
-export default async () => {
-    socket = await connect();
+let socket: any;
+const pathBlacklist = path.join(__dirname, "..", "cache", "blacklist.json");
+const useStore = !process.argv.includes('--no-store')
+const msgRetryCounterCache = new NodeCache()
+const logger = MAIN_LOGGER.child({})
+logger.level = 'info';
+
+const store = useStore ? makeInMemoryStore({ logger }) : undefined
+store?.readFromFile(path.join(__dirname, "..", "cache", "baileys_store_multi.json"));
+
+setInterval(() => {
+    store?.writeToFile(path.join(__dirname, "..", "cache", "baileys_store_multi.json"));
+}, 10_000)
+
+export const StartSock = async () => {
+    const { state, saveCreds } = await useMultiFileAuthState(path.join(__dirname, "..", "cache", "baileys_auth_info"));
+    const { version } = await fetchLatestBaileysVersion()
+
+    socket = makeWASocket({
+        version,
+        logger,
+        printQRInTerminal: true,
+        auth: {
+            creds: state.creds,
+            keys: makeCacheableSignalKeyStore(state.keys, logger),
+        },
+        msgRetryCounterCache,
+        generateHighQualityLinkPreview: true,
+        getMessage,
+    })
+
+    store?.bind(socket.ev)
+
     socket.ev.process(
         async (events) => {
+            if (events['connection.update']) {
+                const update = events['connection.update']
+                const { connection, lastDisconnect } = update
+                if (connection === 'close') {
+                    if ((lastDisconnect?.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut) {
+                        StartSock();
+                    } else {
+                        console.error('servidor reiniciado!');
+                        process.kill(pid);
+                    }
+                }
+                console.info('connection update', update)
+            }
+
+            // credentials updated -- save them
+            if (events['creds.update']) {
+                await saveCreds()
+            }
+
             if (events['messages.upsert']) {
                 const upsert = events['messages.upsert']
                 if (upsert.type === 'notify') {
                     for (const msg of upsert.messages) {
+                        const remoteJid = msg.key?.remoteJid;
+                        const owner: boolean = msg.key?.fromMe || false;
+
                         const blacklist = readJSON(pathBlacklist);
                         //ignorar mensagens de brodcast
-                        if (msg.key?.remoteJid === "status@broadcast") return
+                        if (remoteJid === "status@broadcast") return
 
                         //Blacklist
-                        if (blacklist.includes(msg.key.remoteJid) && !msg.key.fromMe) return;
+                        if (blacklist.includes(remoteJid) && !owner) return;
 
-                        let user: User = readJSON(pathUsers).find(value => value.remoteJid === msg.key.remoteJid)
-                        const { command, ...data } = getBotData(socket, msg, user);
-
-                        if (!user && !data.owner) {
+                        const { command, ...data } = getBotData(socket, msg);
+                        let user = searchUser(msg.key.remoteJid);
+                        if (user === undefined) {
                             const agora = new Date().toISOString();
                             const nome = ClearEmotionAndEspace(data.webMessage.pushName || '');
-                            const userNew: User = {
+                            user = {
                                 id: uid(8),
-                                nome: StringClean(nome),
+                                nome: nome,
                                 remoteJid: data.remoteJid,
                                 data_cadastro: agora,
-                                cadastro: true,
-                                question: Question.NewName,
-                                acesso: Acesso.usuario,
+                                isCadastrando: true,
+                                acesso: owner ? 'adm' : 'usuario',
                                 pgtos_id: [],
                                 limite_pix: 0,
                                 data_pix: agora,
                                 credito: 0
                             }
-                            await createUser(userNew);
-                            await data.sendText(false, `Olá, seja bem vindo à *MOVNOW*.\n\nMeu nome é *${general.botName}* sou um assistente virtual. Seu contato foi salvo para personalizar seu atendimento.`)
-                            await data.presenceTime(1000, 1500);
-                            await data.sendText(true, 'Como posso lhe chamar?\nDigite seu nome e sobrenome por favor.');
-                            return;
-                        } else if (user.cadastro && !data.owner) {
-                            CadastroConversation(user, data);
+                            await createUser(user);
+                            await data.sendText(false, `Olá, seja bem vindo à *MOVNOW*.\n\nMeu nome é *${general.botName}* sou um assistente virtual.`);
+                        }
+
+                        if (!owner && user && user.isCadastrando) {
+                            await CadastroUser(user, data);
                             return;
                         }
 
-                        let userState: UserState | undefined = undefined;
-                        if (!data.owner && !user.cadastro) {
-                            userState = getUserState(data.remoteJid);
+                        let userState: UserState | undefined = getUserState(data.remoteJid);
+                        if (!owner) {
+
                             if (!userState) {
                                 userState = CreateUserState(data.remoteJid, user, MenuLevel.MAIN);
-                                await data.sendText(true, mensagem('info_menu'));
+                                await data.sendText(true, mensagem('info_menu', user.nome));
                             }
 
                             const conversation = StringClean(data.messageText);
@@ -75,7 +125,7 @@ export default async () => {
                                 userState.status = true;
                                 userState.user = user;
                                 UpdateUserState(userState);
-                                return await data.sendText(true, menuTexts[MenuLevel.MAIN])
+                                return await data.sendText(true, menuTexts[MenuLevel.MAIN]);
                             }
 
                             const isCancel: boolean = (conversation === 'sair' || conversation === 'cancelar' || conversation === 'desativar') ? true : false;
@@ -88,7 +138,6 @@ export default async () => {
                             if (userState.status) {
                                 let opcaoMenu: any;
                                 const select = parseInt(conversation);
-
 
                                 if (isNaN(select) && !['voltar', 'sim', 'nao'].includes(conversation)) {
                                     return await data.reply(mensagem('opcao_invalida'));
@@ -108,22 +157,28 @@ export default async () => {
                         }
 
                         if (!isCommand(command) || userState?.status === true) return;
-
-                        if ((user && !user?.cadastro) || data.owner) {
-                            try {
-                                const action = await getCommand(command.replace(general.prefix, ""));
-                                await action({ command, ...data });
-                            } catch (error) {
-                                console.error('Log_bot: ' + error);
-                            }
+                        try {
+                            const action = await getCommand(command.replace(general.prefix, ""));
+                            await action({ command, ...data });
+                        } catch (error) {
+                            console.error('Log_bot: ' + error);
                         }
-
                     }
                 }
             }
         }
     )
-};
+
+    return socket;
+
+    async function getMessage(key: WAMessageKey): Promise<WAMessageContent | undefined> {
+        if (store) {
+            const msg = await store.loadMessage(key.remoteJid!, key.id!)
+            return msg?.message || undefined
+        }
+        return proto.Message.fromObject({})
+    }
+}
 
 export const sendZap = async (req, res) => {
 

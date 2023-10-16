@@ -18,7 +18,7 @@ export default async ({ reply, args, owner }: IBotData) => {
             contato = contato.replace(/[\s-]/g, '');
             login.contato = contato;
             login.data_msg_vencimento = '';
-            updateLogin(login);
+            await updateLogin(login);
             await reply('Login atualizado!');
         } else {
             await reply('Usuário informado não existe!')

@@ -64,7 +64,7 @@ export const MenuEntretenimentoOpcoes = async (userState: UserState, opcaoMenu: 
             await data.sendText(true, menuTexts[MenuLevel.MAIN]);
             break;
         default:
-            data.reply('Opção incorreta. Digite um número válido ou à palavra *sair* para desativar o MovBot.');
+            data.reply(mensagem('opcao_invalida'));
             break;
     }
 }

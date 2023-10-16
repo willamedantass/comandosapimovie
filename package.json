@@ -1,6 +1,6 @@
 {
   "name": "movnow",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -26,8 +26,8 @@
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
     "@antiadmin/anticaptchaofficial": "^1.0.26",
-    "@hapi/boom": "^10.0.0",
-    "@whiskeysockets/baileys": "^6.4.1",
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.5.0",
     "axios": "^0.27.2",
     "body-parser": "^1.20.2",
     "cheerio": "^1.0.0-rc.12",
@@ -35,6 +35,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "firebase": "^9.9.4",
+    "firebase-admin": "^11.11.0",
     "googleapis": "^108.0.0",
     "lodash": "^4.17.21",
     "mercadopago": "^1.5.17",

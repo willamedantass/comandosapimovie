@@ -4,7 +4,7 @@ import { StringClean } from '../util/stringClean';
 import { IBotData } from '../Interface/IBotData';
 import { mensagem } from '../util/jsonConverte';
 import { LoginTituloType } from '../type/login';
-import { removerTestes } from '../data/loginDB';
+import { removeTrial } from '../data/loginDB';
 import { searchUser } from '../data/userDB';
 import { User } from '../type/user';
 
@@ -27,7 +27,7 @@ export default async ({ reply, sendText, remoteJid, args }: IBotData) => {
         }
         const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste)
         await sendText(true, msg);
-        removerTestes();
+        await removeTrial();
     } else {
         await reply(mensagem('errorUser'));
     }

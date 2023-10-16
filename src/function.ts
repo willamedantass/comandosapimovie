@@ -16,8 +16,7 @@ import { readJSON, writeJSON } from "./util/jsonConverte";
 
 export const getBotData = (
   socket: any,
-  webMessage: proto.IWebMessageInfo,
-  user: User
+  webMessage: proto.IWebMessageInfo
 ): IBotData => {
 
   const remoteJid = webMessage.key.remoteJid || '';
@@ -188,7 +187,6 @@ export const getBotData = (
     userJid,
     replyJid,
     socket,
-    user,
     webMessage,
     command,
     args,

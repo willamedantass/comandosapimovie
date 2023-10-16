@@ -1,5 +1,4 @@
 import { proto } from '@whiskeysockets/baileys'
-import { User } from '../type/user';
 
 export interface IBotData {
     presenceTime: any;
@@ -23,6 +22,5 @@ export interface IBotData {
     args: string;
     userJid: string | undefined;
     messageText: string;
-    user: User;
     owner: boolean;
 }

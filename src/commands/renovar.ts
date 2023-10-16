@@ -8,7 +8,7 @@ import { mensagem } from "../util/jsonConverte";
 import { searchUser } from "../data/userDB";
 import { User } from "../type/user";
 
-export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => {
+export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
     let user: User | undefined = searchUser(remoteJid);
     if (user) {
         let username = StringClean(user.nome);
@@ -23,7 +23,7 @@ export default async ({ sendText, reply, remoteJid, args, owner }: IBotData) => 
         if (login) {
             const isTrial = false;
             const isReneew = true;
-            const res = LoginController(username, isTrial, isReneew, user);
+            const res = await LoginController(username, isTrial, isReneew, user);
             if (!res.result) {
                 return await reply(res.msg);
             }

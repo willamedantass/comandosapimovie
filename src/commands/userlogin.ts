@@ -11,8 +11,8 @@ export default async ({ reply, owner, remoteJid, args }: IBotData) => {
       login.uid = user.id;
       login.contato = remoteJid.replace('55', '').split('@')[0];
       user.vencimento = login.vencimento;
-      updateUser(user);
-      updateLogin(login);
+      await updateUser(user);
+      await updateLogin(login);
       await reply('Login atualizado!');
     } else {
       await reply(mensagem('errorLogin'));

@@ -1,16 +1,16 @@
 import { isCriarPix } from "../util/isCreatePix";
 import { mensagem } from "../util/jsonConverte";
-import { Acesso, User } from "../type/user";
+import { User } from "../type/user";
 import { Result } from "../util/result";
 require('dotenv/config');
 
 export const PixController = async (user: User): Promise<Result> => {
     let valor = parseFloat(user?.valor || process.env.VALOR_LOGIN_1_ACESSO || '30');
     let result: Result = { result: false, msg: 'Não foi possível processar o pix no banco.' };
-    if (user.acesso === Acesso.revenda) {
+    if (user.acesso === 'revenda') {
         valor = parseFloat(user?.valor || process.env.VALOR_REVENDA || '15');
     }
-    if (isCriarPix(user) || user.acesso === Acesso.revenda || user.acesso === Acesso.adm) {
+    if (isCriarPix(user) || user.acesso === 'revenda' || user.acesso === 'adm') {
         var mercadopago = require('mercadopago');
         mercadopago.configurations.setAccessToken(process.env.MP_ACCESSTOKEN);
 

@@ -4,9 +4,8 @@ export interface User {
     data_cadastro: string;
     remoteJid: string;
     pgtos_id: number[];
-    cadastro: boolean;
-    question: Question;
-    acesso: Acesso;
+    isCadastrando: boolean;
+    acesso: 'usuario' | 'revenda' | 'adm';
     credito: number;
     valor?: string;
     data_teste?: string;
@@ -16,15 +15,9 @@ export interface User {
     logins?: string[];
 }
 
-export enum Question {
-    Name = 'nome',
-    NewName = 'novoNome',
-    Operadora = 'operadora',
-    Info = 'info'
-}
-
-export enum Acesso {
-    adm = 'adm',
-    revenda = 'revenda',
-    usuario = 'usuario'
-}
+// export enum Question {
+//     Name = 'nome',
+//     NewName = 'novoNome',
+//     Operadora = 'operadora',
+//     Info = 'info'
+// }

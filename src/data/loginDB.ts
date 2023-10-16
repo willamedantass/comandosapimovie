@@ -1,50 +1,78 @@
+import { FirestoreLoginCreate, FirestoreLoginDelete, FirestoreLoginUpdate } from "./loginsFirestore";
 import { readJSON, writeJSON } from "../util/jsonConverte";
 import { Login } from "../type/login";
 import path from "path";
 const pathJson = path.join(__dirname, "..", "..", "cache", "login.json");
 
-export const criarLogin = (login: Login): void => {
-    var arquivo = readJSON(pathJson);
-    arquivo.push(login)
-    writeJSON(pathJson, arquivo);
+export const criarLogin = async (login: Login) => {
+    try {
+        var arquivo = readJSON(pathJson);
+        const loginNew = await FirestoreLoginCreate(login);
+        arquivo.push(loginNew);
+        writeJSON(pathJson, arquivo);
+    } catch (error) {
+        console.error(`Erro ao criar login. ${error}`);
+    }
 }
 
-export const readLogins = (): Login[] => {
+export const allLogins = (): Login[] => {
     return readJSON(pathJson);
 }
 
+export const saveAllLogins = (logins: Login[]) => {
+    writeJSON(pathJson, logins);
+}
+
 export const searchLoginPorUsername = (username: string): Login | undefined => {
-    return readLogins().find((value: Login) => value.user === username);
+    return allLogins().find((value: Login) => value.user === username);
 }
 
 export const searchLoginsPorUId = (uid: string): Login[] => {
-    return readLogins().filter((value: Login) => {
+    return allLogins().filter((value: Login) => {
         return value.uid === uid;
     });
 }
 
-export const updateLogin = (login: Login): void => {
-    const logins = readJSON(pathJson)
-    var loginsNew: any[] = []
-
-    logins.forEach(value => {
-        if (value.user === login.user) {
-            loginsNew.push(login)
-        } else {
-            loginsNew.push(value)
-        }
-    });
-    writeJSON(pathJson, loginsNew);
+export const updateLogin = async (login: Login) => {
+    try {
+        const loginsNew: Login[] = allLogins().map(log => {
+            if (log.user === login.user) {
+                return login;
+            }
+            return log;
+        });
+        await FirestoreLoginUpdate(login);
+        saveAllLogins(loginsNew);
+    } catch (error) {
+        console.error(`Erro ao atualizar login. ${error}`);
+    }
 }
 
-export const removerTestes = (): void =>{
-    const logins: any[] = [];
-    const today = new Date();
-    readJSON(pathJson).forEach(login => {
-        if(login.isTrial && today > new Date(login.vencimento)){
-            return
+export const removeLogin = async (username: string): Promise<string> => {
+    try {
+        const login = searchLoginPorUsername(username);
+        if (login === undefined) { return 'Login não encontrado' };
+        const loginsNew = allLogins().filter(obj => obj.id !== login.id);
+        await FirestoreLoginDelete(login);
+        saveAllLogins(loginsNew);
+        return 'Login excluído com sucesso.';
+    } catch (error) {
+        console.error(`Erro ao excluir login. ${error}`);
+        return 'Erro ao excluir login';
+    }
+}
+
+export const removeTrial = async () => {
+    try {
+        const loginsTrial = allLogins().filter(login => login.isTrial);
+        for (const login of loginsTrial) {
+            const data = new Date(login.vencimento);
+            const isRemove = Math.floor((new Date().getTime() - data.getTime()) / (1000 * 60 * 60 * 24)) > 5;
+            if (isRemove) {
+                await removeLogin(login.user);
+            }
         }
-        logins.push(login);
-    });
-    writeJSON(pathJson, logins);
+    } catch (error) {
+        console.error(`Erro para remover logins trial. ${error}`);
+    }
 }

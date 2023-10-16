@@ -11,7 +11,7 @@ export default async ({ reply, remoteJid,  args, owner }: IBotData) => {
         let user: User | undefined = searchUser(remoteJid);
         if (user) {
             user.valor = args.trim();
-            updateUser(user)
+            await updateUser(user)
             await reply('Valor de venda atualizado!');
         } else {
             await reply('Usuário informado não existe!')
