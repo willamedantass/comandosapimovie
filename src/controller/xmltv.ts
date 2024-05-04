@@ -8,5 +8,5 @@ export const xmltv = async (req, res) => {
     const link = `${acesso?.dns}/xmltv.php?username=${acesso?.user}&password=${acesso?.password}`;
     console.log('Carregado epg');
     res.set('location', link);
-    res.status(301).send()
+    res.status(301).send();
 }

@@ -1,0 +1,41 @@
+[
+    {
+        "uid": "719d0790",
+        "user": "celialuz",
+        "password": "uUmMrcb",
+        "dataCadastro": "2022-09-28T16:20:01.339Z",
+        "vencimento": "2023-10-26T23:59:59.998Z",
+        "isLive": true,
+        "isTrial": false,
+        "remoteIp": "::ffff:187.18.141.47",
+        "dataRemote": "2023-06-22T01:03:18.867Z",
+        "isAdult": true,
+        "contato": "558588610617"
+    },
+    {
+        "uid": "7b77c723",
+        "user": "dianasilva",
+        "password": "9xwzNPW",
+        "dataCadastro": "2022-09-20T14:03:05.442Z",
+        "vencimento": "2022-10-20T23:59:59.998Z",
+        "isLive": true,
+        "isTrial": false,
+        "remoteIp": "::ffff:179.70.73.181",
+        "dataRemote": "2022-09-20T15:11:49.712Z",
+        "data_msg_vencimento": "2023-10-01T18:03:07.581Z",
+        "contato": "8592920589"
+    },
+    {
+        "uid": "50795e0f",
+        "user": "flavioalves",
+        "password": "Vjh4d5n",
+        "dataCadastro": "2022-08-24T01:00:11.893Z",
+        "vencimento": "2023-10-02T23:59:59.998Z",
+        "isLive": true,
+        "isTrial": false,
+        "remoteIp": "::ffff:177.37.233.64",
+        "dataRemote": "2023-09-12T02:33:48.875Z",
+        "contato": "8597569506",
+        "data_msg_vencimento": "2023-10-02T18:27:19.664Z"
+    }
+]

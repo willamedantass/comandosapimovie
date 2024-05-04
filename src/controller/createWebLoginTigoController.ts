@@ -15,7 +15,7 @@ export const CreateWebLoginTigoController = async () => {
             'content-type': 'multipart/form-data'
         }  });
         
-    if(res.status > 399){
+    if(res?.status > 399){
        return console.log(`Erro ao fazer login no painel web! Erro ${res.data}`);        
     }
 

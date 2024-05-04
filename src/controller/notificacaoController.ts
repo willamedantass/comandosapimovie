@@ -1,7 +1,7 @@
-import { searchUser, updateUser } from "../data/userDB";
 import { sendMessage } from "../util/sendMessage";
-import { mensagem } from "../util/jsonConverte";
-import { User } from "../type/user";
+import { IUser } from "../type/user.model";
+import { userFindByRemoteJid, userUpdate } from "../data/user.service";
+import { mensagem } from "../util/getMensagem";
 require('dotenv/config');
 
 export const notificacaopix = async (req, res) => {
@@ -36,7 +36,8 @@ export const notificacaopix = async (req, res) => {
         let details = payment_info.body.transaction_details.transaction_id;
         if (details && payment_info.body.status === 'approved') {
             let remoteJid = payment_info.body.external_reference.trim();
-            let user: User | undefined = searchUser(remoteJid);
+            let user: IUser | null = await userFindByRemoteJid(remoteJid);
+            if(!user) {return}
             if(user === undefined){
                 console.error('Usuário de pagamento não encontrado');
                 return res.status(200).end();
@@ -58,8 +59,9 @@ export const notificacaopix = async (req, res) => {
             credito += 1
             user.pgtos_id.push(payment_info.body.id);
             user.credito = credito;
-            updateUser(user)
-            await sendMessage('', mensagem('pix_aprovado'), remoteJid);
+            await userUpdate(user);
+            const msg = await mensagem('pix_aprovado');
+            await sendMessage('', msg, remoteJid);
             await sendMessage('', `Seu novo saldo em crédito: ${user.credito}`, remoteJid);
         } else {
             console.info(`Pagamento de transação ${payment_info.body.id} ainda não foi aprovado.`);

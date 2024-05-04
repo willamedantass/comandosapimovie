@@ -1,22 +1,23 @@
 import { createUserFluxo, processUserFluxo, readUserFluxo, updateUserFluxo } from "../data/fluxoAcessoDB";
 import { deleteLivePass, readLivePass, searchLivePass, unusedUserLivePass } from "../data/livePassDB";
-import { createLoginAPI, deleteLoginAPI } from "./LoginsWebOPainelController";
+import { CreateLoginApi, deleteLoginAPI } from "./LoginApiController";
 import { isVencimentoController } from "./isVencimentoController";
-import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
+import { loginFindByUser, loginUpdate } from "../data/login.service";
 import { provedorAcesso } from "../type/provedor";
+import { sendMessage } from "../util/sendMessage";
 import { readJSON } from "../util/jsonConverte";
-import { livePass } from "../type/livePass";
-import { Login } from "../type/login";
+import { LivePass } from "../type/livePass";
+import { ILogin } from "../type/login.model";
 import path from "path";
-const idProvedorClub = '2';
+require('dotenv/config');
 
 export const urlPlayerController = async (req, res) => {
     const { media, user, password } = req.params;
     const video: string = req.params.video.substring(1);
     const idProvedor: string = req.params.video.charAt(0);
 
-    let login: Login | undefined = searchLoginPorUsername(user);
+    let login: ILogin | null = await loginFindByUser(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
         return res.json({ "user_info": { "auth": 0 } });
@@ -36,49 +37,48 @@ export const urlPlayerController = async (req, res) => {
         return res.json({ "user_info": { "auth": 0 } });
     }
 
-    const agora = new Date();
-    const remoteIp = (req.headers['x-forwarded-for'] || '').split(',').pop() || // Recupera o IP de origem, caso a fonte esteja utilizando proxy
-        req.connection.remoteAddress || // Recupera o endereço remoto da chamada
-        req.socket.remoteAddress || // Recupera o endereço através do socket TCP
-        req.connection.socket.remoteAddress // Recupera o endereço através do socket da conexão
-    if (remoteIp !== login?.remoteIp) {
-        const dataRemote = login?.dataRemote ? new Date(login.dataRemote) : dataAcesso(-15);
-        if (agora > dataRemote) {
-            login.remoteIp = remoteIp;
-            login.dataRemote = dataAcesso(15).toISOString();
-            updateLogin(login);
-        } else {
-            console.log('Acesso remoto não permitido, houve tentativa de acesso duplicado.');
-            const countForbiddenAccess: number = login.countForbiddenAccess || 0;
-            login.countForbiddenAccess = countForbiddenAccess + 1;
-            updateLogin(login);
-            return res.json({ "user_info": { "auth": 0 } });
-        }
-    }
+    // const agora = new Date();
+    // const remoteIp = (req.headers['x-forwarded-for'] || '').split(',').pop() || // Recupera o IP de origem, caso a fonte esteja utilizando proxy
+    //     req.connection.remoteAddress || // Recupera o endereço remoto da chamada
+    //     req.socket.remoteAddress || // Recupera o endereço através do socket TCP
+    //     req.connection.socket.remoteAddress // Recupera o endereço através do socket da conexão
+    // if (remoteIp !== login?.remoteIp) {
+    //     const dataRemote = login?.dataRemote ? new Date(login.dataRemote) : dataAcesso(-15);
+    //     if (agora > dataRemote) {
+    //         login.remoteIp = remoteIp;
+    //         login.dataRemote = dataAcesso(15).toISOString();
+    //         await loginUpdate(login);
+    //     } else {
+    //         console.log(`Acesso ${user} não permitido, houve tentativa de acesso duplicado.`);
+    //         const countForbiddenAccess: number = login.countForbiddenAccess || 0;
+    //         login.countForbiddenAccess = countForbiddenAccess + 1;
+    //         await loginUpdate(login);
+    //         return res.json({ "user_info": { "auth": 0 } });
+    //     }
+    // }
 
-    const link = await getUrl(idProvedor, media, video, login.user);
-    console.log(`Link Gerado: ${link}`);
-    if (!link) {
+    const generatedLink = await getUrl(idProvedor, media, video, login.user);
+    console.log(`Link Gerado: ${generatedLink}`);
+    if (!generatedLink) {
         return res.status(404).end();
     }
-    res.set('location', link);
+    res.set('location', generatedLink);
     res.status(301).send();
 }
 
 const getUrl = async (idProvedor: string, media: string, video: string, user: string) => {
-    require('dotenv/config');
-
-    // const idProvedorLive = process.env.PROVEDOR_LIVES_ID;
     let acesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idProvedor);
     if (acesso) {
         if (media === 'live') {
             return await processLogin(idProvedor, acesso?.dns, media, video, user);
         } else {
-            if (acesso.id === '5') {
-                const login = unusedUserLivePass(true) as livePass;
+            //busca outros logins para reproduzir os filmes e series do mesmo provedor de live
+            const idLive = process.env.PROVEDOR_LIVES_ID as string;
+            if (acesso.id === idLive) {
+                const login = unusedUserLivePass(true) as LivePass;
                 acesso.user = login.username;
                 acesso.password = login.password;
-            };
+            }
             return `${acesso?.dns}/${media}/${acesso?.user}/${acesso?.password}/${video}`;
         }
     }
@@ -86,94 +86,41 @@ const getUrl = async (idProvedor: string, media: string, video: string, user: st
 
 export const processLogin = async (provedor: string, dnsProvedor: string, media: string, video: string, user: string) => {
 
-    let pathLive: string, pathLiveTemp: string, pathLiveAtivos: string;
-    if (provedor === idProvedorClub) {
-        pathLive = path.join(__dirname, "..", "..", "cache", "club_pass.json");
-        pathLiveTemp = path.join(__dirname, "..", "..", "cache", "club_temp.json");
-        pathLiveAtivos = path.join(__dirname, "..", "..", "cache", "club_logins_ativos.json");
-    } else {
-        pathLive = path.join(__dirname, "..", "..", "cache", "live_pass.json");
-        pathLiveTemp = path.join(__dirname, "..", "..", "cache", "live_temp.json");
+    let livePass: LivePass | undefined;
+    processUserFluxo();
+
+    const userAcesso: userFluxoAcesso | undefined = readUserFluxo().find(userFluxo => userFluxo.user === user);
+    if (userAcesso) {
+        livePass = searchLivePass(userAcesso.login);
+        if (!livePass?.isDelete) {
+            updateUserFluxo(userAcesso);
+            return `${dnsProvedor}/${media}/${userAcesso.login}/${userAcesso.password}/${video}`
+        }
     }
 
-    let live_pass = readJSON(pathLive);
-    if (live_pass.length < 1) {
-        return undefined;
+    let isRandom = false;
+    livePass = unusedUserLivePass(isRandom);
+    if (livePass) {
+        createUserFluxo(user, livePass);
+        return `${dnsProvedor}/${media}/${livePass.username}/${livePass.password}/${video}`;
     }
 
-    if (provedor !== idProvedorClub) {
-
-        processUserFluxo();
-        const user_acesso: userFluxoAcesso | undefined = readUserFluxo().find(value => value.user === user);
-
-        if (user_acesso) {
-            const live_pass: livePass | undefined = searchLivePass(user_acesso.login);
-            if (!live_pass?.isDelete) {
-                updateUserFluxo(user_acesso);
-                return `${dnsProvedor}/${media}/${user_acesso.login}/${user_acesso.password}/${video}`
-            }
-        }
-
-        let isRandom = false;
-        let live_pass: livePass | undefined = unusedUserLivePass(isRandom);
-        if (live_pass) {
-            RegisterFluxo(user, live_pass);
-            return `${dnsProvedor}/${media}/${live_pass.username}/${live_pass.password}/${video}`;
-        }
-
-        //Cria testes e verifica se não foi criado retorna um login randomico.
-        const result: boolean = await createLoginAPI();
-        if (!result) {
-            isRandom = true;
-            live_pass = unusedUserLivePass(isRandom) as livePass;
-            return `${dnsProvedor}/${media}/${live_pass.username}/${live_pass.password}/${video}`;
-        }
-
-        const expired: livePass[] = readLivePass().filter(user => user?.isDelete == true);
-        for (let user of expired) {
-            await deleteLoginAPI(user.id);
-            deleteLivePass(user.username);
-        }
-
-        return processLogin(provedor, dnsProvedor, media, video, user);
+    const result: boolean = await CreateLoginApi();
+    if (!result) {
+        isRandom = true;
+        livePass = unusedUserLivePass(isRandom) as LivePass;
+        await sendMessage('8588199556', `Logins esgotados!\nUsuário ${user} - Login ${livePass.username}`);
+        return `${dnsProvedor}/${media}/${livePass.username}/${livePass.password}/${video}`;
     }
 
-    live_pass = shuffle(live_pass);
-    return `${dnsProvedor}/${media}/${live_pass[0]["user"]}/${live_pass[0]["password"]}/${video}`;
+    const expired: LivePass[] = readLivePass().filter(user => user?.isDelete == true);
+    for (let user of expired) {
+        await deleteLoginAPI(user.id);
+        deleteLivePass(user.username);
+    }
+
+    return processLogin(provedor, dnsProvedor, media, video, user);
 }
-
-const RegisterFluxo = (user: string, live_pass: livePass) => {
-    const data_expirar = new Date();
-    const login = live_pass.username, password = live_pass.password;
-    data_expirar.setHours(data_expirar.getHours() + 2);
-    createUserFluxo({
-        user: user,
-        login: login,
-        password: password,
-        expire: data_expirar.toISOString(),
-        data: new Date().toISOString()
-    } as userFluxoAcesso);
-}
-
-// const checkAvaibleLogin = async (dnsProvedor: string, login) => {
-//     let result = false;
-//     const url = `${dnsProvedor}/player_api.php?username=${login.user}&password=${login.password}`;
-//     const res = await axios(url, { headers: { 'User-Agent': 'IPTVSmartersPlayer' } })
-//         .catch(res => {
-//             console.log(`Erro ao consultar servidor DNS-${dnsProvedor} login ${login.user} - ${res}`);
-//         }) as AxiosResponse;
-
-//     if (res?.status === 200 && res?.data && !res.data['error']) {
-//         const max_connections = parseInt(res.data['user_info']['max_connections']);
-//         const active_cons = parseInt(res.data['user_info']['active_cons']);
-//         const ativo = res.data['user_info']['status'] === 'Active' ? true : false;
-//         if (active_cons < max_connections && ativo) {
-//             result = true;
-//         }
-//     }
-
-//     return result;
-// }
 
 const dataAcesso = (minutes: number) => {
     let dataAcesso = new Date();

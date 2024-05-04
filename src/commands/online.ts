@@ -1,10 +1,12 @@
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
 import { readUserFluxo } from "../data/fluxoAcessoDB";
 import { IBotData } from "../Interface/IBotData";
-import { mensagem } from "../util/jsonConverte";
+import { userFindByRemoteJid } from "../data/user.service";
+import { mensagem } from "../util/getMensagem";
 
-export default async ({ reply, owner }: IBotData) => {
-    if (owner) {
+export default async ({ reply, owner, remoteJid }: IBotData) => {
+    let user = await userFindByRemoteJid(remoteJid);
+    if (owner || user?.acesso === 'adm') {
         const today = new Date();
         today.setMinutes(today.getMinutes() - 5);
         const users: userFluxoAcesso[] = readUserFluxo();

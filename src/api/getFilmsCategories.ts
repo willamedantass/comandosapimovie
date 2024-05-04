@@ -52,7 +52,7 @@ export const getFilmsCategories = async (isAdult: boolean) => {
 
 const forEachFilms = (res, films, provedor: string, siglaProvedor: string) => {
     const categories_adult = process.env.CATEGORIA_XXX_FILME?.split(',');
-    if (res?.status == 200 && res?.data.length > 1) {
+    if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {        
         res.data.forEach(element => {
             if (categories_adult?.find(category => category == element.category_id)) {
                 return

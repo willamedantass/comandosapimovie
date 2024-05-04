@@ -1,5 +1,6 @@
-import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
-import { Login } from "../type/login";
+
+import { loginFindByUser, loginUpdate } from "../data/login.service";
+import { ILogin } from "../type/login.model";
 require('dotenv/config');
 
 export const RenovacaoController = async (req, res) => {
@@ -9,7 +10,7 @@ export const RenovacaoController = async (req, res) => {
         return res.status(400).end();
     }
 
-    let login: Login | undefined = searchLoginPorUsername(req_login);
+    let login: ILogin | null = await loginFindByUser(req_login);
     if (login) {
         const agora = new Date();
         let vencimento = new Date(login.vencimento);
@@ -21,7 +22,7 @@ export const RenovacaoController = async (req, res) => {
         }
 
         login.vencimento = vencimento.toISOString();
-        updateLogin(login);
+        await loginUpdate(login);
         const options = { timeZone: 'America/Sao_Paulo', hour12: false }
         let msg = '<h1>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬       📺 *MOVNOW* 📺  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</h1><br>';
         msg += `<h3>Usuário ${login.user} renovado com sucesso! Novo vencimento: ${vencimento.toLocaleString('pt-br', options)}</h3>`;

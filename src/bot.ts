@@ -5,8 +5,7 @@ import { MenuLevel, menuTexts, OpcoesMenuMain } from "./menubot/MenuBot";
 import { ClearEmotionAndEspace, StringClean } from "./util/stringClean";
 import { getBotData, getCommand, isCommand } from "./function";
 import { MenuMainOpcoes } from "./menubot/MenuMainOpcoes";
-import { mensagem, readJSON } from "./util/jsonConverte";
-import { createUser, searchUser } from "./data/userDB";
+import { readJSON } from "./util/jsonConverte";
 import { general } from "./configuration/general";
 import { CadastroUser } from './cadastroUser';
 import { UserState } from "./type/UserState";
@@ -14,8 +13,10 @@ import MAIN_LOGGER from './util/logger';
 import NodeCache from 'node-cache';
 import { pid } from 'node:process';
 import { Boom } from '@hapi/boom';
-import { uid } from "uid";
 import path from "path";
+import { userAddNew, userFindByRemoteJid } from './data/user.service';
+import { UserModel } from './type/user.model';
+import { mensagem } from './util/getMensagem';
 
 let socket: any;
 const pathBlacklist = path.join(__dirname, "..", "cache", "blacklist.json");
@@ -86,23 +87,22 @@ export const StartSock = async () => {
                         if (blacklist.includes(remoteJid) && !owner) return;
 
                         const { command, ...data } = getBotData(socket, msg);
-                        let user = searchUser(msg.key.remoteJid);
-                        if (user === undefined) {
+                        let user = await userFindByRemoteJid(msg.key.remoteJid);
+                        if (user === null && !owner) {
                             const agora = new Date().toISOString();
                             const nome = ClearEmotionAndEspace(data.webMessage.pushName || '');
-                            user = {
-                                id: uid(8),
+                            user = new UserModel({
                                 nome: nome,
                                 remoteJid: data.remoteJid,
                                 data_cadastro: agora,
                                 isCadastrando: true,
-                                acesso: owner ? 'adm' : 'usuario',
+                                acesso: 'usuario',
                                 pgtos_id: [],
                                 limite_pix: 0,
                                 data_pix: agora,
                                 credito: 0
-                            }
-                            await createUser(user);
+                            });
+                            userAddNew(user);
                             await data.sendText(false, `Olá, seja bem vindo à *MOVNOW*.\n\nMeu nome é *${general.botName}* sou um assistente virtual.`);
                         }
 
@@ -112,11 +112,11 @@ export const StartSock = async () => {
                         }
 
                         let userState: UserState | undefined = getUserState(data.remoteJid);
-                        if (!owner) {
-
+                        if (!owner && user) {
                             if (!userState) {
                                 userState = CreateUserState(data.remoteJid, user, MenuLevel.MAIN);
-                                await data.sendText(true, mensagem('info_menu', user.nome));
+                                const msg = await mensagem('info_menu', user.nome);
+                                await data.sendText(true, msg);
                             }
 
                             const conversation = StringClean(data.messageText);
@@ -140,7 +140,8 @@ export const StartSock = async () => {
                                 const select = parseInt(conversation);
 
                                 if (isNaN(select) && !['voltar', 'sim', 'nao'].includes(conversation)) {
-                                    return await data.reply(mensagem('opcao_invalida'));
+                                    const msg = await mensagem('opcao_invalida');
+                                    return await data.reply(msg);
                                 }
                                 switch (userState.menuLevel) {
                                     case MenuLevel.MAIN:
@@ -183,9 +184,9 @@ export const StartSock = async () => {
 export const sendZap = async (req, res) => {
 
     const body = req.body
-    const contato = body?.contato || null;
-    const remoteJid = body?.remoteJid || null;
-    const mensagem = body?.mensagem || '';
+    let contato: string = body?.contato || null;
+    const remoteJid: string = body?.remoteJid || null;
+    const mensagem: string = body?.mensagem || '';
 
     if (!contato && !remoteJid) {
         console.error('Não foi possível enviar a mensagem, parâmetros não foi enviado.');
@@ -193,12 +194,13 @@ export const sendZap = async (req, res) => {
     }
 
     try {
+        contato = contato?.startsWith('55') ? contato.substring(2) : contato;
         const JID = remoteJid ? remoteJid : `55${contato}@s.whatsapp.net`;
         const assinatura = `${general.prefixEmoji} *${general.botName}:* \n`
         await socket.sendMessage(JID, { text: `${assinatura}${mensagem}` });
         res.status(200).end();
     } catch (error) {
-        console.error('Erro ao enviar mensagem:', error);
+        console.error('Erro ao enviar mensagem pelo socket:', error.message);
         res.status(400).end();
     }
-};
+}

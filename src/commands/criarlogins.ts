@@ -1,9 +1,11 @@
 import { createLoginAPI } from "../controller/LoginsWebOPainelController";
+import { userFindByRemoteJid } from "../data/user.service";
 import { IBotData } from "../Interface/IBotData";
-import { mensagem } from "../util/jsonConverte";
+import { mensagem } from "../util/getMensagem";
 
-export default async ({ reply, owner }: IBotData) => {
-    if (owner) {
+export default async ({ reply, owner, remoteJid }: IBotData) => {
+  let user = await userFindByRemoteJid(remoteJid);
+  if (owner || user?.acesso === 'adm') {
         await criarLoginsComIntervalo(0,reply)
     } else {
         reply(mensagem('acessoNegado'));

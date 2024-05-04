@@ -1,18 +1,18 @@
-import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
-import { Login } from "../type/login";
+import { ILogin } from "../type/login.model";
+import { loginFindByUser, loginUpdate } from "../data/login.service";
 
 export default async ({ reply, args }: IBotData) => {
-    const login: Login | undefined = searchLoginPorUsername(StringClean(args));
+    const login: ILogin | null = await loginFindByUser(StringClean(args));
     if (login) {
         if (login?.isClubtv) {
             login.isClubtv = false;
-            await updateLogin(login);
+            await loginUpdate(login);
             await reply("✅ Acesso aos canais clubtv removido!");
         } else {
             login.isClubtv = true;
-            await updateLogin(login);
+            await loginUpdate(login);
             await reply("❎ Acesso aos canais clubtv liberado!");
         }
     } else {

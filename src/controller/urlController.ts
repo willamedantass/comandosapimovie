@@ -1,5 +1,4 @@
 import path from "path";
-import { User } from "../type/user";
 import { readJSON } from "../util/jsonConverte";
 import { Login } from "../type/login";
 require('dotenv/config');

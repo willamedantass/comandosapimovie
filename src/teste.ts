@@ -1,51 +1,22 @@
-import { allLogins, criarLogin } from "./data/loginDB";
-import { allUser, createUser } from "./data/userDB";
-import { User } from "./type/user";
+
+import { GoogleGenerativeAI } from '@google/generative-ai';
+require('dotenv/config');
 
 (async function iniciar() {
-    const users = allUser();
-    console.log('User: '+users.length);
-    
-    const logins = allLogins();
-    console.log('Logins: '+logins.length);
-    type ids = {
-        idAntigo: string,
-        idNovo: string,
+    try {
+        const api_key = process.env.API_KEY_GEMINI || '';
+        const genApi = new GoogleGenerativeAI(api_key);
+        const model = genApi.getGenerativeModel({model: "gemini-pro"})
+        const prompt_pedido = 'Crie uma mensagem para o cliente erasmoandrade informando que a assinatura mensal da Movnow venceu e incentivando-o a renovar pelo nosso robô de pagamentos.'
+        const prompt_instrucoes = 'Utilize emojis para tornar a mensagem mais envolvente. Seja persuasivo, criativo e deixe o texto divertido.'
+        const prompt_info = 'Movnow é uma plataforma de canais, filmes e séries. Contato via Zap: 5585988199556.'
+        const prompt_negativo = 'Não incluir links na mensagem, não sugira uma mensagem do robô de atendimento com palavras e não escreva palavras como: clicar.'
+        const prompt = prompt_pedido + prompt_instrucoes + prompt_info + prompt_negativo;
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+        console.log(text);
+    } catch (error) {
+        console.log(error.message);
     }
-
-    const usersId: ids[] = [];
-
-    for(let usr of users){
-        const user: User = {
-            id: usr.id,
-            nome: usr.nome,
-            remoteJid: usr.remoteJid,
-            acesso: usr.acesso,
-            credito: usr.credito,
-            data_cadastro: usr.data_cadastro || usr['dataCadastro'] || new Date().toISOString(),
-            data_pix: usr.data_pix || '',
-            isCadastrando: usr['cadastro'] || false,
-            limite_pix: usr.limite_pix || 0,
-            pgtos_id: usr.pgtos_id || [],
-            data_teste: usr?.data_teste || '',
-            valor: usr?.valor || '30',
-            vencimento: usr?.vencimento || ''
-        }
-
-        const id = await createUser(user) as string;
-        usersId.push({ idAntigo: usr.id, idNovo: id });
-        console.log(`User criado ---> ${user.nome}`);
-    }
-
-    for(let login of logins){
-        if(login.uid.length){
-            const id = usersId.find(value => value.idAntigo === login.uid);
-            login.uid = id?.idNovo || ''
-            console.log(`Trocando id: ${id?.idAntigo} para ${id?.idNovo}`);
-        }
-        await criarLogin(login);
-        console.log(`Login criado ---> ${login.user}`);
-    }
-    
 })();
-

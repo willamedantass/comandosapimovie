@@ -1,4 +1,4 @@
-import { mensagem } from "../../util/jsonConverte";
+import { mensagem } from "../../util/getMensagem";
 import { UserState } from "../../type/UserState";
 import { UpdateUserState } from "../UserState";
 import { MenuLevel } from "../MenuBot";

@@ -1,4 +1,4 @@
-export interface livePass {
+export interface LivePass {
     id : string,
     username : string,
     password : string,

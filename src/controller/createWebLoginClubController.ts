@@ -7,16 +7,10 @@ import path from "path";
 import { StringClean } from "../util/stringClean";
 import { Names } from "../util/names";
 import { createXAcessTokenClubtv } from "./createXAcessTokenClubtv";
+import { Result } from "../util/result";
 require('dotenv/config');
 
-interface Response {
-    result: boolean,
-    msg: string,
-    user?: string,
-    pass?: string
-}
-
-const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
+const createWebLoginClub = async (isLogar: boolean): Promise<Result> => {
 
     const pathSessionClub = path.join(__dirname, "..", "..", "cache", "session_club.json");
     const action = 'create_login_club'
@@ -36,7 +30,7 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
     const url: string = `${urlClubApi}/listas/teste`;
     const username: string = StringClean(Names[Math.floor(Math.random() * Names.length)])+'mwsn';
     const password: string = (getRandomString() + '5');
-    let response: Response = { result: false, msg: '' };
+    let response: Result = { result: false, msg: '' };
     form_data.append('adulto', 35);
     form_data.append('horas', 6);
     form_data.append('username', username);
@@ -54,7 +48,7 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
         if (res.data?.result) {
             cache = { data: new Date().toISOString(), action: action, count: count > 4 ? 0 : count + 1} as Cache
             createAndUpdateCache(cache);
-            response = { result: true, msg: 'Login criado com sucesso!', user: username, pass: password };
+            response = { result: true, msg: 'Login criado com sucesso!', data: {user: username, pass: password}};
         }
     }).catch(async (res) => {
         response = { result: false, msg: res?.response.data }
@@ -71,12 +65,6 @@ const createWebLoginClub = async (isLogar: boolean): Promise<Response> => {
         await createWebLoginClub(isLogar);
     }
     return response;
-}
-
-const getRandomNumber = (): string => {
-    let min = Math.ceil(100);
-    let max = Math.floor(999);
-    return String(Math.floor(Math.random() * (max - min + 1)) + min);
 }
 
 export default createWebLoginClub;

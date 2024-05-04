@@ -7,7 +7,7 @@ export const getFilmsCategoryId = async (category_id: string) => {
     const id: string = category_id.substring(1);
     const provedor: string = category_id.charAt(0);
 
-    if(provedor === '999989'){
+    if(category_id === '999989'){
         return readJSON(path.join(__dirname, "..", "..", "cache", "get_vod_popular.json"));
     }
 
@@ -17,7 +17,7 @@ export const getFilmsCategoryId = async (category_id: string) => {
 
     const res = await getAxiosResult('get_vod_streams', provedor,id);
     let filmsJson: any[] = [];
-    if (res?.status == 200 && res?.data.length > 1) {
+    if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {
         res.data.forEach(element => {
             element.stream_id = provedor + element.stream_id;
             element.category_id = provedor + element.category_id;

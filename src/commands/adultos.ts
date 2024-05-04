@@ -1,18 +1,18 @@
-import {  searchLoginPorUsername, updateLogin } from "../data/loginDB";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
-import { Login } from "../type/login";
+import { loginFindByUser, loginUpdate } from "../data/login.service";
+import { ILogin } from "../type/login.model";
 
 export default async ({reply, args}: IBotData) => {   
-        const login: Login | undefined = searchLoginPorUsername(StringClean(args));
+        const login: ILogin | null = await loginFindByUser(StringClean(args));
         if(login){
             if(login?.isAdult){
                 login.isAdult = false;
-                await updateLogin(login);
+                await loginUpdate(login);
                 await reply("✅ Acesso canais/filmes adultos removido!");
             } else {
                 login.isAdult = true;
-                await updateLogin(login);
+                await loginUpdate(login);
                 await reply("❎ Acesso canais/filmes adultos liberado!");
             }
         } else {

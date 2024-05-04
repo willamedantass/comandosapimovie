@@ -1,6 +1,6 @@
 {
   "name": "movnow",
-  "version": "2.3.0",
+  "version": "2.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "server": "node ./build/server.js",
     "server:dev": "ts-node-dev ./src/server.ts",
     "build": "tsc",
-    "test": "ts-node-dev ./src/teste.ts"
+    "test": "ts-node-dev ./src/teste.ts",
+    "ia": "ts-node-dev ./src/testePrompt.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,19 +27,21 @@
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
     "@antiadmin/anticaptchaofficial": "^1.0.26",
+    "@google/generative-ai": "^0.8.0",
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "^6.5.0",
+    "async-mutex": "^0.4.0",
     "axios": "^0.27.2",
     "body-parser": "^1.20.2",
     "cheerio": "^1.0.0-rc.12",
     "csv-writer": "^1.6.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "firebase": "^9.9.4",
     "firebase-admin": "^11.11.0",
     "googleapis": "^108.0.0",
     "lodash": "^4.17.21",
     "mercadopago": "^1.5.17",
+    "mongoose": "^8.3.2",
     "morgan": "^1.10.0",
     "qrcode-terminal": "^0.12.0",
     "string-similarity": "^4.0.4",

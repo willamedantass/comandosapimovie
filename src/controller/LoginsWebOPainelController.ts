@@ -3,7 +3,7 @@ import { logarOPainelController } from "./logarOPainelController";
 import { toStringDate } from "../util/toStringDate";
 import { addLivePass } from "../data/livePassDB";
 import { readJSON } from "../util/jsonConverte";
-import { livePass } from "../type/livePass";
+import { LivePass } from "../type/livePass";
 import { Cache } from "../type/cache";
 import path from "path";
 require('dotenv/config');
@@ -46,7 +46,7 @@ export const createLoginOPainel = async (isLogar: boolean) => {
                 isDelete: false,
                 countUsed: 0,
                 isUsed: false
-            } as livePass);
+            } as LivePass);
 
             cache = { data: new Date().toISOString(), action: action, count: countCache > 5 ? 0 : countCache + 1 } as Cache
             createAndUpdateCache(cache);
@@ -62,7 +62,7 @@ export const createLoginAPI = async (): Promise<boolean> => {
     }).catch(e => console.log('Não foi possível conectar com a api.', e?.message));
 
     if (res?.status === 200 && res?.data.result === true) {
-        const login: livePass = res.data.data;
+        const login: LivePass = res.data.data;
         addLivePass(login);
         console.info(`Login ${login.username}, criado com sucesso.`);
         return true;
@@ -100,7 +100,7 @@ export const deleteLoginAPI = async (id: string) => {
         headers: { 'authorization': process.env.SECRET_ACESS as string }
     }).catch(e => console.log(e));
 
-    if (res.status === 200 && res?.data) {
+    if (res?.status === 200 && res?.data) {
         console.log(res.data.msg);
     }
 }

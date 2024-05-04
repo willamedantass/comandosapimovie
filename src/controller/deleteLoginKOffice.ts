@@ -3,11 +3,10 @@ import { readJSON, writeJSON } from "../util/jsonConverte";
 import { logarKOfficeController } from "./logarKOfficeController";
 const pathPhpSessid = path.join(__dirname, "..", "..", "cache", "phpsessid.json");
 const FormData = require('form-data');
-require('dotenv/config')
+require('dotenv/config');
 
 export const deleteLoginKOffice = async (isLogar: boolean) => {
     console.log('Executando exclusão dos logins expirados....');
-
     const url_server = process.env.URL_PAINELWEB_KOFFICE;
     let isError404 = false;
     const phpSessid = readJSON(pathPhpSessid)?.token || 'PHPSESSID=osfqii9avtprc2khamohugfbsi';

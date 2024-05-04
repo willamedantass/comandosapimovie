@@ -1,8 +1,10 @@
+import { connectDB } from './data/mongodb';
 import router from './routes/index';
 import express from 'express';
 import morgan from 'morgan';
 
 const server = async () => {
+    await connectDB();
     const port = process.env.SERVER_PROXY_PORT || 3000;
     const app = express();
     app.use(morgan('dev'));

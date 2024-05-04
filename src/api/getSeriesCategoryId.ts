@@ -20,7 +20,7 @@ export const getSeriesCategoryId = async (category_id: string) => {
     const res = await getAxiosResult('get_series', provedor,id);
     let series:any[]=[];
     if(provedor === idProvedorQueNaoModifica){
-        if (res?.status == 200 && res?.data.length > 1) {
+        if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {
             res.data.forEach(element => {
                 element.series_id =  provedor + element.series_id
                 element.category_id = provedor + element.category_id;
@@ -38,7 +38,7 @@ export const getSeriesCategoryId = async (category_id: string) => {
 }
 
 const forEachSeries = (res, series, provedor: string) => {
-    if (res?.status == 200 && res?.data.length > 1) {
+    if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {
         res.data.forEach(element => {
             element.series_id =  provedor + element.series_id;
             element.category_id = provedor;

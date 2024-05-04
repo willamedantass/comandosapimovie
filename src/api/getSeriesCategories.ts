@@ -40,7 +40,7 @@ export const getSeriesCategories = async () => {
 
 const forEachCategories = (res, categorias, category_novelas, provedor: string) => {
     const idProvedoQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
-    if (res?.status == 200 && res?.data.length > 1) {
+    if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {
         res?.data.forEach(element => {
             const name: string = element.category_name.toLowerCase();
             if (name.includes("novela") || name.includes("novelas")) {

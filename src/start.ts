@@ -1,11 +1,11 @@
+import { StartSock, sendZap } from './bot';
+import { connectDB } from './data/mongodb';
 import express from 'express';
 import morgan from 'morgan';
-import { StartSock, sendZap } from './bot';
-import { pullDb } from './data/pullDB';
 require('dotenv').config();
 
 const server = async () => {
-    await pullDb();
+    await connectDB();
     const port = 3021;
     const app = express();
     const bodyParser = require('body-parser');

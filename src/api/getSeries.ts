@@ -66,7 +66,7 @@ export const getSeries = async () => {
 const forEachSeries = (res: any, provedor: string) => {
     const category_novelas = readJSON(path.join(__dirname, "..", "..", "cache", "categories_novelas.json"));
     const idProvedoQueNaoModifica = process.env.ID_PROVEDOR_SERIES_SEM_MODIFICAR;
-    if (res?.status == 200 && res?.data.length > 1) {
+    if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {
         res.data.forEach(element => {
             if (element.category_id == "31755") {
                 return console.log('achei');

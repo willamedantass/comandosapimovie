@@ -1,16 +1,16 @@
 import { isCriarPix } from "../util/isCreatePix";
-import { mensagem } from "../util/jsonConverte";
-import { User } from "../type/user";
 import { Result } from "../util/result";
+import { IUser } from "../type/user.model";
+import { mensagem } from "../util/getMensagem";
 require('dotenv/config');
 
-export const PixController = async (user: User): Promise<Result> => {
+export const PixController = async (user: IUser): Promise<Result> => {
     let valor = parseFloat(user?.valor || process.env.VALOR_LOGIN_1_ACESSO || '30');
     let result: Result = { result: false, msg: 'Não foi possível processar o pix no banco.' };
     if (user.acesso === 'revenda') {
         valor = parseFloat(user?.valor || process.env.VALOR_REVENDA || '15');
     }
-    if (isCriarPix(user) || user.acesso === 'revenda' || user.acesso === 'adm') {
+    if ((await isCriarPix(user)) || user.acesso === 'revenda' || user.acesso === 'adm') {
         var mercadopago = require('mercadopago');
         mercadopago.configurations.setAccessToken(process.env.MP_ACCESSTOKEN);
 
@@ -48,7 +48,7 @@ export const PixController = async (user: User): Promise<Result> => {
         });
         return result;
     } else {
-        result = { result: false, msg: mensagem('errorPagamento') }
+        result = { result: false, msg: mensagem('errorPagamento')}
         return result;
     }
 }

@@ -1,7 +1,7 @@
 import { ClearEmotionAndEspace, StringClean } from "./util/stringClean";
-import { mensagem } from "./util/jsonConverte";
-import { updateUser } from "./data/userDB";
-import { User } from "./type/user";
+import { gerarMensagemIa} from "./util/getMensagem";
+import { userUpdate } from "./data/user.service";
+import { IUser } from "./type/user.model";
 
 type UserState = {
     remoteJid: string,
@@ -29,7 +29,7 @@ const removeUserState = (userState: UserState) => {
 }
 
 let usersState: UserState[] = [];
-export const CadastroUser = async (user: User, data: any) => {
+export const CadastroUser = async (user: IUser, data: any) => {
     updateExpire();
     const resposta = StringClean(data.messageText);
     const userState = usersState.find(value => value.remoteJid === user.remoteJid);
@@ -38,10 +38,10 @@ export const CadastroUser = async (user: User, data: any) => {
         switch (userState.question) {
             case 'name':
                 if (resposta === 'sim') {
-                    if (user.nome.length > 7) {
+                    if (user.nome.length > 7 && user.nome.split(" ").length > 1) {
                         userState.question = 'info';
                         user.isCadastrando = false;
-                        await updateUser(user);
+                        await userUpdate(user);
                         updateUserState(userState);
                         await data.presenceTime(1000, 2000);
                         await data.sendText(true, `Concluído, *${user.nome}* seu cadastro foi criado!`);
@@ -63,8 +63,9 @@ export const CadastroUser = async (user: User, data: any) => {
                 break;
             case 'newName':
                 user.nome = ClearEmotionAndEspace(data.messageText);
-                userState.question = 'name';
-                await updateUser(user);
+                const res = await gerarMensagemIa("verificar_nome", { nome: user.nome });
+                userState.question = res?.result ? 'name' : 'newName';
+                await userUpdate(user);
                 updateUserState(userState);
                 await data.presenceTime(1000, 1000);
                 await data.sendText(true, `Posso lhe chamar por *${user.nome}*?\nDigite sim ou não.`);

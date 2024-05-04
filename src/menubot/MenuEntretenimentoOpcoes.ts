@@ -2,9 +2,9 @@ import { CinemaSession, CinemasLocais } from "./MenuServices/CinemasService";
 import { DesativarBotService } from "./MenuServices/DesativarBotService";
 import { JogosDeHojeService } from "./MenuServices/JogosDeHojeService";
 import { MenuEntretenimento, MenuLevel, menuTexts } from "./MenuBot";
-import { mensagem } from "../util/jsonConverte";
 import { UpdateUserState } from "./UserState";
 import { UserState } from "../type/UserState";
+import { mensagem } from "../util/getMensagem";
 
 export const MenuEntretenimentoOpcoes = async (userState: UserState, opcaoMenu: MenuEntretenimento, conversation: string, data: any) => {
     switch (opcaoMenu) {

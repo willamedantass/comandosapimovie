@@ -1,10 +1,10 @@
 import { auth } from "../type/auth";
-import { Login } from "../type/login";
+import { ILogin } from "../type/login.model";
 
 
 require('dotenv/config')
 
-export const getAuth = async (login: Login) => {
+export const getAuth = async (login: ILogin) => {
     let options = {
         timeZone: 'America/Sao_Paulo',
         hour12: false

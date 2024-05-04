@@ -1,12 +1,11 @@
+import { userFindByRemoteJid, userUpdate } from "../data/user.service";
 import { PixController } from "../controller/PixController";
-import { searchUser, updateUser } from "../data/userDB";
-import { getMensagemPix } from "../util/getMensagem";
+import { getMensagemPix, mensagem } from "../util/getMensagem";
 import { IBotData } from "../Interface/IBotData";
-import { mensagem } from "../util/jsonConverte";
-import { User } from "../type/user";
+import { IUser } from "../type/user.model";
 
 export default async ({ remoteJid, reply, sendText }: IBotData) => {
-    const user: User | undefined = searchUser(remoteJid);
+    const user: IUser | null = await userFindByRemoteJid(remoteJid);
     if (user) {
         const pix_data = await PixController(user);
         if(pix_data.result){
@@ -15,7 +14,7 @@ export default async ({ remoteJid, reply, sendText }: IBotData) => {
             await sendText(false, mensagem('pix'));
             user.data_pix = new Date().toISOString();
             user.limite_pix = user?.limite_pix ? user.limite_pix + 1 : 1;
-            updateUser(user);
+            await userUpdate(user);
         } else {
             await sendText(true, pix_data.msg);
         }

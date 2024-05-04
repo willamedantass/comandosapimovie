@@ -1,20 +1,22 @@
-import { searchLoginPorUsername, updateLogin } from "../data/loginDB";
+import { loginFindByUser, loginUpdate } from "../data/login.service";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
-import { mensagem } from "../util/jsonConverte";
-import { Login } from "../type/login";
+import { ILogin } from "../type/login.model";
+import { userFindByRemoteJid } from "../data/user.service";
+import { mensagem } from "../util/getMensagem";
 
-export default async ({ reply, args, owner }: IBotData) => {
-    if (owner) {
-        const login: Login | undefined = searchLoginPorUsername(StringClean(args));
+export default async ({ reply, args, owner, remoteJid }: IBotData) => {
+    let user = await userFindByRemoteJid(remoteJid);
+    if (owner || user?.acesso === 'adm') {
+        const login: ILogin | null = await loginFindByUser(StringClean(args));
         if (login) {
             if (login.isLive) {
                 login.isLive = false;
-                updateLogin(login);
+                await loginUpdate(login);
                 await reply("✅ Acesso live removido!");
             } else {
                 login.isLive = true;
-                updateLogin(login);
+                await loginUpdate(login);
                 await reply("❎ Acesso live liberado!");
             }
         } else {

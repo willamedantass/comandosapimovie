@@ -1,11 +1,12 @@
-import {  searchUser, updateUser } from "../data/userDB";
 import { IBotData } from "../Interface/IBotData";
-import { User } from "../type/user";
-import { mensagem } from "../util/jsonConverte";
+import { userFindByRemoteJid, userUpdate } from "../data/user.service";
+import { IUser } from "../type/user.model";
+import { mensagem } from "../util/getMensagem";
 
 export default async ({ owner, remoteJid, args, reply }: IBotData) => {    
-    if (owner) {
-        let user: User | undefined = searchUser(remoteJid);
+    let user = await userFindByRemoteJid(remoteJid);
+    if (owner || user?.acesso === 'adm') {
+        let user: IUser | null = await userFindByRemoteJid(remoteJid);
         if (!user) {
             return await reply(mensagem('errorUser'));
         }
@@ -17,7 +18,7 @@ export default async ({ owner, remoteJid, args, reply }: IBotData) => {
             return await reply(mensagem('errorArgs'));
         }
         user.credito += credito;
-        updateUser(user)  
+        await userUpdate(user);
         await reply(mensagem('recarga') + user.credito)      
     } else {
         await reply(mensagem('acessoNegado'));

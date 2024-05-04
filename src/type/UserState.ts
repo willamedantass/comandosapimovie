@@ -1,10 +1,10 @@
 import { RenovacaoState } from "./RenovacaoState";
 import { MenuLevel } from "../menubot/MenuBot";
-import { User } from "./user";
+import { IUser } from "./user.model";
 
 export interface UserState {
     remoteJid: string;
-    user: User;
+    user: IUser;
     menuLevel: MenuLevel;
     expire: Date;
     status: boolean;

@@ -1,9 +1,12 @@
-import { mensagem, readJSON, writeJSON } from '../util/jsonConverte';
+import { readJSON, writeJSON } from '../util/jsonConverte';
 import { IBotData } from '../Interface/IBotData';
 import path from 'path';
+import { userFindByRemoteJid } from '../data/user.service';
+import { mensagem } from '../util/getMensagem';
 
 export default async ({ reply, owner, remoteJid }: IBotData) => {
-    if (owner) {
+    let user = await userFindByRemoteJid(remoteJid);
+    if (owner || user?.acesso === 'adm') {
         const pathBlackList = path.join(__dirname, '..', '..', 'cache', 'blacklist.json');
         let contato = readJSON(pathBlackList).find(remoJid => remoJid === remoteJid)
         if (!contato) {

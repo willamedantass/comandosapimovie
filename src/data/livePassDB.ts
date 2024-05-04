@@ -1,86 +1,68 @@
 import { readJSON, writeJSON } from "../util/jsonConverte";
-import { livePass } from "../type/livePass";
+import { LivePass } from "../type/livePass";
 import path from "path";
 const pathJson = path.join(__dirname, "..", "..", "cache", "live_pass.json");
 
-export const addLivePass = async (login: livePass) => {
+export const addLivePass = (login: LivePass) => {
     var arquivo = readJSON(pathJson);
     arquivo.push(login)
     writeJSON(pathJson, arquivo);
 }
 
-export const readLivePass = (): livePass[] => {
+export const readLivePass = (): LivePass[] => {
     return readJSON(pathJson);
 }
 
-export const unusedUserLivePass = (isRandom: boolean): livePass | undefined => {
-    const users = shuffle(readLivePass());
-    let user = users.find(user_live => !user_live.isDelete && user_live.isUsed == false );
-    if(user) {
+export const unusedUserLivePass = (isRandom: boolean): LivePass | undefined => {
+    const users = shuffle(readLivePass()) as LivePass[];
+    let user = users.find(userLive => !userLive.isDelete && userLive.isUsed === false); //&& (new Date(userLive.vencimento) > new Date())
+    if (user) {
         return user;
     }
-    
-    if(isRandom){
-        user = users.find(user_live => !user_live.isDelete);
+    if (isRandom) {
+        user = users.find(userLive => !userLive.isDelete);
     }
     return user;
 }
 
-export const searchLivePass = (name: string) => {
-    return readLivePass().find(value => value.username === name);
+export const searchLivePass = (username: string) => {
+    return readLivePass().find(value => value.username === username);
 }
+
 export const zerarLivePass = () => {
-    const logins: livePass[] = readLivePass().map(login=>{
+    const logins: LivePass[] = readLivePass().map(login => {
         return {
             ...login,
-            countUsed : 0,
+            countUsed: 0,
             isUsed: false,
         }
     });
     writeJSON(pathJson, logins);
-    console.log('Lista de live logins reiniciado com sucesso.');   
+    console.log('Lista de logins reiniciado com sucesso.');
 }
 
-export const updateLivePass = async (login: livePass) => {
-    const logins = readJSON(pathJson)
-    var loginsNew: any[] = []
-
-    logins.forEach(value => {
-        if (value.username === login.username) {
-            loginsNew.push(login)
-        } else {
-            loginsNew.push(value)
-        }
-    });
-    writeJSON(pathJson, loginsNew);
+export const updateLivePass = (updatedLogin: LivePass) => {
+    const logins = readLivePass();
+    const updatedLogins = logins.map((login) =>
+        login.username === updatedLogin.username ? updatedLogin : login
+    );
+    writeJSON(pathJson, updatedLogins);
 }
 
-export const deleteLivePass = async (username: string) => {
-    const logins = readJSON(pathJson)
-    var loginsNew: any[] = []
-
-    logins.forEach(value => {
-        if (value.username !== username) {
-            loginsNew.push(value);
-        }
-    });
-    writeJSON(pathJson, loginsNew);
+export const deleteLivePass = (username: string) => {
+    const logins = readLivePass();
+    const updatedLogins = logins.filter((login) => login.username !== username);
+    writeJSON(pathJson, updatedLogins);
 }
 
-
-
-export const processTrial = () =>{
-    const logins: any[] = [];
+export const processTrial = () => {
     const today = new Date();
-    readJSON(pathJson).forEach(login => {
-        if(login.isTrial && today > new Date(login.vencimento)){
-            login.isDelete = true;
-            logins.push(login);
-        }else {
-            logins.push(login);
-        }
-    });
-    writeJSON(pathJson, logins);
+    const updatedLogins = readLivePass().map(login =>
+        (login.isTrial && today > new Date(login.vencimento))
+            ? { ...login, isDelete: true }
+            : login
+    );
+    writeJSON(pathJson, updatedLogins);
 }
 
 const shuffle = (a) => {

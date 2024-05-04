@@ -1,15 +1,14 @@
 import { LoginController } from "../controller/loginController";
-import { searchLoginPorUsername } from "../data/loginDB";
-import { getMensagemLogin } from "../util/getMensagem";
-import { Login, LoginTituloType } from "../type/login";
+import { getMensagemLogin, mensagem } from "../util/getMensagem";
+import { LoginTituloType } from "../type/login";
 import { StringClean } from "../util/stringClean";
 import { IBotData } from "../Interface/IBotData";
-import { mensagem } from "../util/jsonConverte";
-import { searchUser } from "../data/userDB";
-import { User } from "../type/user";
+import { loginFindByUser } from "../data/login.service";
+import { IUser } from "../type/user.model";
+import { userFindByRemoteJid } from "../data/user.service";
 
 export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
-    let user: User | undefined = searchUser(remoteJid);
+    let user: IUser | null = await userFindByRemoteJid(remoteJid);
     if (user) {
         let username = StringClean(user.nome);
         if (args) {
@@ -19,7 +18,7 @@ export default async ({ sendText, reply, remoteJid, args }: IBotData) => {
             username = StringClean(args);
         }
 
-        let login: Login | undefined = searchLoginPorUsername(username);
+        let login = await loginFindByUser(username);
         if (login) {
             const isTrial = false;
             const isReneew = true;
