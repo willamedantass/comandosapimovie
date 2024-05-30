@@ -4,7 +4,7 @@ import { ILogin, LoginModel } from "../type/login.model";
 import { isCriarTeste } from "../util/isCreateTest";
 import { userUpdate } from "../data/user.service";
 import { mensagem } from "../util/getMensagem";
-import { Result } from "../util/result";
+import { Result } from "../type/result";
 import { IUser } from "../type/user.model";
 
 export const LoginController = async (username: string, isTrial: boolean, isReneew: boolean, user: IUser): Promise<Result> => {

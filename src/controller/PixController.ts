@@ -1,5 +1,5 @@
 import { isCriarPix } from "../util/isCreatePix";
-import { Result } from "../util/result";
+import { Result } from "../type/result";
 import { IUser } from "../type/user.model";
 import { mensagem } from "../util/getMensagem";
 require('dotenv/config');

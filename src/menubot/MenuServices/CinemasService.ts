@@ -1,7 +1,7 @@
-import axios from "axios";
-import { Result } from "../../util/result";
-import path from "path";
 import { readObject, writeJSON } from "../../util/jsonConverte";
+import { Result } from "../../type/result";
+import axios from "axios";
+import path from "path";
 
 type Local = {
     id: string;

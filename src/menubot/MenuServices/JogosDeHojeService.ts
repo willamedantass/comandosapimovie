@@ -1,5 +1,5 @@
 import { readObject, writeJSON } from "../../util/jsonConverte";
-import { Result } from "../../util/result";
+import { Result } from "../../type/result";
 import axios from "axios";
 import path from "path";
 

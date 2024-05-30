@@ -1,0 +1,5757 @@
+<body class="ipsApp ipsApp_front ipsClearfix ipsJS_has ipsApp_noTouch" data-controller="core.front.core.app" data-message="" data-pageapp="videobox" data-pagelocation="front" data-pagemodule="video" data-pagecontroller="index">
+		
+        
+
+        
+
+		  <a href="#ipsLayout_mainArea" class="ipsHide" title="Go to main content on this page" accesskey="m">Jump to content</a>
+        <div id="ipsLayout_header" class="ipsClearfix" style="box-shadow: 0px -8px 30px #000000; z-index: 2;">
+			
+
+            <header>
+              
+   <div class="ipsLayout_container">
+      <div id="yt__acme_header">
+        <div class="yt__acme_header__logo">
+		   
+
+
+  <a href="https://redecanaishd.in/" id="elLogo" accesskey="1"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1155.74 264.43"><defs><style>.cls-1{fill:url(#linear-gradient);}.cls-2,.cls-3{fill:#fff;}.cls-3{font-size:146.14px;font-weight:700;letter-spacing:0.03em;}</style><linearGradient id="linear-gradient" x1="1011.61" y1="463.73" x2="1011.61" y2="42.15" gradientUnits="userSpaceOnUse"><stop offset="0.29" stop-color="#333"></stop><stop offset="0.4" stop-color="#4b2b2d"></stop><stop offset="0.64" stop-color="#88181c"></stop><stop offset="0.82" stop-color="#ba080f"></stop></linearGradient></defs><polygon class="cls-1" points="1055.45 151.33 1029.84 165.38 1073.22 190.84 1047.96 204.71 1022.35 218.77 1022.34 218.77 978.96 193.31 956.06 205.88 956.06 205.88 930.45 219.94 919.14 226.14 919.14 176.52 935.27 167.66 935.28 167.66 960.89 153.61 986.15 139.74 1011.76 125.69 971.7 102.17 994.71 89.54 1020.32 75.48 1060.39 98.99 1104.08 124.64 1078.46 138.69 1055.45 151.33"></polygon><path class="cls-2" d="M1110.36,290.4l-24.64,13.53L1060.1,318l-23,12.64-13.24,7.26V267.5a16,16,0,0,1,24-13.76Z" transform="translate(-104.71 -251.52)"></path><path class="cls-2" d="M1252.57,373.86a16,16,0,0,1-.4,27.75h0l-25.61,14.06-23,12.63-25.61,14.06-43.38-25.46,25.61-14,23-12.64h0a16.58,16.58,0,0,0,.42-28.84l-18.49-10.86L1125,327l24.64-13.52h0L1189.74,337l43.68,25.64Z" transform="translate(-104.71 -251.52)"></path><polygon class="cls-2" points="1011.76 125.69 986.15 139.74 960.89 153.61 935.28 167.66 935.27 167.66 919.14 176.52 919.14 131.02 920.82 130.09 946.08 116.23 971.7 102.17 1011.76 125.69"></polygon><path class="cls-2" d="M1127.05,470.29l-22.9,12.57-25.61,14.06-31,17a16,16,0,0,1-23.64-14V477.66l11.3-6.21,25.61-14.05h0l22.9-12.57Z" transform="translate(-104.71 -251.52)"></path><text class="cls-3" transform="translate(0 176.17)">REDECANAIS</text></svg></a>
+
+        </div>
+        
+        <div class="yt__acme_header__social">
+           
+
+        </div>
+        
+        <div class="yt__acme_header__userpanel">
+		   
+
+	<ul id="elUserNav" class="ipsList_inline cSignedOut ipsResponsive_showDesktop">
+		
+		
+		
+			<li>
+				
+					<a id="elRegisterButton" onclick="if (!window.__cfRLUnblockHandlers) return false; guests();" class="ipsButton ipsButton_normal ipsButton_primary">Registrar</a>
+				
+			</li>
+		
+	</ul>
+
+           
+<ul class="ipsMobileHamburger ipsList_reset ipsResponsive_hideDesktop">
+	<li data-ipsdrawer="" data-ipsdrawer-drawerelem="#elMobileDrawer">
+		<a href="#">
+			
+			
+			
+			
+			<i class="fa fa-navicon"></i>
+		</a>
+	</li>
+</ul>
+        </div>
+      </div>
+	</div>
+
+            </header>
+            
+
+
+
+<div id="yt__acme_nav" class="yt__acme_nav_nosubnav " style="margin-bottom: 0;">
+  <div class="ipsLayout_container">
+    
+	<nav data-controller="core.front.core.navBar" id="ips_uid_3821_2">
+		<div class="ipsNavBar_primary">
+            
+                
+<div id="elSearchWrapper">
+		<div id="elSearch" style="">
+			<form accept-charset="utf-8" action="//redecanaishd.in/pesquisar/" method="get|post">
+                <input type="search" id="elSearchField" placeholder="Pesquisar..." name="p" autocomplete="off" aria-label="Search">
+				<button class="cSearchSubmit" type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
+</div>
+            
+			<ul id="yt__acme_nav__primary " data-role="primaryNavBar">
+				
+
+
+
+	
+		
+		
+		<li id="elNavSecondary_56" data-role="navBarItem" data-navapp="core" data-navext="CustomItem" data-originalwidth="40.5078" class="ipsHide" data-mushed="true"></li>
+	
+	
+
+	
+		
+		
+		<li id="elNavSecondary_17" data-role="navBarItem" data-navapp="core" data-navext="Menu" data-originalwidth="129.6562" class="ipsHide" data-mushed="true"></li>
+	
+	
+
+	
+		
+		
+		<li id="elNavSecondary_38" data-role="navBarItem" data-navapp="core" data-navext="Menu" data-originalwidth="126.6719" class="ipsHide" data-mushed="true"></li>
+	
+	
+
+	
+		
+		
+		<li id="elNavSecondary_57" data-role="navBarItem" data-navapp="core" data-navext="CustomItem" data-originalwidth="127.5625" class="ipsHide" data-mushed="true"></li>
+	
+	
+
+
+				<li class="" id="elNavigationMore" data-role="navMore" style="">
+					<a href="#" data-ipsmenu="" data-ipsmenu-appendto="#elNavigationMore" id="elNavigationMore_dropdown">More <i class="fa fa-caret-down"></i></a><ul class="ipsHide ipsMenu ipsMenu_auto" id="elNavigationMore_dropdown_menu" data-role="moreDropdown"><li data-originalitem="elNavSecondary_56" class="ipsMenu_item">
+			
+			
+				<a href="https://redecanaishd.in" data-navitem-id="56">
+					Inicio
+				</a>
+			
+			
+		</li><li data-originalitem="elNavSecondary_17" class="ipsMenu_item ipsMenu_subItems" id="ips_uid_3821_3">
+			
+			
+				<a href="#" id="elNavigation_17" data-ipsmenu="" data-ipsmenu-appendto="#ips_uid_3821_3" data-ipsmenu-activeclass="ipsNavActive_menu" data-navitem-id="17">
+					Filmes <i class="fa fa-caret-down"></i>
+				</a>
+				<ul id="elNavigation_17_menu" class="ipsMenu ipsMenu_auto ipsHide fix">
+					
+
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/assistir/filmes-online-2/">
+					Todos os Filmes
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-animacao-1/">
+					Animação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-aventura-2/">
+					Aventura
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-acao-3/">
+					Ação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-comedia-4/">
+					Comédia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-crime-5/">
+					Crime
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-documentario-6/">
+					Documentário
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-drama-7/">
+					Drama
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-familia-8/">
+					Família
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-fantasia-9/">
+					Fantasia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-faroeste-10/">
+					Faroeste
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-ficcao-cientifica-11/">
+					Ficção Científica
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-guerra-12/">
+					Guerra
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-historia-13/">
+					História
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-misterio-14/">
+					Mistério
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-musica-15/">
+					Música
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-nacional-16/">
+					Nacional
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-romance-17/">
+					Romance
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-suspense-18/">
+					Suspense
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/filmes-de-terror-19/">
+					Terror
+				</a>
+			</li>
+		
+	
+
+
+				</ul>
+			
+			
+		</li><li data-originalitem="elNavSecondary_38" class="ipsMenu_item ipsMenu_subItems" id="ips_uid_3821_4">
+			
+			
+				<a href="#" id="elNavigation_38" data-ipsmenu="" data-ipsmenu-appendto="#ips_uid_3821_4" data-ipsmenu-activeclass="ipsNavActive_menu" data-navitem-id="38">
+					Séries <i class="fa fa-caret-down"></i>
+				</a>
+				<ul id="elNavigation_38_menu" class="ipsMenu ipsMenu_auto ipsHide fix">
+					
+
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/assistir/series-online-3/">
+					Todas as Series
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-animacao-20/">
+					Animação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-aventura-21/">
+					Aventura
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-acao-22/">
+					Ação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-comedia-23/">
+					Comédia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-crime-24/">
+					Crime
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-documentario-25/">
+					Documentário
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-drama-26/">
+					Drama
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-familia-27/">
+					Família
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-fantasia-28/">
+					Fantasia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-faroeste-29/">
+					Faroeste
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-ficcao-cientifica-30/">
+					Ficção Científica
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-guerra-31/">
+					Guerra
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-misterio-32/">
+					Mistério
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li class="ipsMenu_item">
+				<a href="https://redecanaishd.in/genero/series-de-suspense-33/">
+					Suspense
+				</a>
+			</li>
+		
+	
+
+
+				</ul>
+			
+			
+		</li><li data-originalitem="elNavSecondary_57" class="ipsMenu_item">
+			
+			
+				<a href="https://redecanaishd.in/pagina/pedidos/" data-navitem-id="57">
+					Pedidos
+				</a>
+			
+			
+		</li></ul>
+					<ul class="ipsNavBar_secondary ipsHide" data-role="secondaryNavBar">
+						<li class="ipsHide" id="elNavigationMore_more" data-role="navMore">
+							<a href="#" data-ipsmenu="" data-ipsmenu-appendto="#elNavigationMore_more" id="elNavigationMore_more_dropdown">More <i class="fa fa-caret-down"></i></a>
+							
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+    
+  </div>
+</div>
+
+            
+<ul id="elMobileNav" class="ipsResponsive_hideDesktop cel" data-controller="core.front.core.mobileNav">
+<div id="elSearchWrapper">
+		<div id="elSearch" class="celtwo">
+			<form accept-charset="utf-8" action="//redecanaishd.in/pesquisar/" method="get|post">
+                <input type="search" id="elSearchField" placeholder="Pesquisar..." name="p" autocomplete="off" aria-label="Search">
+				<button class="cSearchSubmit" type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
+</div>
+</ul>
+		</div>
+        
+      	
+	
+	
+	 
+	 
+	 
+	 
+	
+	 
+	
+	 
+	
+	 
+	 
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	 
+	
+	
+	<div id="launcherBg" style="background-image: url(https://image.tmdb.org/t/p/w1280/jijH5xB6PTjRCm0pWj5w4uv7BRb.jpg);background-position: center 60%;" class="enabled">
+	<section id="homeLauncher">
+	<div class="infos">
+	<img class="movieLogo" src="https://image.tmdb.org/t/p/w500/ijQjJO2w7WDv7DpBQlTvszkaABg.png" alt="Assistir Godzilla e Kong: O Novo Império Online Gratis">
+	<div class="options">
+	<a href="https://redecanaishd.in/assistir-godzilla-e-kong-o-novo-imperio-dublado-online-32200/" class="coolButton orange">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.03 511.03"><path d="M416.809 200.418L152.282 14.389C130.151-.972 107.89-4.358 89.145 5.798c-17.054 8.591-27.338 29.03-27.338 54.676v390.802c0 25.646 10.284 46.084 27.338 54.676 6.769 3.385 13.669 5.077 22.131 5.077 11.977 0 27.338-5.077 41.007-11.977L416.81 313.023c20.439-13.669 32.414-34.107 32.414-56.368-.001-22.259-11.977-42.698-32.415-56.237zm-20.568 83.575L131.714 470.022c-10.284 8.591-20.439 10.285-27.338 6.769-6.769-3.385-10.284-13.669-10.284-25.646V60.344c0-13.669 3.385-22.13 10.284-25.646 1.692-1.692 5.077-1.692 6.769-1.692 5.077 0 13.669 1.692 22.13 8.591l264.527 186.029c10.284 6.769 17.054 17.053 17.054 27.338.261 10.285-6.639 20.438-18.615 29.029z"></path></svg>
+	Assistir Filme
+	</a>
+	<div class="ipsResponsive_hidePhone ipsResponsive_hideTablet" style="display: inline-block;">
+	<a onclick="if (!window.__cfRLUnblockHandlers) return false; guests();" div="" class="coolButton gray bookmark">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 294.843 294.843"><g fill="#FFF"><path d="M212.921 0h-131a6 6 0 0 0-6 6v282.843a6 6 0 0 0 9.73 4.699l65.491-51.992a6 6 0 1 0-7.461-9.399L87.92 276.418V12h119v264.421l-26.771-21.247a6 6 0 0 0-7.459 9.4l36.501 28.969a6.002 6.002 0 0 0 9.73-4.7V6a6 6 0 0 0-6-6z"></path><path d="M102.921 35.755h89a6 6 0 0 0 0-12h-89a6 6 0 0 0 0 12zM102.921 59.409h89a6 6 0 0 0 0-12h-89a6 6 0 0 0 0 12zM165.421 71.063h-62.5a6 6 0 0 0 0 12h62.5a6 6 0 0 0 0-12z"></path></g></svg>
+	Adicionar à lista
+	</a>
+	</div>
+	</div>
+	</div>
+	</section></div>
+
+		<main id="ipsLayout_body" class="ipsLayout_container">
+			<div id="ipsLayout_contentArea">
+				<div id="ipsLayout_contentWrapper">
+					
+					
+					<div id="ipsLayout_mainArea">
+						
+						
+						
+						
+
+
+	
+
+
+
+
+	<div class="cWidgetContainer " data-role="widgetReceiver" data-orientation="horizontal" data-widgetarea="header">
+		<ul class="ipsList_reset">
+			
+				
+					
+          			
+          
+          			
+          
+          			
+          
+          			
+          			<li class="ipsWidget ipsWidget_horizontal ipsBox  " data-blockid="plugin_9_vbTabSlider_cj9cxx4vo" data-blockconfig="true" data-blocktitle="[Videobox] Tab Slider" data-blockerrormessage="This block cannot be shown. This could be because it needs configuring, is unable to show on this page, or will show after reloading this page." data-controller="core.front.widgets.block">
+
+
+<div id="vbTabSlider" class="cj9cxx4vo" data-controller="plugins.vbTabSlider" data-ajax="true">
+	<div class="vbTab-list ipsClearfix header">
+		<nav>
+			<ul class="etabs ipsPos_left expanded">
+              <span class="main"><i class="fa fa-bars" aria-hidden="true"></i> Filmes</span>
+			
+              
+					<li class="tab active" data-tabname="releases" data-widgetkey="cj9cxx4vo">
+						<span>Lançamentos</span>
+					</li>
+				
+					<li class="tab" data-tabname="latest" data-widgetkey="cj9cxx4vo">
+						<span>Recentes</span>
+					</li>
+				
+					<li class="tab" data-tabname="mostviewed" data-widgetkey="cj9cxx4vo">
+						<span>Mais Vistos</span>
+					</li>
+				
+					<li class="tab" data-tabname="trending" data-widgetkey="cj9cxx4vo">
+						<span><yt-icon class="guide-icon style-scope ytd-guide-entry-renderer"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon"><path d="M14.72,17.84c-0.32,0.27-0.83,0.53-1.23,0.66c-1.34,0.33-2.41-0.34-2.62-0.46c-0.21-0.11-0.78-0.38-0.78-0.38 s0.35-0.11,0.41-0.13c1.34-0.54,1.89-1.24,2.09-2.11c0.2-0.84-0.16-1.56-0.31-2.39c-0.12-0.69-0.11-1.28,0.12-1.9 c0.02-0.05,0.12-0.43,0.12-0.43s0.11,0.35,0.13,0.41c0.71,1.51,2.72,2.18,3.07,3.84c0.03,0.15,0.05,0.3,0.05,0.46 C15.8,16.3,15.4,17.26,14.72,17.84z M12.4,4.34c-0.12,0.08-0.22,0.15-0.31,0.22c-2.99,2.31-2.91,5.93-2.31,8.55l0.01,0.03l0.01,0.03 c0.06,0.35-0.05,0.7-0.28,0.96c-0.24,0.26-0.58,0.41-0.95,0.41c-0.44,0-0.85-0.2-1.22-0.6c-0.67-0.73-1.17-1.57-1.5-2.46 c-0.36,0.77-0.75,1.98-0.67,3.19c0.04,0.51,0.12,1,0.25,1.43c0.18,0.6,0.43,1.16,0.75,1.65c1.05,1.66,2.88,2.82,4.78,3.05 c0.42,0.05,0.85,0.08,1.26,0.08c1.34,0,3.25-0.27,4.74-1.57c1.77-1.56,2.35-3.99,1.44-6.06c-0.04-0.1-0.06-0.14-0.09-0.19 l-0.04-0.08c-0.21-0.42-0.47-0.81-0.75-1.14c-0.24-0.3-0.48-0.56-0.79-0.83c-0.3-0.27-0.64-0.51-1-0.77 c-0.46-0.33-0.93-0.67-1.38-1.09C12.98,7.83,12.3,6.11,12.4,4.34 M14.41,2c0,0-0.2,0.2-0.56,0.99c-0.66,1.92-0.15,3.95,1.34,5.39 c0.73,0.69,1.61,1.17,2.36,1.84c0.32,0.29,0.62,0.59,0.89,0.93c0.36,0.42,0.66,0.89,0.91,1.38c0.05,0.1,0.1,0.2,0.14,0.3 c1.12,2.55,0.36,5.47-1.73,7.31C16.23,21.47,14.22,22,12.22,22c-0.47,0-0.95-0.03-1.41-0.09c-2.29-0.28-4.42-1.66-5.63-3.57 c-0.39-0.6-0.68-1.26-0.88-1.93c-0.16-0.54-0.25-1.1-0.29-1.67c-0.12-1.88,0.67-3.63,1.08-4.31c0.41-0.69,1.55-2.18,1.55-2.18 s0,0.03-0.01,0.09C6.41,10.11,7,11.88,8.22,13.22c0.15,0.17,0.27,0.22,0.34,0.22c0.06,0,0.09-0.04,0.08-0.09 C7.79,9.59,8.37,6,11.35,3.7c0.59-0.46,1.51-0.94,1.98-1.18C13.8,2.28,14.41,2,14.41,2L14.41,2z" class="style-scope yt-icon"></path></g></svg><!--css-build:shady--></yt-icon> Em Alta</span>
+					</li>
+					
+              
+			</ul>
+			
+				<div class="vbTab-controllers releases_cj9cxx4vo_controller ipsPos_right" style="">
+				
+				<div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="fa fa-angle-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-right"></i></button></div></div>
+			
+				<div class="vbTab-controllers latest_cj9cxx4vo_controller ipsPos_right" style="display: none;">
+				
+				</div>
+			
+				<div class="vbTab-controllers mostviewed_cj9cxx4vo_controller ipsPos_right" style="display: none;">
+				
+				</div>
+			
+				<div class="vbTab-controllers trending_cj9cxx4vo_controller ipsPos_right" style="display: none;">
+				
+				</div>
+			
+		</nav>
+	</div>
+	
+		
+		<div class="vbPanel-container releases_cj9cxx4vo_html" style="height: 267px;">
+			
+
+<div class="vbTabSliderContainer" style="max-width: 386px; visibility: visible;">
+	
+		<div class="videoSliderWrapper owl-carousel owl-theme owl-loaded owl-drag">
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+		<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(108px, 0px, 0px); transition: all 0s ease 0s; width: 2625px;"><div class="owl-item active center" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">CAM</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-furiosa-uma-saga-mad-max-dublado-online-34290/" title="Furiosa: Uma Saga Mad Max – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/j4KUED5qQCpmyz1Mr77coJCrndq.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/j4KUED5qQCpmyz1Mr77coJCrndq.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-furiosa-uma-saga-mad-max-dublado-online-34290/" title="Assistir Furiosa: Uma Saga Mad Max Dublado Online">
+			Furiosa: Uma Saga Mad Max
+		</a>
+      <span class="y">2024</span>
+      <span class="t">149min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item active" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">CAM</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-guerra-civil-dublado-h1-online-33155/" title="Guerra Civil – Dublado – H1">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/3Use5sOQWXL3BvcaKqUH7eQ7I53.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/3Use5sOQWXL3BvcaKqUH7eQ7I53.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-guerra-civil-dublado-h1-online-33155/" title="Assistir Guerra Civil Dublado Online">
+			Guerra Civil
+		</a>
+      <span class="y">2024</span>
+      <span class="t">109min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-atlas-dublado-online-34232/" title="Atlas – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/bcM2Tl5HlsvPBnL8DKP9Ie6vU4r.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/bcM2Tl5HlsvPBnL8DKP9Ie6vU4r.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-atlas-dublado-online-34232/" title="Assistir Atlas Dublado Online">
+			Atlas
+		</a>
+      <span class="y">2024</span>
+      <span class="t">120min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">CAM</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-o-duble-dublado-online-33618/" title="O Dublê – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/7AkiDy6DVlfhJusglf6tvifX6dB.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/7AkiDy6DVlfhJusglf6tvifX6dB.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-o-duble-dublado-online-33618/" title="Assistir O Dublê Dublado Online">
+			O Dublê
+		</a>
+      <span class="y">2024</span>
+      <span class="t">126min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">CAM</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-amigos-imaginarios-dublado-online-34009/" title="Amigos Imaginários – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/83XOTebSN4NnjeuZjmD7F0IByeB.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/83XOTebSN4NnjeuZjmD7F0IByeB.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-amigos-imaginarios-dublado-online-34009/" title="Assistir Amigos Imaginários Dublado Online">
+			Amigos Imaginários
+		</a>
+      <span class="y">2024</span>
+      <span class="t">104min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">CAM</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-planeta-dos-macacos-o-reinado-dublado-online-33809/" title="Planeta dos Macacos: O Reinado – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/xncPDbNFr9YnZqaB6Ht9uItaoZO.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/xncPDbNFr9YnZqaB6Ht9uItaoZO.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-planeta-dos-macacos-o-reinado-dublado-online-33809/" title="Assistir Planeta dos Macacos: O Reinado Dublado Online">
+			Planeta dos Macacos: O Reinado
+		</a>
+      <span class="y">2024</span>
+      <span class="t">145min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-godzilla-e-kong-o-novo-imperio-dublado-online-32200/" title="Godzilla e Kong: O Novo Império – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/kO6K9zEsKhNyqcrdGTSqAI6jrie.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/kO6K9zEsKhNyqcrdGTSqAI6jrie.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-godzilla-e-kong-o-novo-imperio-dublado-online-32200/" title="Assistir Godzilla e Kong: O Novo Império Dublado Online">
+			Godzilla e Kong: O Novo Império
+		</a>
+      <span class="y">2024</span>
+      <span class="t">115min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">CAM</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-garfield-fora-de-casa-dublado-online-33593/" title="Garfield - Fora de Casa – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/rC5RqXtFoTkBhNWE1dczwi4dZrX.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-garfield-fora-de-casa-dublado-online-33593/" title="Assistir Garfield - Fora de Casa Dublado Online">
+			Garfield - Fora de Casa
+		</a>
+      <span class="y">2024</span>
+      <span class="t">101min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-ghostbusters-apocalipse-de-gelo-dublado-online-33065/" title="Ghostbusters: Apocalipse de Gelo – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/boObGdocQS07Nu7IrettgA5oRTp.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-ghostbusters-apocalipse-de-gelo-dublado-online-33065/" title="Assistir Ghostbusters: Apocalipse de Gelo Dublado Online">
+			Ghostbusters: Apocalipse de Gelo
+		</a>
+      <span class="y">2024</span>
+      <span class="t">115min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-kung-fu-panda-4-dublado-online-31976/" title="Kung Fu Panda 4 – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/aNK6MA5EApIo0UJE7ZWSYcZBJKy.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-kung-fu-panda-4-dublado-online-31976/" title="Assistir Kung Fu Panda 4 Dublado Online">
+			Kung Fu Panda 4
+		</a>
+      <span class="y">2024</span>
+      <span class="t">94min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-rebel-moon-parte-2-a-marcadora-de-cicatrizes-dublado-h1-online-33084/" title="Rebel Moon - Parte 2: A Marcadora de Cicatrizes – Dublado – H1">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/kkP50MUDBqt4JqDEwxk32wUHePk.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-rebel-moon-parte-2-a-marcadora-de-cicatrizes-dublado-h1-online-33084/" title="Assistir Rebel Moon - Parte 2: A Marcadora de Cicatrizes Dublado Online">
+			Rebel Moon - Parte 2: A Marcadora de Cicatrizes
+		</a>
+      <span class="y">2024</span>
+      <span class="t">123min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-os-tres-mosqueteiros-milady-dublado-online-28795/" title="Os Três Mosqueteiros: Milady – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/qsOK6mqsmddKmiEtLReV6nlbuW0.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-os-tres-mosqueteiros-milady-dublado-online-28795/" title="Assistir Os Três Mosqueteiros: Milady Dublado Online">
+			Os Três Mosqueteiros: Milady
+		</a>
+      <span class="y">2023</span>
+      <span class="t">115min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-duna-parte-dois-dublado-h1-online-31394/" title="Duna: Parte Dois – Dublado – H1">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/e8pI4XkYgUMuSJ8cEFbJE18wc4e.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-duna-parte-dois-dublado-h1-online-31394/" title="Assistir Duna: Parte Dois Dublado Online">
+			Duna: Parte Dois
+		</a>
+      <span class="y">2024</span>
+      <span class="t">166min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-bob-marley-one-love-dublado-online-30584/" title="Bob Marley: One Love – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/mKWalirPreEdCKDJjc5TKeOP2xi.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-bob-marley-one-love-dublado-online-30584/" title="Assistir Bob Marley: One Love Dublado Online">
+			Bob Marley: One Love
+		</a>
+      <span class="y">2024</span>
+      <span class="t">104min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-madame-teia-dublado-online-30542/" title="Madame Teia – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/zWEm5oy2tE9ku1KSNM089FmZJ2p.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-madame-teia-dublado-online-30542/" title="Assistir Madame Teia Dublado Online">
+			Madame Teia
+		</a>
+      <span class="y">2024</span>
+      <span class="t">116min</span>
+										
+	</div>	
+								
+  </div></div></div></div></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button></div></div>
+	
+</div>
+		</div>
+	
+		
+		<div class="vbPanel-container latest_cj9cxx4vo_html" style="display: none; height: 267px">
+			
+		</div>
+	
+		
+		<div class="vbPanel-container mostviewed_cj9cxx4vo_html" style="display: none; height: 267px">
+			
+		</div>
+	
+		
+		<div class="vbPanel-container trending_cj9cxx4vo_html" style="display: none; height: 267px">
+			
+		</div>
+	
+</div></li>
+          			
+          			
+          		
+			
+		</ul>
+	</div>
+
+
+						
+						
+
+
+
+	<div class="cWidgetContainer " data-role="widgetReceiver" data-orientation="horizontal" data-widgetarea="footer">
+		<ul class="ipsList_reset">
+			
+				
+					
+          			
+          
+          			
+          
+          			
+          
+          			
+          			<li class="ipsWidget ipsWidget_horizontal ipsBox  " data-blockid="plugin_9_vbTabSlider_tife5lkci" data-blockconfig="true" data-blocktitle="[Videobox] Tab Slider" data-blockerrormessage="This block cannot be shown. This could be because it needs configuring, is unable to show on this page, or will show after reloading this page." data-controller="core.front.widgets.block">
+
+
+<div id="vbTabSlider" class="tife5lkci" data-controller="plugins.vbTabSlider" data-ajax="true">
+	<div class="vbTab-list ipsClearfix header">
+		<nav>
+			<ul class="etabs ipsPos_left expanded">
+              <span class="main"><i class="fa fa-bars" aria-hidden="true"></i> Series</span>
+			
+              
+					<li class="tab active" data-tabname="releases" data-widgetkey="tife5lkci">
+						<span>Novos Episódios</span>
+					</li>
+				
+					<li class="tab" data-tabname="latest" data-widgetkey="tife5lkci">
+						<span>Recentes</span>
+					</li>
+				
+					<li class="tab" data-tabname="mostviewed" data-widgetkey="tife5lkci">
+						<span>Mais Vistos</span>
+					</li>
+				
+					<li class="tab" data-tabname="trending" data-widgetkey="tife5lkci">
+						<span><yt-icon class="guide-icon style-scope ytd-guide-entry-renderer"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon"><path d="M14.72,17.84c-0.32,0.27-0.83,0.53-1.23,0.66c-1.34,0.33-2.41-0.34-2.62-0.46c-0.21-0.11-0.78-0.38-0.78-0.38 s0.35-0.11,0.41-0.13c1.34-0.54,1.89-1.24,2.09-2.11c0.2-0.84-0.16-1.56-0.31-2.39c-0.12-0.69-0.11-1.28,0.12-1.9 c0.02-0.05,0.12-0.43,0.12-0.43s0.11,0.35,0.13,0.41c0.71,1.51,2.72,2.18,3.07,3.84c0.03,0.15,0.05,0.3,0.05,0.46 C15.8,16.3,15.4,17.26,14.72,17.84z M12.4,4.34c-0.12,0.08-0.22,0.15-0.31,0.22c-2.99,2.31-2.91,5.93-2.31,8.55l0.01,0.03l0.01,0.03 c0.06,0.35-0.05,0.7-0.28,0.96c-0.24,0.26-0.58,0.41-0.95,0.41c-0.44,0-0.85-0.2-1.22-0.6c-0.67-0.73-1.17-1.57-1.5-2.46 c-0.36,0.77-0.75,1.98-0.67,3.19c0.04,0.51,0.12,1,0.25,1.43c0.18,0.6,0.43,1.16,0.75,1.65c1.05,1.66,2.88,2.82,4.78,3.05 c0.42,0.05,0.85,0.08,1.26,0.08c1.34,0,3.25-0.27,4.74-1.57c1.77-1.56,2.35-3.99,1.44-6.06c-0.04-0.1-0.06-0.14-0.09-0.19 l-0.04-0.08c-0.21-0.42-0.47-0.81-0.75-1.14c-0.24-0.3-0.48-0.56-0.79-0.83c-0.3-0.27-0.64-0.51-1-0.77 c-0.46-0.33-0.93-0.67-1.38-1.09C12.98,7.83,12.3,6.11,12.4,4.34 M14.41,2c0,0-0.2,0.2-0.56,0.99c-0.66,1.92-0.15,3.95,1.34,5.39 c0.73,0.69,1.61,1.17,2.36,1.84c0.32,0.29,0.62,0.59,0.89,0.93c0.36,0.42,0.66,0.89,0.91,1.38c0.05,0.1,0.1,0.2,0.14,0.3 c1.12,2.55,0.36,5.47-1.73,7.31C16.23,21.47,14.22,22,12.22,22c-0.47,0-0.95-0.03-1.41-0.09c-2.29-0.28-4.42-1.66-5.63-3.57 c-0.39-0.6-0.68-1.26-0.88-1.93c-0.16-0.54-0.25-1.1-0.29-1.67c-0.12-1.88,0.67-3.63,1.08-4.31c0.41-0.69,1.55-2.18,1.55-2.18 s0,0.03-0.01,0.09C6.41,10.11,7,11.88,8.22,13.22c0.15,0.17,0.27,0.22,0.34,0.22c0.06,0,0.09-0.04,0.08-0.09 C7.79,9.59,8.37,6,11.35,3.7c0.59-0.46,1.51-0.94,1.98-1.18C13.8,2.28,14.41,2,14.41,2L14.41,2z" class="style-scope yt-icon"></path></g></svg><!--css-build:shady--></yt-icon> Em Alta</span>
+					</li>
+					
+              
+			</ul>
+			
+				<div class="vbTab-controllers releases_tife5lkci_controller ipsPos_right" style="">
+				
+				<div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="fa fa-angle-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-right"></i></button></div></div>
+			
+				<div class="vbTab-controllers latest_tife5lkci_controller ipsPos_right" style="display: none;">
+				
+				</div>
+			
+				<div class="vbTab-controllers mostviewed_tife5lkci_controller ipsPos_right" style="display: none;">
+				
+				</div>
+			
+				<div class="vbTab-controllers trending_tife5lkci_controller ipsPos_right" style="display: none;">
+				
+				</div>
+			
+		</nav>
+	</div>
+	
+		
+		<div class="vbPanel-container releases_tife5lkci_html" style="height: 267px;">
+			
+
+<div class="vbTabSliderContainer" style="max-width: 386px; visibility: visible;">
+	
+		<div class="videoSliderWrapper owl-carousel owl-theme owl-loaded owl-drag">
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+				
+ 
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+			
+		<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(108px, 0px, 0px); transition: all 0s ease 0s; width: 2625px;"><div class="owl-item active center" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-o-simpatizante-dublado-online-32906/" title="O Simpatizante – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/mCkFmproxlyCPSwpo2AQ8J1fp5e.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/mCkFmproxlyCPSwpo2AQ8J1fp5e.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-o-simpatizante-dublado-online-32906/" title="Assistir O Simpatizante Dublado Online">
+			O Simpatizante
+		</a>
+      <span class="y">2024</span>
+      <span class="t">60min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item active" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-o-veu-dublado-online-33519/" title="O Véu – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/5IeqZ52jiAAyu7ukCUkpi48c54h.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/5IeqZ52jiAAyu7ukCUkpi48c54h.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-o-veu-dublado-online-33519/" title="Assistir O Véu Dublado Online">
+			O Véu
+		</a>
+      <span class="y">2024</span>
+      <span class="t">41min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-o-rastreador-dublado-online-32450/" title="O Rastreador – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/4HGn3xNtkA8AfC026eJq8BvEYLv.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/4HGn3xNtkA8AfC026eJq8BvEYLv.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-o-rastreador-dublado-online-32450/" title="Assistir O Rastreador Dublado Online">
+			O Rastreador
+		</a>
+      <span class="y">2024</span>
+      <span class="t">44min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-remonster-dublado-online-32464/" title="Re:Monster – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/hos9sChhPb8FWUJUGkDBlzgLdx1.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/hos9sChhPb8FWUJUGkDBlzgLdx1.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-remonster-dublado-online-32464/" title="Assistir Re:Monster Dublado Online">
+			Re:Monster
+		</a>
+      <span class="y">2024</span>
+      <span class="t">24min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">LEG</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-bridgerton-legendado-online-34362/" title="Bridgerton – Legendado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/bP1LSYUxYTjtDHMV9cC20ighQfN.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/bP1LSYUxYTjtDHMV9cC20ighQfN.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-bridgerton-legendado-online-34362/" title="Assistir Bridgerton Legendado Online">
+			Bridgerton
+		</a>
+      <span class="y">2020</span>
+      <span class="t">55min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-uma-familia-inusitada-dublado-online-34359/" title="Uma Família Inusitada – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/bFA68Vj0P0cqsWEWlyzMdSFYyIs.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/bFA68Vj0P0cqsWEWlyzMdSFYyIs.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-uma-familia-inusitada-dublado-online-34359/" title="Assistir Uma Família Inusitada Dublado Online">
+			Uma Família Inusitada
+		</a>
+      <span class="y">2024</span>
+      <span class="t">65min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-evil-contatos-sobrenaturais-dublado-online-34308/" title="Evil: Contatos Sobrenaturais – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/2gyQRudrRU276fvkXMq4JNq3hzB.jpg" style="background-image: url(&quot;https://image.tmdb.org/t/p/w185/2gyQRudrRU276fvkXMq4JNq3hzB.jpg&quot;); width: 160px; height: 245px;"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-evil-contatos-sobrenaturais-dublado-online-34308/" title="Assistir Evil: Contatos Sobrenaturais Dublado Online">
+			Evil: Contatos Sobrenaturais
+		</a>
+      <span class="y">2019</span>
+      <span class="t">43min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">LEG</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-minhas-aventuras-com-o-superman-legendado-online-21986/" title="Minhas Aventuras com o Superman – Legendado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/jiJpmCWFvGwJd3URX8RopMOx7Bc.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-minhas-aventuras-com-o-superman-legendado-online-21986/" title="Assistir Minhas Aventuras com o Superman Legendado Online">
+			Minhas Aventuras com o Superman
+		</a>
+      <span class="y">2023</span>
+      <span class="t">23min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-a-licao-dublado-online-34326/" title="A Lição – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/bnTXjwOwdUz8MKFyQCNf0hG4fdL.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-a-licao-dublado-online-34326/" title="Assistir A Lição Dublado Online">
+			A Lição
+		</a>
+      <span class="y">2022</span>
+      <span class="t">47min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">LEG</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-demon-slayer-kimetsu-no-yaiba-legendado-online-33826/" title="Demon Slayer: Kimetsu no Yaiba – Legendado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/7Uj6vqmznWQ3w3hpQ1eIY9mMyMw.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-demon-slayer-kimetsu-no-yaiba-legendado-online-33826/" title="Assistir Demon Slayer: Kimetsu no Yaiba Legendado Online">
+			Demon Slayer: Kimetsu no Yaiba
+		</a>
+      <span class="y">2019</span>
+      <span class="t">24min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-minhas-aventuras-com-o-superman-dublado-online-21981/" title="Minhas Aventuras com o Superman – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/jiJpmCWFvGwJd3URX8RopMOx7Bc.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-minhas-aventuras-com-o-superman-dublado-online-21981/" title="Assistir Minhas Aventuras com o Superman Dublado Online">
+			Minhas Aventuras com o Superman
+		</a>
+      <span class="y">2023</span>
+      <span class="t">23min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-wind-breaker-dublado-online-33498/" title="WIND BREAKER – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/c2wfIKUPcQY0tiyiOmY7ItHtNO9.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-wind-breaker-dublado-online-33498/" title="Assistir WIND BREAKER Dublado Online">
+			WIND BREAKER
+		</a>
+      <span class="y">2024</span>
+      <span class="t">24min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-somos-os-que-tiveram-sorte-dublado-online-32997/" title="Somos os Que Tiveram Sorte – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/kryDOwgLIjHTykDkiSKYLhNX9KJ.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-somos-os-que-tiveram-sorte-dublado-online-32997/" title="Assistir Somos os Que Tiveram Sorte Dublado Online">
+			Somos os Que Tiveram Sorte
+		</a>
+      <span class="y">2024</span>
+      <span class="t">72min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">DUB</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-dr-stone-dublado-online-34134/" title="Dr. Stone – Dublado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/aSEmXBWhiox0ARNpXyLdT8iFCCh.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-dr-stone-dublado-online-34134/" title="Assistir Dr. Stone Dublado Online">
+			Dr. Stone
+		</a>
+      <span class="y">2019</span>
+      <span class="t">24min</span>
+										
+	</div>	
+								
+  </div></div></div><div class="owl-item" style="width: auto; margin-right: 5px;"><div id="collview"><div class="vbItemImage">
+  <div class="TopLeft"><span class="capa-info capa-audio">LEG</span><span class="capa-info capa-quali">HD</span></div>
+	
+		
+	
+
+	
+		
+		<a href="https://redecanaishd.in/assistir-kaiju-no-8-legendado-online-32926/" title="Kaiju No. 8 – Legendado">
+			
+				<div class="vb_image_container" data-background-src="https://image.tmdb.org/t/p/w185/rK1GWa7W9DUu6tuySM2AtLVTpxE.jpg" style="background-image:url('//redecanaishd.in/applications/core/interface/js/spacer.png'); width: 160px; height: 245px"></div>
+							
+		</a>	
+		
+	<div class="caption">
+		<a href="https://redecanaishd.in/assistir-kaiju-no-8-legendado-online-32926/" title="Assistir Kaiju No. 8 Legendado Online">
+			Kaiju No. 8
+		</a>
+      <span class="y">2024</span>
+      <span class="t">24min</span>
+										
+	</div>	
+								
+  </div></div></div></div></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button></div></div>
+	
+</div>
+		</div>
+	
+		
+		<div class="vbPanel-container latest_tife5lkci_html" style="display: none; height: 267px">
+			
+		</div>
+	
+		
+		<div class="vbPanel-container mostviewed_tife5lkci_html" style="display: none; height: 267px">
+			
+		</div>
+	
+		
+		<div class="vbPanel-container trending_tife5lkci_html" style="display: none; height: 267px">
+			
+		</div>
+	
+</div></li>
+          			
+          			
+          		
+			
+		</ul>
+	</div>
+
+
+					</div>
+					
+
+
+					
+				</div>
+			</div>
+			
+		</main>
+      <div class="wrap"><h1 class="h3Words">Filmes Online Grátis - Series Online - Animes Online</h1></div>
+      <div id="footerInfos">
+<span>Filmes Online - Assistir Filmes - Filmes Online Grátis</span>
+<p>
+Filmes Online - Assistir Filmes Online - Filmes Online Grátis - Filmes Completos Dublados<br>
+A RedeCanais é uma plataforma de site e aplicativo para assistir filmes x series online grátis!
+O nosso site atualiza todas as séries no dia em legendado e dublado, e como o nosso site é um indexador automático, somos os mais rápidos postadores do Brasil.
+RedeCanais não armazena mega filmes e series em nosso site, por isso é completamente dentro da lei. A RedeCanais indexa conteudo encontrado na web automáticamente usando Robots e Inteligência artificial.
+O uso da RedeCanais é totalmente responsabilidade do usuário. A distribuição de filmes é da parte de plataformas como mystream, fembed entre outros. Qualquer violação de direitos autorais, entre em contato com o distribuidor.
+Em caso de dúvidas ou reclamações sobre conteúdo, funcionalidade do site, anúncios entre outros, entre em contato com a equipe de suporte.
+</p>
+</div>
+        <footer id="ipsLayout_footer" class="ipsClearfix">
+            
+		<div class="ipsLayout_container">
+			
+        </div>
+        
+        <div class="yt__acme_footer_top">
+            <div class="ipsLayout_container">
+               <div class="yt__acme_footer_top_content">
+                  
+
+<div class="yt__acme_footer_top_content_aboutus">
+  <div><b>AVISO LEGAL:</b> Nós não armazenamos nenhum dos arquivos em nenhum servidor. Todos os conteúdos são fornecidos por terceiros sem qualquer tipo de filiação.</div>
+  <br>
+  
+	<a href="#" id="elRSS" class="ipsType_large" title="RSS Feeds" data-ipstooltip="" data-ipsmenu="" data-ipsmenu-above=""><i class="fa fa-rss-square"></i></a>
+	<ul id="elRSS_menu" class="ipsMenu ipsMenu_auto ipsHide">
+		
+			<li class="ipsMenu_item"><a title="Latest Videos" href="https://redecanaishd.in/videos.xml/">Últimas Postagens</a></li>
+		
+	</ul>
+
+</div>
+
+                  
+
+<div class="yt__acme_footer_top_content_mainmenu">
+  <h2 class="yt__acme_footer_top_content_title">Informações</h2>
+  <p class="yt__acme_footer_top_content_description">Importante</p>
+  <div class="yt__acme_footer_top_content_mainmenu__list">
+    <p>
+	<a href="https://redecanaishd.in/pagina/dmca" rel="">Politica DMCA</a>
+</p>
+
+<p>
+	<a href="https://redecanaishd.in/pagina/termos" rel="">Termos e condições</a>
+</p>
+
+  </div>
+</div>
+
+                  
+
+<div class="yt__acme_footer_top_content_usefullink">
+  <h2 class="yt__acme_footer_top_content_title">Parceiros</h2>
+  <p class="yt__acme_footer_top_content_description">Contate-nos</p>
+  <div class="yt__acme_footer_top_content_usefullink__list">
+    <p><a title="Vizer" target="_BLANK" href="https://vizerhd.red/" rel="follow">Vizer</a></p>
+    <p><a title="Overflix" target="_BLANK" href="https://overflix.mov/" rel="follow">Overflix</a></p>
+    <p><a title="Pobreflix" target="_BLANK" href="https://pobreflixhd.run/" rel="follow">Pobreflix</a></p>
+  </div>
+</div>
+
+                  
+
+                  
+
+               </div>
+            </div>
+        </div>
+        
+		
+
+        </footer>
+      
+		
+<div id="elMobileDrawer" class="ipsDrawer ipsHide">
+	<div class="ipsDrawer_menu">
+		<a href="#" class="ipsDrawer_close" data-action="close"><span>×</span></a>
+		<div class="ipsDrawer_content ipsFlex ipsFlex-fd:column">
+			
+				<div class="ipsPadding ipsBorder_bottom">
+					<ul class="ipsToolList ipsToolList_vertical">
+						
+							<li>
+								
+									<a onclick="if (!window.__cfRLUnblockHandlers) return false; guests();" id="elRegisterButton_mobile" class="ipsButton ipsButton_small ipsButton_fullWidth ipsButton_important">Registrar</a>
+								
+							</li>
+						
+					</ul>
+				</div>
+			
+
+			
+
+			<ul class="ipsDrawer_list ipsFlex-flex:11">
+				
+
+				
+				
+				
+				
+					
+						
+						
+							<li><a href="https://redecanaishd.in">Inicio</a></li>
+						
+					
+				
+					
+						
+						
+							<li class="ipsDrawer_itemParent">
+								<h4 class="ipsDrawer_title"><a href="#">Filmes</a></h4>
+								<ul class="ipsDrawer_list">
+									<li data-action="back"><a href="#">Back</a></li>
+									
+									
+													
+									
+										<li><a href="">Filmes</a></li>
+									
+									
+										
+
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/assistir/filmes-online-2/">
+					Todos os Filmes
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-animacao-1/">
+					Animação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-aventura-2/">
+					Aventura
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-acao-3/">
+					Ação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-comedia-4/">
+					Comédia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-crime-5/">
+					Crime
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-documentario-6/">
+					Documentário
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-drama-7/">
+					Drama
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-familia-8/">
+					Família
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-fantasia-9/">
+					Fantasia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-faroeste-10/">
+					Faroeste
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-ficcao-cientifica-11/">
+					Ficção Científica
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-guerra-12/">
+					Guerra
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-historia-13/">
+					História
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-misterio-14/">
+					Mistério
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-musica-15/">
+					Música
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-nacional-16/">
+					Nacional
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-romance-17/">
+					Romance
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-suspense-18/">
+					Suspense
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/filmes-de-terror-19/">
+					Terror
+				</a>
+			</li>
+		
+	
+
+									
+										
+								</ul>
+							</li>
+						
+					
+				
+					
+						
+						
+							<li class="ipsDrawer_itemParent">
+								<h4 class="ipsDrawer_title"><a href="#">Séries</a></h4>
+								<ul class="ipsDrawer_list">
+									<li data-action="back"><a href="#">Back</a></li>
+									
+									
+													
+									
+										<li><a href="">Séries</a></li>
+									
+									
+										
+
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/assistir/series-online-3/">
+					Todas as Series
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-animacao-20/">
+					Animação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-aventura-21/">
+					Aventura
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-acao-22/">
+					Ação
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-comedia-23/">
+					Comédia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-crime-24/">
+					Crime
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-documentario-25/">
+					Documentário
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-drama-26/">
+					Drama
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-familia-27/">
+					Família
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-fantasia-28/">
+					Fantasia
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-faroeste-29/">
+					Faroeste
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-ficcao-cientifica-30/">
+					Ficção Científica
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-guerra-31/">
+					Guerra
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-misterio-32/">
+					Mistério
+				</a>
+			</li>
+		
+	
+
+	
+		
+			<li>
+				<a href="https://redecanaishd.in/genero/series-de-suspense-33/">
+					Suspense
+				</a>
+			</li>
+		
+	
+
+									
+										
+								</ul>
+							</li>
+						
+					
+				
+					
+						
+						
+							<li><a href="https://redecanaishd.in/pagina/pedidos/">Pedidos</a></li>
+						
+					
+				
+				
+			</ul>
+
+			
+		</div>
+	</div>
+</div>
+
+<div id="elMobileCreateMenuDrawer" class="ipsDrawer ipsHide">
+	<div class="ipsDrawer_menu">
+		<a href="#" class="ipsDrawer_close" data-action="close"><span>×</span></a>
+		<div class="ipsDrawer_content ipsSpacer_bottom ipsPad">
+			<ul class="ipsDrawer_list">
+				<li class="ipsDrawer_listTitle ipsType_reset">Create New...</li>
+				
+			</ul>
+		</div>
+	</div>
+</div>
+		
+        
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="https://redecanaishd.in/uploads/set_resources_14/da589aa60ac18256220144fcb5ad01c1_swiper.min.js"></script>
+
+<script type="text/javascript">
+!function(e,n,t){"use strict";var o='https://fonts.googleapis.com/css?family=Exo 2:300,400,500,600, https://fonts.googleapis.com/css?family=Exo 2:300,400,500,600,',r="__3perf_googleFontsStylesheet";function c(e){(n.head||n.body).appendChild(e)}function a(){var e=n.createElement("link");e.href=o,e.rel="stylesheet",c(e)}function f(e){if(!n.getElementById(r)){var t=n.createElement("style");t.id=r,c(t)}n.getElementById(r).innerHTML=e}e.FontFace&&e.FontFace.prototype.hasOwnProperty("display")?(t[r]&&f(t[r]),fetch(o).then(function(e){return e.text()}).then(function(e){return e.replace(/@font-face {/g,"@font-face{font-display:swap;")}).then(function(e){return t[r]=e}).then(f).catch(a)):a()}(window,document,localStorage);
+</script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        $("a[href='#top']").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+           return false;
+        });
+     });
+</script>
+
+
+		
+
+	
+	<script type="text/javascript">
+		var ipsDebug = false;		
+	
+		var CKEDITOR_BASEPATH = '//redecanaishd.in/applications/core/interface/ckeditor/ckeditor/';
+	
+		var ipsSettings = {
+			
+			
+			cookie_path: "/",
+			
+			cookie_prefix: "ips4_",
+			
+			
+			cookie_ssl: true,
+			
+			upload_imgURL: "",
+			message_imgURL: "",
+			notification_imgURL: "",
+			baseURL: "//redecanaishd.in/",
+			jsURL: "//redecanaishd.in/applications/core/interface/js/js.php",
+			csrfKey: "2521bebb94ec5ef3fbeed9787af50688",
+			antiCache: "4e52a1ea3c1715779956",
+			jsAntiCache: "4e52a1ea3c1716556917",
+			disableNotificationSounds: true,
+			useCompiledFiles: true,
+			links_external: true,
+			memberID: 0,
+			lazyLoadEnabled: true,
+			blankImg: "//redecanaishd.in/applications/core/interface/js/spacer.png",
+			googleAnalyticsEnabled: true,
+			matomoEnabled: false,
+			viewProfiles: false,
+			mapProvider: 'none',
+			mapApiKey: '',
+			pushPublicKey: null,
+			relativeDates: true
+		};
+		
+		
+		
+		
+			ipsSettings['maxImageDimensions'] = {
+				width: 1000,
+				height: 750
+			};
+		
+		
+	</script>
+
+
+
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_global/root_library.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_global/root_js_lang_1.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_global/root_framework.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_core/global_global_core.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_core/plugins_plugins.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="//redecanaishd.in/applications/videobox/interface/sliders/jquery.easing.min.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="//redecanaishd.in/applications/videobox/interface/sliders/nivoslider.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_global/root_front.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_core/front_front_core.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+<script type="text/javascript" src="https://redecanaishd.in/uploads/javascript_global/root_map.js?v=4e52a1ea3c1716556917" data-ips=""></script>
+
+
+
+	<script type="text/javascript">
+		
+			ips.setSetting( 'date_format', jQuery.parseJSON('"mm\/dd\/yy"') );
+		
+			ips.setSetting( 'date_first_day', jQuery.parseJSON('0') );
+		
+			ips.setSetting( 'ipb_url_filter_option', jQuery.parseJSON('"none"') );
+		
+			ips.setSetting( 'url_filter_any_action', jQuery.parseJSON('"allow"') );
+		
+			ips.setSetting( 'bypass_profanity', jQuery.parseJSON('0') );
+		
+			ips.setSetting( 'emoji_style', jQuery.parseJSON('"native"') );
+		
+			ips.setSetting( 'emoji_shortcodes', jQuery.parseJSON('true') );
+		
+			ips.setSetting( 'emoji_ascii', jQuery.parseJSON('true') );
+		
+			ips.setSetting( 'emoji_cache', jQuery.parseJSON('1676495317') );
+		
+			ips.setSetting( 'image_jpg_quality', jQuery.parseJSON('85') );
+		
+			ips.setSetting( 'cloud2', jQuery.parseJSON('false') );
+		
+			ips.setSetting( 'isAnonymous', jQuery.parseJSON('false') );
+		
+		
+	</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://www.schema.org",
+    "publisher": "https://redecanaishd.in/#organization",
+    "@type": "WebSite",
+    "@id": "https://redecanaishd.in/#website",
+    "mainEntityOfPage": "https://redecanaishd.in/",
+    "name": "RedeCanais",
+    "url": "https://redecanaishd.in/",
+    "potentialAction": {
+        "type": "SearchAction",
+        "query-input": "required name=query",
+        "target": "https://redecanaishd.in/search/?q={query}"
+    },
+    "inLanguage": [
+        {
+            "@type": "Language",
+            "name": "English (USA)",
+            "alternateName": "pt-BR"
+        }
+    ]
+}	
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "http://www.schema.org",
+    "@type": "Organization",
+    "@id": "https://redecanaishd.in/#organization",
+    "mainEntityOfPage": "https://redecanaishd.in/",
+    "name": "RedeCanais",
+    "url": "https://redecanaishd.in/",
+    "logo": {
+        "@type": "ImageObject",
+        "@id": "https://redecanaishd.in/#logo",
+        "url": "https://redecanaishd.in/uploads/monthly_2023_02/logo.png.00ac0958998f0d1aad38cfdcb9428827.png"
+    }
+}	
+</script>
+
+
+		
+		
+		<!--ipsQueryLog-->
+		<!--ipsCachingLog-->
+		
+		
+		
+        
+        
+	
+
+<script type="text/javascript">
+  function GetIframe(a,b,c){
+  $("#video_embed").empty();
+   $( ".hover" ).attr("style","display: none;");
+   $( "#video_embed" ).attr("style","background-image: none;");
+   $( ".playbutton" ).attr("style","top: 0; opacity: 0; visibility: hidden;");
+   $('#video_embed').append('<iframe src="/embed/getembed.php?sv='+ b + '&id=' + a + '" scrolling="no" frameborder="0" allowfullscreen=""></iframe>');
+   if (b == 'mixdrop') {
+   $( "#mixdrop" ).addClass( "teste" );
+   $( "#streamtape" ).removeClass( "teste" );
+   $( "#filemoon" ).removeClass( "teste" );
+   }
+   if (b == 'streamtape') {
+   $( "#mixdrop" ).removeClass( "teste" );
+   $( "#streamtape" ).addClass( "teste" );
+   $( "#filemoon" ).removeClass( "teste" );
+   }
+   if (b == 'filemoon') {
+   $( "#mixdrop" ).removeClass( "teste" );
+   $( "#streamtape" ).removeClass( "teste" );
+   $( "#filemoon" ).addClass( "teste" );
+   }
+}
+  
+  $('button[type="submit"]').click(function () {
+    $('button[type="submit"]').attr('style',"opacity: 0.5; cursor: not-allowed; pointer-events: none;");
+});
+</script>
+      <script type="text/javascript">
+    function guests(a){
+    ips.ui.alert.show( {
+	type: 'confirm',
+	icon: 'warning',
+	message: 'Ainda não é registrado?',
+	subText: 'Essa função exige que você seja registrado na Encontrei TV. Deseja fazer isso? É de graça!',
+	callbacks: {
+		ok: function () {
+			$(location).prop('href', 'https://encontre.tv/register/')
+		}
+	}
+});
+}
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#listagem li').sort(function(a, b) {
+// get list items
+  return $(a).data('id') - $(b).data('id');
+  // compare values
+}).appendTo('#listagem');
+});
+</script>
+
+<script type="text/javascript">$(document).ready(function() {
+        $(".pss a").click(function(b) {
+            b.preventDefault(), $(this).parent().addClass("current"), $(this).parent().siblings().removeClass("current");
+            var a = $(this).attr("href");
+            $(".menust").not(a).css("display", "none"), $(a).fadeIn()
+        })
+    }), $(document).ready(function() {
+        $(".tsll a").click(function(b) {
+            b.preventDefault(), $(this).parent().addClass("current"), $(this).parent().siblings().removeClass("current");
+            var a = $(this).attr("href");
+            $(".data-content").not(a).css("display", "none"), $(a).fadeIn()
+        })
+    }), $(document).ready(function() {
+        $(".player-menu a").click(function(b) {
+            b.preventDefault(), $(this).parent().addClass("current"), $(this).parent().siblings().removeClass("current");
+            var a = $(this).attr("href");
+            $(".player-content").not(a).css("display", "none"), $(a).fadeIn()
+        })
+    }),
+    function(a) {
+        a(document).ready(function() {
+            function b(d, a, b) {
+                var e, h, c, f, i, g;
+                if (d /= 255, a /= 255, b /= 255, c = Math.max(d, a, b), f = Math.min(d, a, b), i = (c + f) / 2, c == f) e = h = 0;
+                else {
+                    switch (g = c - f, h = i > .5 ? g / (2 - c - f) : g / (c + f), c) {
+                        case d:
+                            e = (a - b) / g + (b > a ? 6 : 0);
+                            break;
+                        case a:
+                            e = (b - d) / g + 2;
+                            break;
+                        case b:
+                            e = (d - a) / g + 4
+                    }
+                    e /= 6
+                }
+                return i
+            }
+            a("#cssmenu li.has-sub>a").on("click", function() {
+                    a(this).removeAttr("href");
+                    var b = a(this).parent("li");
+                    b.hasClass("open") ? (b.removeClass("open"), b.find("li").removeClass("open"), b.find("ul").slideUp()) : (b.addClass("open"), b.children("ul").slideDown(), b.siblings("li").children("ul").slideUp(), b.siblings("li").removeClass("open"), b.siblings("li").find("li").removeClass("open"), b.siblings("li").find("ul").slideUp())
+                }), a("#cssmenu>ul>li.has-sub>a").append('<span class="holder"></span>'),
+                function() {
+                    var d, e, f, c = a("#cssmenu").css("color"),
+                        g;
+                    c = c.slice(4), d = c.slice(0, c.indexOf(",")), c = c.slice(c.indexOf(" ") + 1), e = c.slice(0, c.indexOf(",")), c = c.slice(c.indexOf(" ") + 1), f = c.slice(0, c.indexOf(")")), g = b(d, e, f), g > .7 ? (a("#cssmenu>ul>li>a").css("", ""), a("#cssmenu>ul>li>a>span").css("border-color", "rgba(90, 152, 179, 1)")) : (a("#cssmenu>ul>li>a").css("", ""), a("#cssmenu>ul>li>a>span").css("border-color", "rgba(90, 152, 179, 1)"))
+                }()
+        })
+    }(jQuery)</script>
+<script type="text/javascript">function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Ler mais..."; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = ""; 
+    moreText.style.display = "inline";
+  }
+  }</script>
+<script type="text/javascript">
+   function down(value) {
+   ips.ui.alert.show( {
+	type: 'alert',
+	icon: 'warning',
+	message: 'AVISO!',
+	subText: 'Você será redirecionado. Clique no ícone de download (seta para baixo) e escolha uma opção para baixar.',
+	callbacks: {
+		ok: function () {
+			window.location.href = value;
+		}
+	}
+});
+}
+</script><div data-v-5bf933ce="" id="wa-total" style="display: none; flex-direction: column; justify-content: space-between;"><div data-v-5bf933ce="" class="el-row"><div data-v-5bf933ce="" class="title el-row is-align-middle el-row--flex"><div data-v-5bf933ce="" class="titleLogo el-col el-col-10"><img data-v-5bf933ce="" src="chrome-extension://lfepbhhhpfohfckldbjoohmplpebdmnd/icons/logo.png" alt="logo"></div><div data-v-5bf933ce="" class="titleContent el-col el-col-14"> WhatsApp Group Link Scraper </div></div><div data-v-5bf933ce="" class="el-row is-align-middle el-row--flex"><div data-v-5bf933ce="" class="headerTab el-tabs el-tabs--top"><div class="el-tabs__header is-top"><div class="el-tabs__nav-wrap is-top"><div class="el-tabs__nav-scroll"><div role="tablist" class="el-tabs__nav is-top is-stretch" style="transform: translateX(0px);"><div class="el-tabs__active-bar is-top" style="width: 0px; transform: translateX(0px);"></div><div id="tab-main-page" aria-controls="pane-main-page" role="tab" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active"><div data-v-5bf933ce="" class="el-tooltip item" aria-describedby="el-tooltip-4912" tabindex="0"><span data-v-5bf933ce="" slot="label" style="color: white; padding-left: 16px; display: block; overflow: hidden; text-overflow: ellipsis;">Home</span></div></div><div id="tab-more-tools" aria-controls="pane-more-tools" role="tab" tabindex="-1" class="el-tabs__item is-top"><div data-v-5bf933ce="" class="el-tooltip item" aria-describedby="el-tooltip-4799" tabindex="0"><span data-v-5bf933ce="" slot="label" style="color: white; display: block; overflow: hidden; text-overflow: ellipsis;">More Tools</span></div></div></div></div></div></div><div class="el-tabs__content"><div data-v-5bf933ce="" role="tabpanel" id="pane-main-page" aria-labelledby="tab-main-page" class="el-tab-pane"></div><div data-v-5bf933ce="" role="tabpanel" aria-hidden="true" id="pane-more-tools" aria-labelledby="tab-more-tools" class="el-tab-pane" style="display: none;"></div></div></div></div><div data-v-5bf933ce="" class="el-row"><div data-v-5bf933ce="" class="el-col el-col-24" type="flex" align="middle"><div data-v-5bf933ce="" class="el-card chooseCard is-always-shadow"><!----><div class="el-card__body" style="padding: 0px 20px;"><div data-v-5bf933ce="" class="gutter-row gutter-row-target el-row"><div data-v-5bf933ce="" class="chooseCardTitle el-row" id="chooseCardTitleTarget" style="width: 100%;"> Target Website: <!----></div><div data-v-5bf933ce="" class="chooseCardComponent el-row"><div data-v-5bf933ce="" class="el-select elementSelectCustomize el-select--small"><!----><div class="el-input el-input--small el-input--suffix"><!----><input type="text" readonly="readonly" autocomplete="off" placeholder="请选择" class="el-input__inner"><!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i><!----><!----><!----><!----><!----></span><!----></span><!----><!----></div><div class="el-select-dropdown el-popper leadsElementSelect" style="display: none;"><div class="el-scrollbar" style=""><div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"><ul class="el-scrollbar__view el-select-dropdown__list"><!----><li class="el-select-dropdown__item" style="height: 30px; line-height: 30px;"><span style="float: left;">www.facebook.com</span></li><li class="el-select-dropdown__item" style="height: 30px; line-height: 30px;"><span style="float: left;">www.twitter.com</span></li><li class="el-select-dropdown__item" style="height: 30px; line-height: 30px;"><span style="float: left;">www.linkedin.com</span></li><li class="el-select-dropdown__item" style="height: 30px; line-height: 30px;"><span style="float: left;">www.instagram.com</span></li><li class="el-select-dropdown__item" style="height: 30px; line-height: 30px;"><span style="float: left;">www.pinterest.com</span></li><li class="el-select-dropdown__item selected" style="height: 30px; line-height: 30px;"><span style="float: left;">www.youtube.com</span></li><div class="elementDividerCustomize el-divider el-divider--horizontal"><!----></div><div class="elementSelectCustomizeAdd el-row"><div class="el-col el-col-16"><div class="el-input el-input--small"><!----><input type="text" autocomplete="off" class="el-input__inner"><!----><!----><!----><!----></div></div><div class="elementSelectCustomizeAddClick el-col el-col-8" style="cursor: pointer; padding-top: 5px;"><div><i class="el-icon-plus"></i><span>Add Website</span></div></div></div></ul></div><div class="el-scrollbar__bar is-horizontal"><div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical"><div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div></div></div><!----></div></div></div></div><div data-v-5bf933ce="" class="gutter-row gutter-row-keyword el-row"><div data-v-5bf933ce="" class="chooseCardTitle el-row">Keyword:</div><div data-v-5bf933ce="" class="chooseCardComponent el-row"><div data-v-5bf933ce="" class="el-input el-input--small"><!----><input type="text" autocomplete="off" placeholder="shoes sale" class="el-input__inner"><!----><!----><!----><!----></div></div></div><div data-v-5bf933ce="" class="gutter-row gutter-row-page el-row"><div data-v-5bf933ce="" class="chooseCardTitle el-row">Search Pages:</div><div data-v-5bf933ce="" class="chooseCardComponent el-row"><div data-v-5bf933ce="" class="el-input-number el-input-number--small" medium="" style="width: 100%;"><span role="button" class="el-input-number__decrease"><i class="el-icon-minus"></i></span><span role="button" class="el-input-number__increase"><i class="el-icon-plus"></i></span><div class="el-input el-input--small"><!----><input type="text" autocomplete="off" aria-label="描述文字" max="Infinity" min="1" class="el-input__inner" role="spinbutton" aria-valuemax="Infinity" aria-valuemin="1" aria-valuenow="500" aria-disabled="false"><!----><!----><!----><!----></div></div></div></div><div data-v-5bf933ce="" class="gutter-row chooseBtnRow el-row"><div data-v-5bf933ce="" class="el-col el-col-24"><button data-v-5bf933ce="" class="chooseBtn">Search</button></div></div></div></div></div></div><div data-v-5bf933ce="" class="el-row"><div data-v-5bf933ce="" class="el-col el-col-24" type="flex" align="middle"><div data-v-5bf933ce="" class="el-card resultCard is-always-shadow"><!----><div class="el-card__body" style="padding: 20px 10px 0px;"><div data-v-5bf933ce="" class="resultTitle el-row"><div data-v-5bf933ce="" class=".chooseCardTitle el-col el-col-5">Count：29</div><div data-v-5bf933ce="" class="el-col el-col-17" style="text-align: left;"><a data-v-5bf933ce="" href="#" style="font-size: 12px; font-weight: normal; text-decoration: revert; color: rgb(0, 0, 228);">Send messages to groups?</a></div><div data-v-5bf933ce="" class="el-col el-col-2" style="text-align: right;"><i data-v-5bf933ce="" class="el-icon-refresh" style="font-size: 18px; font-weight: 600;"></i></div></div><div data-v-5bf933ce="" class="el-row"><div data-v-5bf933ce="" class="el-col el-col-24"><div data-v-5bf933ce="" class="el-textarea"><textarea autocomplete="off" rows="12" class="el-textarea__inner" style="min-height: 32px;"></textarea><!----></div></div></div></div></div></div></div><div data-v-5bf933ce="" class="alertContent el-row"><div data-v-5bf933ce="" class="el-col el-col-24"> Do not join groups frequently! Be ware of WhatsApp banning. </div></div></div><div data-v-5bf933ce="" class="footer el-row is-justify-space-around is-align-middle el-row--flex"><div data-v-5bf933ce="" class="footerContent el-col el-col-24"><a data-v-5bf933ce="" href="#" style="color: rgb(137, 231, 233);">Send bulk messages to group members 1 by 1.</a></div></div></div><span style="visibility: hidden; position: absolute; top: -300px; width: 1px; height: 1px; overflow: hidden; left: -300px;"><span class="ipsLoading ipsLoading_noAnim" style="display: block;"></span></span></body>

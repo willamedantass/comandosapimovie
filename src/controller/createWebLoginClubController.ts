@@ -7,7 +7,7 @@ import path from "path";
 import { StringClean } from "../util/stringClean";
 import { Names } from "../util/names";
 import { createXAcessTokenClubtv } from "./createXAcessTokenClubtv";
-import { Result } from "../util/result";
+import { Result } from "../type/result";
 require('dotenv/config');
 
 const createWebLoginClub = async (isLogar: boolean): Promise<Result> => {

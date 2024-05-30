@@ -2,15 +2,14 @@ import axios from "axios";
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-export const getPopularMovies = async (): Promise<string[] | undefined> => {
+export const getPopularMovies = async (): Promise<string[]> => {
     try {
         const apiKey = process.env.API_KEY;
         const language = 'pt-BR';
         let allMovies: any = [];
 
         if (!apiKey) {
-            console.log('Chave de api The Movie DB, não informada.');
-            return
+            throw new Error("Chave de api The MovieDB, não informada.");
         }
 
         for (let page = 1; page <= 3; page++) {
@@ -20,9 +19,9 @@ export const getPopularMovies = async (): Promise<string[] | undefined> => {
 
         return allMovies.map(movie => movie.title);
     } catch (error) {
-        console.error(error.message);
+        throw new Error("Error ao processar popular movies.");
     }
-};
+}
 
 const getApiPopularMovies = async (apiKey: string, language: string, page: number) => {
     const url = 'https://api.themoviedb.org/3/movie/popular';

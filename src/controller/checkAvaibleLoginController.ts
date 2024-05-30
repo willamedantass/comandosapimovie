@@ -7,7 +7,7 @@ require('dotenv/config');
 export const checkAvaibleLogin = async (livePass: LivePass) => {
     let result = false;
 
-    const idLive = process.env.PROVEDOR_LIVES_ID as string;
+    const idLive = process.env.PROVIDER_LIVE_ID as string;
     const provedorAcesso: provedorAcesso = readJSON(path.join(__dirname, "..", "..", "cache", "provedor_pass.json")).find(element => element.id === idLive);
 
     const url = `${provedorAcesso.dns}/player_api.php?username=${livePass.username}&password=${livePass.password}`;

@@ -3,7 +3,7 @@ import { deleteLivePass, readLivePass, searchLivePass, unusedUserLivePass } from
 import { CreateLoginApi, deleteLoginAPI } from "./LoginApiController";
 import { isVencimentoController } from "./isVencimentoController";
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
-import { loginFindByUser, loginUpdate } from "../data/login.service";
+import { loginFindByUser } from "../data/login.service";
 import { provedorAcesso } from "../type/provedor";
 import { sendMessage } from "../util/sendMessage";
 import { readJSON } from "../util/jsonConverte";
@@ -73,7 +73,7 @@ const getUrl = async (idProvedor: string, media: string, video: string, user: st
             return await processLogin(idProvedor, acesso?.dns, media, video, user);
         } else {
             //busca outros logins para reproduzir os filmes e series do mesmo provedor de live
-            const idLive = process.env.PROVEDOR_LIVES_ID as string;
+            const idLive = process.env.PROVIDER_LIVE_ID as string;
             if (acesso.id === idLive) {
                 const login = unusedUserLivePass(true) as LivePass;
                 acesso.user = login.username;

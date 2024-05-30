@@ -1,102 +1,75 @@
 import { createAndUpdateCache, createCache, readCache, readOption } from '../data/cacheDB';
-import { Cache } from '../type/cache';
 import { getAxiosResult } from '../util/getAxios';
-require('dotenv/config')
+import { Cache } from '../type/cache';
+import dotenv from 'dotenv';
 
-export const getLiveStreams = async (isAdult: boolean, isClubtv: boolean) => {
+dotenv.config();
 
+interface Stream {
+    stream_id: string;
+    category_id: string;
+    [key: string]: any;
+}
+
+export const getLiveStreams = async (isAdult: boolean): Promise<Stream[]> => {
     const action = 'get_live_streams';
-    const action_adult = 'get_live_adult';
-    // const action_club = 'get_live_clubtv';
-    // const adultos_clubtv = '12';
+    const actionAdult = 'get_live_adult';
     const dataOld = new Date(readOption(action).data);
     const dataNow = new Date();
-    let streamsJson: any[] = [];
+
     if (dataOld.getDay() !== dataNow.getDay()) {
-        const provedor = process.env.PROVEDOR_LIVES_ID as string;
-        const category_adult = process.env.CATEGORIA_XXX_LIVE;
-        // const live_categorias = readJSON(path.join(__dirname, "..", "..", "cache", "live_streams.json"));
-        const res = await getAxiosResult(action, provedor); //{status: 200, data: live_categorias}
-        let streamsAdult: any[] = [];
-        if (res?.status == 200 && res?.data.length > 1 && Array.isArray(res.data)) {
-            res.data.forEach(element => {
-                if (element.category_id === category_adult) {
-                    element.category_id = "999999";
-                    element.stream_id = provedor + element.stream_id;
-                    streamsAdult.push(element)
+        await updateLiveStreamsCache(action, actionAdult);
+    }
+
+    let streams = await readCache(action);
+    if (isAdult) {
+        const adultStreams = await readCache(actionAdult);
+        streams = streams.concat(adultStreams);
+    }
+    return streams;
+}
+
+const updateLiveStreamsCache = async (action: string, actionAdult: string) => {
+    const providerId = process.env.PROVIDER_LIVE_ID as string;
+    const categoryAdult = process.env.CATEGORY_XXX_LIVE;
+
+    let streamsJson: Stream[] = [];
+    let streamsAdult: Stream[] = [];
+
+    try {
+        const res = await getAxiosResult(action, providerId);
+
+        if (res?.status === 200 && Array.isArray(res.data)) {
+            res.data.forEach((element: Stream) => {
+                if (element.category_id === categoryAdult) {
+                    element.category_id = '999999';
+                    element.stream_id = providerId + element.stream_id;
+                    streamsAdult.push(element);
                 } else {
-                    element.category_id = provedor + element.category_id;
-                    element.stream_id = provedor + element.stream_id;
+                    element.category_id = providerId + element.category_id;
+                    element.stream_id = providerId + element.stream_id;
                     streamsJson.push(element);
                 }
-            })
+            });
         }
 
-        //Para incluir categorias do servidor club
-        // const category_club = ['2480', '4', '42', '488', '489', '490', '1110', '2113', '1048'];
-        // const provedor_club = '2';
-        // const res_club = await getAxiosResult(action, provedor_club);
-        // if (res_club?.status == 200 && res_club?.data.length > 1) {
-        //     res_club?.data.forEach(element => {
-        //         let category_id: string = element.category_id;
-        //         if (category_id === adultos_clubtv) {
-        //             element.category_id = "999999";
-        //             element.stream_id = provedor_club + element.stream_id;
-        //             return streamsAdult.push(element);
-        //         }
-        //         if (category_club.includes(category_id)) {
-        //             element.category_id = provedor_club + element.category_id;
-        //             element.stream_id = provedor_club + element.stream_id;
-        //             return streamsJson.push(element);
-        //         }
-        //         const category_name = element.name;
-        //         if (category_name?.includes('FHD', (category_name.length - 3)) || category_name?.includes('HD', (category_name.length - 3))) {
-        //             element.category_id = '999990';
-        //             element.stream_id = provedor_club + element.stream_id;
-        //             streamsJson.push(element);
-        //         }
-        //     });
-        // }
-
-        const cache: Cache = {
-            data: new Date().toISOString(),
-            action: action,
-
+        if (streamsJson.length > 0) {
+            const cache: Cache = {
+                data: new Date().toISOString(),
+                action: action,
+            };
+            createAndUpdateCache(cache);
+            createCache(action, streamsJson);
         }
-        createAndUpdateCache(cache);
-        createCache(action, streamsJson);
-        createCache(action_adult, streamsAdult);
 
-        //lista para clubtv separada
-        // const res_clubtv = await getAxiosResult(action, provedor_club);
-        streamsJson = [];
-        // if (res_clubtv?.status == 200 && res_clubtv?.data.length > 1) {
-        //     res_clubtv.data.forEach(element => {
-        //         if (element.category_id === adultos_clubtv) {
-        //             return
-        //         } else {
-        //             element.category_id = provedor_club + element.category_id;
-        //             element.stream_id = provedor_club + element.stream_id;
-        //             streamsJson.push(element);
-        //         }
-        //     })
-        // }
+        if (streamsAdult.length > 0) {
+            createCache(actionAdult, streamsAdult);
+        }
 
-        // createCache(action_club, streamsJson);
-        console.log(`Canais Total: ${streamsJson.length}`)
-        const used = process.memoryUsage().heapUsed / 1024 / 1024;
-        console.log(`Processo finalizado uso aproximado: ${Math.round(used * 100) / 100} MB`);
+        console.log(`Total de Canais: ${streamsJson.length}`);
+        const usedMemory = process.memoryUsage().heapUsed / 1024 / 1024;
+        console.log(`Processo finalizado. Uso de memória aproximado: ${Math.round(usedMemory * 100) / 100} MB`);
+    } catch (error) {
+        console.error(`Erro ao buscar os canais de transmissão ao vivo: ${error}`);
     }
-
-    streamsJson = [];
-    // if(isClubtv) {
-    //     streamsJson = streamsJson.concat(await readCache(action_club));
-    // } else {
-    streamsJson = streamsJson.concat(await readCache(action));
-    // }
-
-    if (isAdult) {
-        streamsJson = streamsJson.concat(await readCache(action_adult));
-    }
-    return streamsJson;
 }

@@ -1,22 +1,25 @@
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import axios from 'axios';
 require('dotenv/config');
 
 (async function iniciar() {
+    const url = 'https://redecanaishd.in/embed/getplay.php?id=1&sv=filemoon';
+    
+    // const url = 'https://filemoon.sx/e/uq146x7j2bwp';
     try {
-        const api_key = process.env.API_KEY_GEMINI || '';
-        const genApi = new GoogleGenerativeAI(api_key);
-        const model = genApi.getGenerativeModel({model: "gemini-pro"})
-        const prompt_pedido = 'Crie uma mensagem para o cliente erasmoandrade informando que a assinatura mensal da Movnow venceu e incentivando-o a renovar pelo nosso robô de pagamentos.'
-        const prompt_instrucoes = 'Utilize emojis para tornar a mensagem mais envolvente. Seja persuasivo, criativo e deixe o texto divertido.'
-        const prompt_info = 'Movnow é uma plataforma de canais, filmes e séries. Contato via Zap: 5585988199556.'
-        const prompt_negativo = 'Não incluir links na mensagem, não sugira uma mensagem do robô de atendimento com palavras e não escreva palavras como: clicar.'
-        const prompt = prompt_pedido + prompt_instrucoes + prompt_info + prompt_negativo;
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-        console.log(text);
+        const response = await axios.post(url);
+        console.log('Status:', response.status);
+        console.log('Data:', response.data);
     } catch (error) {
-        console.log(error.message);
+        if (axios.isAxiosError(error)) {
+            console.error('Error message:', error.message);
+            if (error.response) {
+                console.error('Status:', error.response.status);
+                console.error('Data:', error.response.data);
+            }
+        } else {
+            console.error('Unexpected error:', error);
+        }
     }
 })();

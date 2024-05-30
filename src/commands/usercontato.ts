@@ -2,6 +2,7 @@ import { loginFindByUser, loginUpdate } from "../data/login.service";
 import { userFindByRemoteJid } from "../data/user.service";
 import { IBotData } from "../Interface/IBotData";
 import { ILogin } from "../type/login.model";
+import { contatoClean } from "../util/contatoToJid";
 import { mensagem } from "../util/getMensagem";
 
 export default async ({ reply, args, owner, remoteJid }: IBotData) => {
@@ -14,12 +15,7 @@ export default async ({ reply, args, owner, remoteJid }: IBotData) => {
 
         let login: ILogin | null = await loginFindByUser(comandos[0].trim());
         if (login) {
-            let contato = comandos[1];
-            if (contato.startsWith('+55')) {
-                contato = contato.replace('+55', '');
-            }
-            contato = contato.replace(/[\s-]/g, '');
-            login.contato = contato;
+            login.contato = contatoClean(comandos[1]);
             login.data_msg_vencimento = '';
             await loginUpdate(login);
             await reply('Login atualizado!');
