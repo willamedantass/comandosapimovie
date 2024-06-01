@@ -1,6 +1,6 @@
 import { mensagem } from "../../util/getMensagem";
 import { UserState } from "../../type/UserState";
-import { UpdateUserState } from "../UserState";
+import { updateUserState } from "../UserState";
 import { MenuLevel } from "../MenuBot";
 
 export const DesativarBotService = async (userState: UserState, data: any) => {
@@ -9,6 +9,6 @@ export const DesativarBotService = async (userState: UserState, data: any) => {
     userState.renovacaoState = undefined;
     userState.menuLevel = MenuLevel.MAIN;
     userState.status = false;
-    UpdateUserState(userState);
+    updateUserState(userState);
     await data.sendText(true, mensagem('processo_finalizado'));
 }

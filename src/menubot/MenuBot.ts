@@ -26,13 +26,15 @@ export const OpcoesMenuMain: Menu[] = [
 export enum MenuEntretenimento {
     JogosDeHoje,
     Cinemas,
+    GenioVirtual,
     Voltar
 }
 
 export const OpcoesMenuEntretenimento: Menu[] = [
     { id: '1', label: 'Jogos Do Dia', enum: MenuEntretenimento.JogosDeHoje },
     { id: '2', label: 'Cinemas Fortaleza', enum: MenuEntretenimento.Cinemas },
-    { id: '3', label: 'Voltar', enum: MenuEntretenimento.Voltar }
+    { id: '3', label: 'Gênio Virtual', enum: MenuEntretenimento.GenioVirtual },
+    { id: '4', label: 'Voltar', enum: MenuEntretenimento.Voltar }
 ]
 
 export const menuTexts = {

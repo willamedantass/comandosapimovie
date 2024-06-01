@@ -4,8 +4,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 (async function iniciar() {
     try {
         const mensagem = {
-            "prompt_solicitacao": "Identifique se essa palavra é um nome próprio: willame",
-            "prompt_instrucoes": "Responda no seguinte formato:\n{ \"result\": 'true ou false com o resultado se o nome é prórpio', \"genero\": \"female\" ou \"male\" ou null",
+            "prompt_solicitacao": "crie um texto de bom dia para minha esposa",
+            "prompt_instrucoes": "",
             "prompt_info": "",
             "prompt_negativo": "",
             "default": "{ \"result\": true, \"genero\": null}"
@@ -20,7 +20,6 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
     } catch (error) {
         console.log(error.message);
-
     }
 })();
 

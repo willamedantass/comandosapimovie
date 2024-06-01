@@ -1,45 +1,25 @@
 import { UserState } from "../type/UserState";
 import { IUser } from "../type/user.model";
 import { MenuLevel } from "./MenuBot";
+import NodeCache from 'node-cache';
 
-const userStates: UserState[] = [];
-
-const updateExpire = () => {
-    const currentDate = new Date();
-    userStates.forEach((user, index) => {
-        if (currentDate > user.expire) {
-            userStates.splice(index, 1);
-        }
-    });
-}
+const userStateCache = new NodeCache({ stdTTL: 15 * 60 }); // TTL (Time To Live) de 15 minutos
 
 export const getUserState = (remoteJid: string): UserState | undefined => {
-    updateExpire();
-    return userStates.find(state => state.remoteJid === remoteJid);
+    return userStateCache.get<UserState>(remoteJid);
 }
 
-export const CreateUserState = (remoteJid: string, user: IUser, menuLevel: MenuLevel, opcaoMenu?: string): UserState => {
-    const expire = new Date();
-    expire.setMinutes(expire.getMinutes() + 15);
-    const status = false;
-    const userState: UserState = { remoteJid, user, menuLevel, expire, opcaoMenu, status }
-    userStates.push(userState);
+export const createUserState = (remoteJid: string, user: IUser, menuLevel: MenuLevel): UserState => {
+    const userState: UserState = { remoteJid, user, menuLevel, status: false };
+    userStateCache.set(remoteJid, userState);
     return userState;
 }
 
-export const UpdateUserState = (userState: UserState): void => {
-    const existingState = getUserState(userState.remoteJid);
-    if (existingState) {
-        existingState.menuLevel = userState.menuLevel;
-        existingState.opcaoMenu = userState.opcaoMenu;
-        existingState.renovacaoState = userState.renovacaoState;
-    }
+export const updateUserState = (userState: UserState): void => {
+    userStateCache.del(userState.remoteJid);
+    userStateCache.set(userState.remoteJid, userState);
 }
 
 export const removeUserState = (remoteJid: string): void => {
-    userStates.forEach((user, index) => {
-        if (remoteJid === user.remoteJid) {
-            userStates.splice(index, 1);
-        }
-    });
+    userStateCache.del(remoteJid);
 }

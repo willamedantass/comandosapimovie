@@ -6,7 +6,6 @@ export interface UserState {
     remoteJid: string;
     user: IUser;
     menuLevel: MenuLevel;
-    expire: Date;
     status: boolean;
     process?: boolean | undefined;
     opcaoMenu?: string | undefined;

@@ -7,7 +7,7 @@ import { MenuLevel, MenuMain, menuTexts } from "./MenuBot";
 import { StringClean } from "../util/stringClean";
 import { LoginTituloType } from "../type/login";
 import { UserState } from "../type/UserState";
-import { UpdateUserState } from "./UserState";
+import { updateUserState } from "./UserState";
 import { LoginFindByUid, loginFindByUser } from "../data/login.service";
 import { IUser } from "../type/user.model";
 import { userFindByRemoteJid } from "../data/user.service";
@@ -31,7 +31,7 @@ export const MenuMainOpcoes = async (userState: UserState, opcaoMenu: MenuMain, 
             const expire = new Date(userState.user?.vencimento || '');
             if (expire > agora) {
                 userState.menuLevel = MenuLevel.MENU_ENTRETENIMENTO;
-                UpdateUserState(userState);
+                updateUserState(userState);
                 await data.sendText(true, menuTexts[MenuLevel.MENU_ENTRETENIMENTO]);
             } else {
                 await data.sendText(true, 'Para acessar essa opcão precisa ser um usuário ativo.');
@@ -61,7 +61,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         if (selecionada >= 0 && selecionada < logins.length) {
             userState.renovacaoState.selectedLogin = selecionada;
             userState.renovacaoState.stage = RenovacaoStageEnum.confirmar;
-            UpdateUserState(userState);
+            updateUserState(userState);
         } else {
             return await data.sendText(true, mensagem('opcao_invalida'))
         }
@@ -71,11 +71,11 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         const login = logins[userState.renovacaoState.selectedLogin || 0];
         if (login) {
             userState.renovacaoState.stage = RenovacaoStageEnum.renovar;
-            UpdateUserState(userState);
+            updateUserState(userState);
             return await data.sendText(true, `Login *${login.user}* selecionado, deseja realmente renovar?\nConfirme com Sim ou Não.`)
         } else {
             userState.renovacaoState.stage = RenovacaoStageEnum.selecionar;
-            return UpdateUserState(userState);
+            return updateUserState(userState);
         }
     }
 
@@ -90,7 +90,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         } else if (conversation === 'sim') {
             const login = logins[userState.renovacaoState.selectedLogin || 0];
             userState.process = true;
-            UpdateUserState(userState);
+            updateUserState(userState);
             const user: IUser | null = await userFindByRemoteJid(userState.user.remoteJid);
             if (!user) { return };
             const result = await LoginController(login.user, isTrial, isReneew, user);
@@ -101,7 +101,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
                 await DesativarBotService(userState, data);
                 return;
             } else {
-                await data.sendText(true, `Erro na renovação do login! ${result.msg}`);
+                await data.sendText(true, `Erro na renovação do login!\n${result.msg}`);
                 await DesativarBotService(userState, data);
                 return;
             }
@@ -115,7 +115,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         const renovacaoState: RenovacaoState = { stage: RenovacaoStageEnum.selecionar, selectedLogin: null, confirmed: false }
         userState.opcaoMenu = MenuMain.AtivarRenovar.toString();
         userState.renovacaoState = renovacaoState;
-        UpdateUserState(userState);
+        updateUserState(userState);
         let msg = '*Digite uma opção para renovar:*\n'
         for (const [index, login] of logins.entries()) {
             msg += `${index + 1} - ${login.user} | ${new Date(login.vencimento).toLocaleDateString()}\n`;
@@ -132,7 +132,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         await data.sendText(true, result.msg);
         await DesativarBotService(userState, data);
     } else {
-        await data.reply(`Você ainda não tem login para ativar ou renovar, crie seu login na opção ${MenuMain.CriarLogin + 1}.`);
+        await data.reply(mensagem('errorLogin'));
     }
 }
 
@@ -144,10 +144,12 @@ const CriarTeste = async (userState: UserState, data: any) => {
     if(!user) {return}
     const res = await LoginController(username, isTrial, isReneew, user);
     if (!res.result) {
+        await DesativarBotService(userState, data);
         return await data.reply(res.msg)
     }
     const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste);
     await data.sendText(true, msg);
+    await DesativarBotService(userState, data);
 }
 
 const PixCopiaECola = async (userState: UserState, data: any) => {
