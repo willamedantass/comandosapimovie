@@ -8,3 +8,4 @@ src/teste.ts
 node_modules/
 build/
 cache/
+gerenciador-wletro-firebase.json
