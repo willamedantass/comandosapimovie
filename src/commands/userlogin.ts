@@ -17,7 +17,7 @@ export default async ({ reply, owner, remoteJid, args }: IBotData) => {
     let user: IUser | null = await userFindByRemoteJid(jid);
     if (login && user) {
       login.uid = user.id;
-      login.contato = 
+      login.contato = contato;
       user.vencimento = login.vencimento;
       await userUpdate(user);
       await loginUpdate(login);
