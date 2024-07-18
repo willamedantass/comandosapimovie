@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/start.js",
-    "start:dev": "ts-node-dev ./src/start.ts",
+    "robo": "node ./build/start.js",
+    "robo:dev": "ts-node-dev ./src/start.ts",
     "server": "node ./build/server.js",
     "server:dev": "ts-node-dev ./src/server.ts",
     "build": "tsc",

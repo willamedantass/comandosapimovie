@@ -86,7 +86,7 @@ export const gerarMensagemIa = async (tipo: 'vencido' | 'vai_vencer' | 'verifica
         const pathFileJson = path.join(__dirname, '..', '..', 'cache', 'mensagens.json');
         const mensagens = JSON.parse(fs.readFileSync(pathFileJson, 'utf-8'));
         const base = mensagens[tipo];
-        let { prompt_solicitacao, prompt_instrucoes, prompt_info, prompt_negativo, default: defaultMessage } = base;
+        let { prompt_solicitacao, prompt_instrucoes, prompt_info, prompt_negativo, defaultMessage } = base;
 
         // Substituir placeholders nos prompts com parâmetros fornecidos
         if (params.nome) {
