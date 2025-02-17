@@ -1,14 +1,15 @@
 import { updateLoginsApiClubtv } from "../controller/updateLoginsApiClubtv";
 import { userFindByRemoteJid } from "../data/user.service";
-import { IBotData } from "../Interface/IBotData";
+import { ConvertWhatsAppEvent } from "../type/WhatsAppEvent";
+import { sendText } from "../util/evolution";
 import { mensagem } from "../util/getMensagem";
 
-export default async ({ reply, remoteJid, owner }: IBotData) => {
-    let user = await userFindByRemoteJid(remoteJid);
-    if (owner || user?.acesso === 'adm') {
+export default async (mData: ConvertWhatsAppEvent) => {
+    let user = await userFindByRemoteJid(mData.remoteJid);
+    if (mData.owner || user?.acesso === 'adm') {
         await updateLoginsApiClubtv();
-        await reply("Comando executado!");
+        await sendText(mData.remoteJid, "Comando executado!", false, mData.id);
     } else {
-        await reply(mensagem('acessoNegado'));
+        await sendText(mData.remoteJid, mensagem('acessoNegado'), false, mData.id);
     }
 }

@@ -1,27 +1,28 @@
 import { readJSON, writeJSON } from '../util/jsonConverte';
-import { IBotData } from '../Interface/IBotData';
 import path from 'path';
 import { userFindByRemoteJid } from '../data/user.service';
 import { mensagem } from '../util/getMensagem';
+import { ConvertWhatsAppEvent } from '../type/WhatsAppEvent';
+import { sendText } from '../util/evolution';
 
-export default async ({ reply, owner, remoteJid }: IBotData) => {
-    let user = await userFindByRemoteJid(remoteJid);
-    if (owner || user?.acesso === 'adm') {
+export default async (mData: ConvertWhatsAppEvent) => {
+    let user = await userFindByRemoteJid(mData.remoteJid);
+    if (mData.owner || user?.acesso === 'adm') {
         const pathBlackList = path.join(__dirname, '..', '..', 'cache', 'blacklist.json');
-        let contato = readJSON(pathBlackList).find(remoJid => remoJid === remoteJid)
+        let contato = readJSON(pathBlackList).find(remoJid => remoJid === mData.remoteJid)
         if (!contato) {
             var arquivo = readJSON(pathBlackList)
-            arquivo.push(remoteJid)
+            arquivo.push(mData.remoteJid)
             writeJSON(pathBlackList, arquivo);
-            await reply('Bot desativado para o seu contato!')
+            await sendText(mData.remoteJid, 'Bot desativado para o seu contato!', false, mData.id);
         } else {
             var arquivo = readJSON(pathBlackList)
-            var index = arquivo.indexOf(remoteJid);
+            var index = arquivo.indexOf(mData.remoteJid);
             arquivo.splice(index, 1);
             writeJSON(pathBlackList, arquivo);
-            await reply('Bot ativado para o seu contato!')
+            await sendText(mData.remoteJid, 'Bot ativado para o seu contato!', false, mData.id);
         }
     } else {
-        await reply(mensagem('acessoNegado'));
+        await sendText(mData.remoteJid, mensagem('acessoNegado'), false, mData.id);
     }
 };

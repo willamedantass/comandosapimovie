@@ -1,21 +1,15 @@
-import { loginUpdate, loginsAll } from './data/login.service';
-import { ILogin } from './type/login.model';
-import { userFindByRemoteJid, userUpdate } from './data/user.service';
-import { connectDB, disconnectDB } from './data/mongodb';
+import { sendPresence } from "./util/evolution";
+
+
+
 require('dotenv/config');
 
 (async function iniciar() {
-    await connectDB();
-    const logins: ILogin[] = await loginsAll();
-    for (let login of logins) {
-        if (!login.contato) continue;
-        const jid = `55${login.contato}@s.whatsapp.net`;
-        let user = await userFindByRemoteJid(jid);
-        if (!user) continue;
-        login.uid = user.id;
-        user.vencimento = login.vencimento;
-        await userUpdate(user);
-        await loginUpdate(login);
-    }
-    await disconnectDB();
+    // sendText("558588199556@s.whatsapp.net",
+    //     "Vejo que você é novo por aqui! Para oferecer um atendimento personalizado, posso saber seu nome e sobrenome? 😊"
+    // );`
+    await sendPresence("composing","558588199556@s.whatsapp.net", 1200)
+
+
 })();
+

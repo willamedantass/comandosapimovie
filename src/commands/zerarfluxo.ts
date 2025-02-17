@@ -1,13 +1,14 @@
 import { zerarUserFluxo } from "../data/fluxoAcessoDB";
 import { zerarLivePass } from "../data/livePassDB";
 import { userFindByRemoteJid } from "../data/user.service";
-import { IBotData } from "../Interface/IBotData";
+import { ConvertWhatsAppEvent } from "../type/WhatsAppEvent";
+import { sendText } from "../util/evolution";
 
-export default async ({ sendText, owner, remoteJid }: IBotData) => {
-    let user = await userFindByRemoteJid(remoteJid);
-    if (owner || user?.acesso === 'adm') { 
+export default async (mData: ConvertWhatsAppEvent) => {
+    let user = await userFindByRemoteJid(mData.remoteJid);
+    if (mData.owner || user?.acesso === 'adm') { 
         zerarUserFluxo();
         zerarLivePass();
-        await sendText(true, 'Fluxo zerado com sucesso.');
+        await sendText(mData.remoteJid, 'Fluxo zerado com sucesso.', true);
     }
 }

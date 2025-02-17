@@ -1,7 +1,7 @@
-import { sendMessage } from "../util/sendMessage";
 import { IUser } from "../type/user.model";
 import { userFindByRemoteJid, userUpdate } from "../data/user.service";
 import { mensagem } from "../util/getMensagem";
+import { sendText } from "../util/evolution";
 require('dotenv/config');
 
 export const notificacaopix = async (req, res) => {
@@ -61,8 +61,8 @@ export const notificacaopix = async (req, res) => {
             user.credito = credito;
             await userUpdate(user);
             const msg = await mensagem('pix_aprovado');
-            await sendMessage('', msg, remoteJid);
-            await sendMessage('', `Seu novo saldo em crédito: ${user.credito}`, remoteJid);
+            await sendText(remoteJid, msg, true);
+            await sendText(remoteJid, `Seu novo saldo em crédito: ${user.credito}`, false);
         } else {
             console.info(`Pagamento de transação ${payment_info.body.id} ainda não foi aprovado.`);
         }

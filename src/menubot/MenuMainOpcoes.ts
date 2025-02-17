@@ -11,40 +11,42 @@ import { updateUserState } from "./UserState";
 import { LoginFindByUid, loginFindByUser } from "../data/login.service";
 import { IUser } from "../type/user.model";
 import { userFindByRemoteJid } from "../data/user.service";
+import { sendText } from "../util/evolution";
 
-export const MenuMainOpcoes = async (userState: UserState, opcaoMenu: MenuMain, conversation: string, data: any) => {
+export const MenuMainOpcoes = async (userState: UserState, opcaoMenu: MenuMain, conversation: string) => {
     switch (opcaoMenu) {
         case MenuMain.CriarLogin:
-            CriarTeste(userState, data);
+            CriarTeste(userState);
             break;
         case MenuMain.AtivarRenovar:
-            AtivarRenovar(userState, conversation, data);
+            AtivarRenovar(userState);
             break;
         case MenuMain.PixCopiaCola:
-            PixCopiaECola(userState, data);
+            PixCopiaECola(userState);
             break;
         case MenuMain.Detalhes:
-            Informacoes(userState, data);
+            Informacoes(userState);
             break;
         case MenuMain.Entretenimento:
             const agora = new Date();
             const expire = new Date(userState.user?.vencimento || '');
-            if (expire > agora) {
+            if (expire > agora || userState.user.acesso === 'adm') {
                 userState.menuLevel = MenuLevel.MENU_ENTRETENIMENTO;
                 updateUserState(userState);
-                await data.sendText(true, menuTexts[MenuLevel.MENU_ENTRETENIMENTO]);
+                await sendText(userState.remoteJid, menuTexts[MenuLevel.MENU_ENTRETENIMENTO], true);
             } else {
-                await data.sendText(true, 'Para acessar essa opcão precisa ser um usuário ativo.');
-                await DesativarBotService(userState, data);
+                await sendText(userState.remoteJid, 'Para acessar essa opcão precisa ser um usuário ativo.', true);
+                console.error(`Menu de entretenimento bloqueado!\nUsuario: ${userState.user.nome} - contato: ${userState.user?.remoteJid} - venc.: ${userState.user?.vencimento}`);
+                await DesativarBotService(userState);
             }
             break;
         default:
-            data.reply('Opção incorreta. Digite um número válido ou à palavra *sair* para desativar o MovBot.');
+            sendText(userState.remoteJid, 'Opção incorreta. Digite um número válido ou à palavra *sair* para desativar o MovBot.', false, userState.messageId);
             break;
     }
 }
 
-const AtivarRenovar = async (userState: UserState, conversation: string, data: any) => {
+const AtivarRenovar = async (userState: UserState) => {
     const isTrial = false;
     const isReneew = true;
     const logins = await LoginFindByUid(userState.user.id);
@@ -53,17 +55,17 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
     if(!user) {return}
 
     if (userState?.renovacaoState?.stage === RenovacaoStageEnum.selecionar) {
-        if (isNaN(parseInt(conversation))) {
-            return await data.sendText(true, mensagem('opcao_invalida'));
+        if (isNaN(parseInt(userState.conversation))) {
+            return await sendText(userState.remoteJid, mensagem('opcao_invalida'), true);
         }
 
-        const selecionada = parseInt(conversation) - 1;
+        const selecionada = parseInt(userState.conversation) - 1;
         if (selecionada >= 0 && selecionada < logins.length) {
             userState.renovacaoState.selectedLogin = selecionada;
             userState.renovacaoState.stage = RenovacaoStageEnum.confirmar;
             updateUserState(userState);
         } else {
-            return await data.sendText(true, mensagem('opcao_invalida'))
+            return await sendText(userState.remoteJid, mensagem('opcao_invalida'), true);
         }
     }
 
@@ -72,7 +74,7 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         if (login) {
             userState.renovacaoState.stage = RenovacaoStageEnum.renovar;
             updateUserState(userState);
-            return await data.sendText(true, `Login *${login.user}* selecionado, deseja realmente renovar?\nConfirme com Sim ou Não.`)
+            return await sendText(userState.remoteJid, `Login *${login.user}* selecionado, deseja realmente renovar?\nConfirme com Sim ou Não.`, true);
         } else {
             userState.renovacaoState.stage = RenovacaoStageEnum.selecionar;
             return updateUserState(userState);
@@ -84,10 +86,10 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
             return;
         }
 
-        if (conversation === 'nao') {
-            await DesativarBotService(userState, data);
+        if (userState.conversation === 'nao') {
+            await DesativarBotService(userState);
             return;
-        } else if (conversation === 'sim') {
+        } else if (userState.conversation === 'sim') {
             const login = logins[userState.renovacaoState.selectedLogin || 0];
             userState.process = true;
             updateUserState(userState);
@@ -96,17 +98,17 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
             const result = await LoginController(login.user, isTrial, isReneew, user);
             if (result.result) {
                 const msg: string = getMensagemLogin(result.data.user, result.data.password, result.data.vencimento, LoginTituloType.renovacao);
-                await data.sendText(true, msg);
-                await data.sendText(true, result.msg);
-                await DesativarBotService(userState, data);
+                await sendText(userState.remoteJid, msg, true);
+                await sendText(userState.remoteJid, result.msg, true);
+                await DesativarBotService(userState);
                 return;
             } else {
-                await data.sendText(true, `Erro na renovação do login!\n${result.msg}`);
-                await DesativarBotService(userState, data);
+                await sendText(userState.remoteJid, `Erro na renovação do login!\n${result.msg}`, true);
+                await DesativarBotService(userState);
                 return;
             }
         } else {
-            await data.reply(mensagem('opcao_invalida'));
+            await sendText(userState.remoteJid, mensagem('opcao_invalida'), false, userState.messageId);
         }
 
     }
@@ -120,23 +122,23 @@ const AtivarRenovar = async (userState: UserState, conversation: string, data: a
         for (const [index, login] of logins.entries()) {
             msg += `${index + 1} - ${login.user} | ${new Date(login.vencimento).toLocaleDateString()}\n`;
         }
-        await data.sendText(true, msg);
+        await sendText(userState.remoteJid, msg, true);
     } else if (logins.length === 1 || (await loginFindByUser(username))) {
         const userName = logins.length === 1 ? logins[0].user : username;
         const result = await LoginController(userName, isTrial, isReneew, user);
 
-        if (result.result === false) return await data.sendText(true, result.msg);
+        if (result.result === false) return await sendText(userState.remoteJid, result.msg, true);
 
         const msg: string = getMensagemLogin(result.data.user, result.data.password, result.data.vencimento, LoginTituloType.renovacao);
-        await data.sendText(true, msg);
-        await data.sendText(true, result.msg);
-        await DesativarBotService(userState, data);
+        await sendText(userState.remoteJid, msg, true);
+        await sendText(userState.remoteJid, result.msg, true);
+        await DesativarBotService(userState);
     } else {
-        await data.reply(mensagem('errorLogin'));
+        await sendText(userState.remoteJid, mensagem('errorLogin'), false, userState.messageId);
     }
 }
 
-const CriarTeste = async (userState: UserState, data: any) => {
+const CriarTeste = async (userState: UserState) => {
     const isTrial = true;
     const isReneew = false;
     const username = StringClean(userState.user.nome);
@@ -144,44 +146,44 @@ const CriarTeste = async (userState: UserState, data: any) => {
     if(!user) {return}
     const res = await LoginController(username, isTrial, isReneew, user);
     if (!res.result) {
-        await DesativarBotService(userState, data);
-        return await data.reply(res.msg)
+        await DesativarBotService(userState);
+        return await sendText(userState.remoteJid, res.msg, false, userState.messageId)
     }
     const msg: string = getMensagemLogin(res.data.user, res.data.password, res.data.vencimento, LoginTituloType.teste);
-    await data.sendText(true, msg);
-    await DesativarBotService(userState, data);
+    await sendText(userState.remoteJid, msg, true);
+    await DesativarBotService(userState);
 }
 
-const PixCopiaECola = async (userState: UserState, data: any) => {
+const PixCopiaECola = async (userState: UserState) => {
     const pix_data = await PixController(userState.user);
     if (pix_data.result) {
         const msg = getMensagemPix(pix_data?.data.id, pix_data?.data.transaction_amount);
-        await data.sendText(false, msg);
-        await data.sendText(false, pix_data?.data.point_of_interaction.transaction_data.qr_code);
-        await data.sendText(false, mensagem('pix'));
-        await DesativarBotService(userState, data);
+        await sendText(userState.remoteJid, msg, false);
+        await sendText(userState.remoteJid, pix_data?.data.point_of_interaction.transaction_data.qr_code, false);
+        await sendText(userState.remoteJid, mensagem('pix'), false);
+        await DesativarBotService(userState);
     } else {
-        await data.sendText(true, pix_data.msg);
+        await sendText(userState.remoteJid, pix_data.msg, false);
     }
 }
 
-const Informacoes = async (userState: UserState, data: any) => {
+const Informacoes = async (userState: UserState) => {
     const logins = await LoginFindByUid(userState.user.id);
 
     if (logins.length > 1) {
-        await data.sendText(true, '*Listando seus logins:*');
+        await sendText(userState.remoteJid, '*Listando seus logins:*', true);
         for (const login of logins) {
             const msg: string = getMensagemLogin(login.user, login.password, login.vencimento, LoginTituloType.info);
-            await data.sendText(false, msg);
+            await sendText(userState.remoteJid, msg,false);
         }
     } else {
         const username = StringClean(userState.user.nome);
         const login = logins.length === 1 ? logins[0] : (await loginFindByUser(username));
         if (login) {
             const msg: string = getMensagemLogin(login.user, login.password, login.vencimento, LoginTituloType.info);
-            await data.sendText(true, msg);
+            await sendText(userState.remoteJid, msg, true);
         } else {
-            await data.sendText(true, mensagem('errorLogin'));
+            await sendText(userState.remoteJid, mensagem('errorLogin'), true);
         }
     }
 }

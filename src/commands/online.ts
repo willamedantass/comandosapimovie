@@ -3,10 +3,12 @@ import { readUserFluxo } from "../data/fluxoAcessoDB";
 import { IBotData } from "../Interface/IBotData";
 import { userFindByRemoteJid } from "../data/user.service";
 import { mensagem } from "../util/getMensagem";
+import { ConvertWhatsAppEvent } from "../type/WhatsAppEvent";
+import { sendText } from "../util/evolution";
 
-export default async ({ reply, owner, remoteJid }: IBotData) => {
-    let user = await userFindByRemoteJid(remoteJid);
-    if (owner || user?.acesso === 'adm') {
+export default async (mData: ConvertWhatsAppEvent) => {
+    let user = await userFindByRemoteJid(mData.remoteJid);
+    if (mData.owner || user?.acesso === 'adm') {
         const today = new Date();
         today.setMinutes(today.getMinutes() - 5);
         const users: userFluxoAcesso[] = readUserFluxo();
@@ -17,8 +19,8 @@ export default async ({ reply, owner, remoteJid }: IBotData) => {
                 online += (`\n${user.user.toUpperCase()}`);
             }
         });
-        return await reply(`**Clientes Online** ${online}`);
+        return await sendText(mData.remoteJid, `**Clientes Online** ${online}`, false, mData.id);
     } else {
-        await reply(mensagem('acessoNegado'));
+        await sendText(mData.remoteJid, mensagem('acessoNegado'), false, mData.id);
     }
 };

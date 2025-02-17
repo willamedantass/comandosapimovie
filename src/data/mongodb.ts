@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { sendMessageAlerta } from '../util/sendMessage';
+import { sendText } from '../util/evolution';
 
 const MONGODB_URI = 'mongodb://wonesistemas:4ZLU8XjAKCjC8ScU@146.235.34.194:27017/movnow?authMechanism=DEFAULT&authSource=admin';
 
@@ -19,7 +19,7 @@ export const connectDB = async () => {
         // Configurar evento de erro para monitorar falhas de conexão
         mongoose.connection.on('error', async () => {
             console.log('Conexão com o MongoDB perdida. Tentando reconectar...');
-            await sendMessageAlerta('Conexão com o MongoDB perdida. Tentando reconectar...');
+            await sendText('8588199556','Conexão com o MongoDB perdida. Tentando reconectar...', true);
             isConnected = false;
             await reconnectDB();
         });

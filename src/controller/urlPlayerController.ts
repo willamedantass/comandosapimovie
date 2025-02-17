@@ -5,11 +5,11 @@ import { isVencimentoController } from "./isVencimentoController";
 import { userFluxoAcesso } from "../type/userFluxoAcesso";
 import { loginFindByUser } from "../data/login.service";
 import { provedorAcesso } from "../type/provedor";
-import { sendMessage } from "../util/sendMessage";
 import { readJSON } from "../util/jsonConverte";
 import { LivePass } from "../type/livePass";
 import { ILogin } from "../type/login.model";
 import path from "path";
+import { sendText } from "../util/evolution";
 require('dotenv/config');
 
 export const urlPlayerController = async (req, res) => {
@@ -20,21 +20,21 @@ export const urlPlayerController = async (req, res) => {
     let login: ILogin | null = await loginFindByUser(user);
     if (!login) {
         console.log(`Usuário inválido! Usuário: ${user}`);
-        return res.json({ "user_info": { "auth": 0 } });
+        return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
     }
 
     if (password !== login.password) {
         console.log(`Senha inválida! Senha usada: ${password}`);
-        return res.json({ "user_info": { "auth": 0 } });
+        return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
     }
 
     const isVencido = await isVencimentoController(login);
     if (isVencido) {
-        return res.json({ "user_info": { "auth": 0 } });
+        return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
     }
 
     if (media === 'live' && !login.isLive) {
-        return res.json({ "user_info": { "auth": 0 } });
+        return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
     }
 
     // const agora = new Date();
@@ -53,7 +53,7 @@ export const urlPlayerController = async (req, res) => {
     //         const countForbiddenAccess: number = login.countForbiddenAccess || 0;
     //         login.countForbiddenAccess = countForbiddenAccess + 1;
     //         await loginUpdate(login);
-    //         return res.json({ "user_info": { "auth": 0 } });
+    //         return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
     //     }
     // }
 
@@ -109,7 +109,7 @@ export const processLogin = async (provedor: string, dnsProvedor: string, media:
     if (!result) {
         isRandom = true;
         livePass = unusedUserLivePass(isRandom) as LivePass;
-        await sendMessage('8588199556', `Logins esgotados!\nUsuário ${user} - Login ${livePass.username}`);
+        await sendText('558588199556', `Logins esgotados!\nUsuário ${user} - Login ${livePass.username}`, true);
         return `${dnsProvedor}/${media}/${livePass.username}/${livePass.password}/${video}`;
     }
 

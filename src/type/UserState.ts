@@ -7,6 +7,8 @@ export interface UserState {
     user: IUser;
     menuLevel: MenuLevel;
     status: boolean;
+    messageId: string
+    conversation: string;
     process?: boolean | undefined;
     opcaoMenu?: string | undefined;
     renovacaoState?: RenovacaoState | undefined;

@@ -5,6 +5,8 @@ import { contatoClean } from "../util/contatoToJid";
 import { IBotData } from "../Interface/IBotData";
 import { mensagem } from "../util/getMensagem";
 import { ILogin } from "../type/login.model";
+import { ConvertWhatsAppEvent } from "../type/WhatsAppEvent";
+import { sendText } from "../util/evolution";
 
 const registerNewUser = async (remoteJid: string, vencimento: string): Promise<IUser> => {
     const agora = new Date().toISOString();
@@ -25,17 +27,18 @@ const registerNewUser = async (remoteJid: string, vencimento: string): Promise<I
     return user;
 }
 
-export default async ({ reply, args, owner, remoteJid }: IBotData) => {
-    let user = await userFindByRemoteJid(remoteJid);
-    if (owner || user?.acesso === 'adm') {
-        const comandos = args.split('@');
+export default async (mData: ConvertWhatsAppEvent) => {
+    let user = await userFindByRemoteJid(mData.remoteJid);
+    if (mData.owner || user?.acesso === 'adm') {
+        const comandos = mData.args.split('@');
         if (comandos.length < 1) {
-            return await reply('Infome o usuário e o contato separando por @.')
+            return await sendText(mData.remoteJid, 'Infome o usuário e o contato separando por @.', false, mData.id);
         }
 
         let login: ILogin | null = await loginFindByUser(comandos[0].trim());
-        if (login) {
-            const contato = contatoClean(comandos[1]);
+        const contato = contatoClean(comandos[1]);
+        
+        if (login && contato) {
             const jid = `55${contato}@s.whatsapp.net`;
             let userContato = await userFindByRemoteJid(jid);
             if(!userContato) userContato = await registerNewUser(jid, login.vencimento);
@@ -43,11 +46,11 @@ export default async ({ reply, args, owner, remoteJid }: IBotData) => {
             login.contato = contato;
             login.data_msg_vencimento = '';
             await loginUpdate(login);
-            await reply('Login atualizado!');
+            await sendText(mData.remoteJid, 'Login atualizado!', false, mData.id);
         } else {
-            await reply('Usuário informado não existe!')
+            await sendText(mData.remoteJid, 'Usuário informado não existe!', false, mData.id)
         }
     } else {
-        await reply(mensagem('acessoNegado'))
+        await sendText(mData.remoteJid, mensagem('acessoNegado'), false, mData.id);
     }
 }

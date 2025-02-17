@@ -10,7 +10,7 @@ export const getUserState = (remoteJid: string): UserState | undefined => {
 }
 
 export const createUserState = (remoteJid: string, user: IUser, menuLevel: MenuLevel): UserState => {
-    const userState: UserState = { remoteJid, user, menuLevel, status: false };
+    const userState: UserState = { remoteJid, user, menuLevel, status: false, messageId: '', conversation: '' };
     userStateCache.set(remoteJid, userState);
     return userState;
 }

@@ -1,31 +1,32 @@
 import { loginFindByUser, loginUpdate } from "../data/login.service";
 import { userFindByRemoteJid, userUpdate } from "../data/user.service";
 import { StringClean } from "../util/stringClean";
-import { IBotData } from "../Interface/IBotData";
 import { ILogin } from "../type/login.model";
 import { IUser } from "../type/user.model";
 import { mensagem } from "../util/getMensagem";
 import { contatoClean } from "../util/contatoToJid";
+import { ConvertWhatsAppEvent } from "../type/WhatsAppEvent";
+import { sendText } from "../util/evolution";
 
-export default async ({ reply, owner, remoteJid, args }: IBotData) => {
-  let user = await userFindByRemoteJid(remoteJid);
-  if (owner || user?.acesso === 'adm') {
-    const data = args.split('@');
+export default async (mData: ConvertWhatsAppEvent) => {
+  let user = await userFindByRemoteJid(mData.remoteJid);
+  if (mData.owner || user?.acesso === 'adm') {
+    const data = mData.args.split('@');
     let login: ILogin | null = await loginFindByUser(StringClean(data[0]));
     const contato = contatoClean(data[1]);
     const jid = `55${contato}@s.whatsapp.net`;
     let user: IUser | null = await userFindByRemoteJid(jid);
-    if (login && user) {
+    if (login && user && contato) {
       login.uid = user.id;
       login.contato = contato;
       user.vencimento = login.vencimento;
       await userUpdate(user);
       await loginUpdate(login);
-      await reply('Login atualizado!');
+      await sendText(mData.remoteJid, 'Login atualizado!', false, mData.id);
     } else {
-      await reply(mensagem('errorLogin'));
+      await sendText(mData.remoteJid, mensagem('errorLogin'), false, mData.id);
     }
   } else {
-    reply(mensagem('acessoNegado'));
+    sendText(mData.remoteJid, mensagem('acessoNegado'), false, mData.id);
   }
 }

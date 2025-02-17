@@ -24,61 +24,61 @@ export const PlayerApi = async (req, res) => {
         let login: ILogin | null = await loginFindByUser(user);
         if (!login) {
             console.log(`Usuário inválido! Usuário: ${user}`);
-            return res.json({ "user_info": { "auth": 0 } });
+            return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
         }
 
         if (password !== login.password) {
             console.log(`Senha inválido! Senha: ${password}`);
-            return res.json({ "user_info": { "auth": 0 } });
+            return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
         }
 
         const isVencido = await isVencimentoController(login);
         if (isVencido) {
-            return res.json({ "user_info": { "auth": 0 } });
+            return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
         }
 
         if (!action) {
-            return res.json(await getAuth(login));
+            return res.set('Content-Type', 'application/json; charset=utf-8').json(await getAuth(login));
         }
 
         if (action === 'get_live_categories' && !login.isLive ||
             action === 'get_live_streams' && !login.isLive) {
-            return res.json({ "user_info": { "auth": 0 } });
+            return res.set('Content-Type', 'application/json; charset=utf-8').json({ "user_info": { "auth": 0 } });
         }
 
         const isAdult = login?.isAdult ? login.isAdult : false;
         switch (action) {
             case 'get_live_categories':
-                return res.json(await getLiveCategories(isAdult));
+                return res.set('Content-Type', 'application/json; charset=utf-8').json(await getLiveCategories(isAdult));
             case 'get_live_streams':
                 if (category_id) {
-                    return res.json(await getLiveCategoryId(category_id));
+                    return res.set('Content-Type', 'application/json; charset=utf-8').json(await getLiveCategoryId(category_id));
                 }
-                return res.json(await getLiveStreams(isAdult));
+                return res.set('Content-Type', 'application/json; charset=utf-8').json(await getLiveStreams(isAdult));
             case 'get_vod_categories':
-                return res.json(await getFilmsCategories(isAdult));
+                return res.set('Content-Type', 'application/json; charset=utf-8').json(await getFilmsCategories(isAdult));
             case 'get_vod_streams':
                 if (category_id) {
-                    return res.json(await getFilmsCategoryId(category_id));
+                    return res.set('Content-Type', 'application/json; charset=utf-8').json(await getFilmsCategoryId(category_id));
                 }
-                return res.json(await getFilms(isAdult));
+                return res.set('Content-Type', 'application/json; charset=utf-8').json(await getFilms(isAdult));
             case 'get_vod_info':
                 const vod_id = req.query.vod_id;
                 const result_vod = await getMediaInfo(vod_id, 'vod')
-                if (result_vod.result) return res.json(result_vod.data).end();
+                if (result_vod.result) return res.set('Content-Type', 'application/json; charset=utf-8').json(result_vod.data).end();
                 res.set('location', result_vod.data);
                 return res.status(301).send();
             case 'get_series_categories':
-                return res.json(await getSeriesCategories());
+                return res.set('Content-Type', 'application/json; charset=utf-8').json(await getSeriesCategories());
             case 'get_series':
                 if (category_id) {
-                    return res.json(await getSeriesCategoryId(category_id));
+                    return res.set('Content-Type', 'application/json; charset=utf-8').json(await getSeriesCategoryId(category_id));
                 }
-                return res.json(await getSeries());
+                return res.set('Content-Type', 'application/json; charset=utf-8').json(await getSeries());
             case 'get_series_info':
                 const series_id = req.query.series_id;
                 const result_series = await getMediaInfo(series_id, 'series')
-                if (result_series.result) return res.json(result_series.data).end();
+                if (result_series.result) return res.set('Content-Type', 'application/json; charset=utf-8').json(result_series.data).end();
                 res.set('location', result_series.data);
                 return res.status(301).send();
             case 'get_short_epg':

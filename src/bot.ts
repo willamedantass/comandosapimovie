@@ -8,7 +8,7 @@ import makeWASocket, {
     WAMessageContent,
     WAMessageKey
 } from '@whiskeysockets/baileys';
-import { handleMessagesUpsert } from './messageHandler';
+import { handleMessages } from './handleMessages';
 import MAIN_LOGGER from './util/logger';
 import NodeCache from 'node-cache';
 import { pid } from 'node:process';
@@ -62,7 +62,7 @@ export const StartSock = async () => {
             }
 
             if (events['messages.upsert']) {
-                await handleMessagesUpsert(events['messages.upsert'], socket);
+                await handleMessages(events['messages.upsert'], socket);
             }
         }
     );
